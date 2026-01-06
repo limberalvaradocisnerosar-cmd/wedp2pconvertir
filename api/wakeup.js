@@ -23,8 +23,8 @@ export default async function handler(req, res) {
     const response = await fetch(apiRunUrl, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'x-cron-token': cronToken
+        'Authorization': `Bearer ${cronToken}`,
+        'Content-Type': 'application/json'
       }
     });
 
