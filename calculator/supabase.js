@@ -66,7 +66,7 @@ async function getSupabaseClient() {
 export const supabase = {
   from(table) {
     return {
-      async select(columns) {
+      select: async (columns) => {
         const client = await getSupabaseClient();
         return client.from(table).select(columns);
       }
