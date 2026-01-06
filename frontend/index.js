@@ -8,7 +8,6 @@ import { startWakeUp, stopWakeUp } from '../despertador/index.js';
 import { CurrencyInput } from './components/CurrencyInput.js';
 import { FloatingCard } from './components/FloatingCard.js';
 import { PriceDisplay } from './components/PriceDisplay.js';
-import './styles/globals.css';
 
 // Estado de la aplicación (solo UI)
 let state = {
