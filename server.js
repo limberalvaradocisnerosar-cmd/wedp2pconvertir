@@ -25,6 +25,10 @@ const MIME_TYPES = {
   '.svg': 'image/svg+xml'
 };
 
+// Cooldown: timestamp de la última llamada exitosa
+let lastCallTime = 0;
+const COOLDOWN_MS = 60000; // 60 segundos
+
 const server = createServer(async (req, res) => {
   // Manejar favicon
   if (req.url === '/favicon.ico') {
@@ -51,6 +55,24 @@ const server = createServer(async (req, res) => {
   // Manejar API routes
   if (req.url.startsWith('/api/')) {
     if (req.url === '/api/wakeup' && req.method === 'POST') {
+      // Verificar cooldown
+      const now = Date.now();
+      const timeSinceLastCall = now - lastCallTime;
+      
+      if (timeSinceLastCall < COOLDOWN_MS) {
+        const remainingSeconds = Math.ceil((COOLDOWN_MS - timeSinceLastCall) / 1000);
+        res.writeHead(200, { 
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify({ 
+          status: 'cooldown',
+          message: `Espera ${remainingSeconds} segundos antes de actualizar nuevamente`,
+          remainingSeconds
+        }));
+        return;
+      }
+      
       // Llamar realmente a la API externa
       const apiRunUrl = process.env.API_RUN_URL;
       const cronToken = process.env.CRON_TOKEN;
@@ -74,6 +96,11 @@ const server = createServer(async (req, res) => {
         });
         
         const data = await response.json();
+        
+        // Actualizar timestamp solo si la llamada fue exitosa
+        if (response.ok) {
+          lastCallTime = now;
+        }
         
         res.writeHead(response.status, { 
           'Content-Type': 'application/json',

@@ -13,10 +13,13 @@ btn.addEventListener('click', async () => {
     const res = await fetch('/api/wakeup', { method: 'POST' });
     const data = await res.json();
 
-    btn.innerText =
-      data.status === 'executed'
-        ? 'Precios actualizados'
-        : 'Datos recientes';
+    if (data.status === 'cooldown') {
+      btn.innerText = `Espera ${data.remainingSeconds}s`;
+    } else if (data.status === 'executed') {
+      btn.innerText = 'Precios actualizados';
+    } else {
+      btn.innerText = 'Datos recientes';
+    }
 
   } catch {
     btn.innerText = 'Error';
