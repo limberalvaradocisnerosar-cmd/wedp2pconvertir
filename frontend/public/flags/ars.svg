@@ -1,0 +1,11 @@
+<!-- Bandera de Argentina -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" width="32" height="21">
+  <!-- Franja superior azul claro -->
+  <rect width="3" height="0.67" fill="#75AADB"/>
+  <!-- Franja central blanca con sol -->
+  <rect y="0.67" width="3" height="0.67" fill="#FFFFFF"/>
+  <circle cx="1.5" cy="1" r="0.25" fill="#F4B400"/>
+  <!-- Franja inferior azul claro -->
+  <rect y="1.33" width="3" height="0.67" fill="#75AADB"/>
+</svg>
+
