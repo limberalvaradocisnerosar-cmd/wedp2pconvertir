@@ -152,7 +152,7 @@ const server = createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`🚀 Servidor local corriendo en http://localhost:${PORT}`);
-  console.log(`📁 Sirviendo archivos desde: ${__dirname}`);
+  console.log(` Servidor local corriendo en http://localhost:${PORT}`);
+  console.log(` Sirviendo archivos desde: ${__dirname}`);
 });
 

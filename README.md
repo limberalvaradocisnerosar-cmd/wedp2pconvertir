@@ -1,51 +1,97 @@
-# Convertidor Web P2P
+# Convertidor P2P - Web Pública
 
-Web pública del convertidor P2P con botón para actualizar precios.
+Sistema de conversión P2P que interactúa con Binance y Supabase.
 
-## 🏗️ Arquitectura
-
-- **Frontend**: HTML + CSS + JS puro (sin frameworks)
-- **Backend**: Vercel Serverless Functions
-- **Seguridad**: Token CRON protegido server-side
-
-## 🔐 Variables de Entorno (Vercel)
-
-Configurar en Vercel → Settings → Environment Variables:
-
-```
-API_RUN_URL=https://api-binance.vercel.app/api/run
-CRON_TOKEN=super-secreto
-```
-
-⚠️ **NO usar NEXT_PUBLIC_** - estas variables son privadas (server-side)
-
-## 🚀 Flujo
-
-1. Usuario hace click en "Actualizar precios"
-2. Frontend llama a `/api/wakeup` (POST)
-3. `api/wakeup.js` (server-side) llama al Proyecto 1 con `CRON_TOKEN`
-4. El Proyecto 1 decide si ejecuta según su TTL
-
-## 📁 Estructura
+## 🏗️ Estructura del Proyecto
 
 ```
 convertidor-web/
-├── api/
-│   └── wakeup.js        # Serverless function (seguro)
-├── frontend/
-│   ├── index.html
-│   ├── index.js
-│   ├── components/
-│   ├── styles/
-│   └── public/
-└── vercel.json
+├── api/                    # Serverless functions (Vercel)
+│   ├── wakeup.js          # Endpoint para actualizar precios
+│   └── config.js          # Endpoint para config pública
+├── calculator/             # Motor de cálculo (puro, sin UI)
+│   ├── index.js           # Funciones getPrices() y calculate()
+│   └── supabase.js        # Cliente Supabase
+├── frontend/               # Interfaz de usuario
+│   ├── index.html         # Página principal
+│   ├── index.js           # Inicialización
+│   ├── ui/                # Capa de UI desacoplada
+│   │   ├── ui.js         # Lógica de UI y eventos
+│   │   ├── render.js     # Renderizado puro
+│   │   └── animations.js # Animaciones opcionales
+│   └── styles/            # Estilos CSS
+│       ├── base.css       # Reset y variables
+│       ├── layout.css     # Layout y estructura
+│       └── components.css # Componentes UI
+└── vercel.json            # Configuración Vercel
 ```
 
-## ✅ Checklist de Verificación
+## 🚀 Características
 
-- [ ] `/api/wakeup` responde 200
-- [ ] `CRON_TOKEN` NO aparece en DevTools
-- [ ] Proyecto 1 recibe la llamada
-- [ ] TTL sigue mandando
-- [ ] Botón no rompe nada
+- ✅ **Cálculo automático**: Se calcula automáticamente mientras escribes
+- ✅ **Actualización de precios**: Botón para actualizar precios desde Binance
+- ✅ **Motor desacoplado**: Lógica de cálculo separada de la UI
+- ✅ **Serverless**: Funciones serverless en Vercel
+- ✅ **Diseño moderno**: Estilo limpio tipo Apple
 
+## 📦 Instalación
+
+```bash
+npm install
+```
+
+## 🔧 Configuración
+
+### Variables de Entorno
+
+Crea un archivo `.env.local` (local) o configura en Vercel (producción):
+
+```env
+# Supabase (públicas - se exponen al cliente)
+NEXT_PUBLIC_SUPABASE_URL=tu_url_supabase
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_key_anon
+
+# API Externa (privadas - solo server-side)
+API_RUN_URL=https://api-binance.vercel.app/api/run
+CRON_TOKEN=tu_token_secreto
+```
+
+Ver `VARIABLES_ENV.md` para más detalles.
+
+## 🏃 Desarrollo Local
+
+```bash
+npm run dev
+```
+
+Abre http://localhost:3001
+
+## 📤 Despliegue en Vercel
+
+1. Conecta tu repositorio a Vercel
+2. Configura las variables de entorno en Vercel Dashboard
+3. Vercel detectará automáticamente el proyecto
+
+### Configuración Vercel
+
+- **Build Command**: (ninguno, proyecto estático)
+- **Output Directory**: (raíz)
+- **Install Command**: `npm install`
+
+## 🎯 Uso
+
+1. Ingresa un monto
+2. Selecciona moneda origen y destino
+3. El cálculo se hace automáticamente
+4. Usa "Actualizar precios" para refrescar datos desde Binance
+
+## 📝 Notas
+
+- El motor de cálculo (`calculator/`) es independiente y no debe modificarse
+- Los precios se cachean en el cliente para mejor rendimiento
+- Cooldown de 60 segundos para actualización de precios
+- Diseño responsive mobile-first
+
+## 📄 Licencia
+
+MIT

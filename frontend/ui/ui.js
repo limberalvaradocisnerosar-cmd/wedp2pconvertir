@@ -19,6 +19,10 @@ let state = {
   isLoading: false
 };
 
+// Debounce para cálculo automático
+let calculateTimeout = null;
+const CALCULATE_DEBOUNCE_MS = 500; // 500ms de espera después del último cambio
+
 /**
  * Obtiene referencias a los elementos del DOM
  */
@@ -100,8 +104,9 @@ function validatePrices(prices, fiatFrom, fiatTo) {
 
 /**
  * Maneja el cálculo de conversión
+ * @param {boolean} showLoading - Si debe mostrar estado de carga
  */
-async function handleCalculate() {
+async function handleCalculate(showLoading = true) {
   const elements = getElements();
   
   // Obtener valores del formulario
@@ -112,14 +117,25 @@ async function handleCalculate() {
   // Validar inputs
   const validationError = validateInputs(amount, fiatFrom, fiatTo);
   if (validationError) {
-    renderError(validationError);
+    // Solo mostrar error si hay valores parciales, no si está vacío
+    if (amount || fiatFrom || fiatTo) {
+      renderError(validationError);
+    } else {
+      // Limpiar resultado si no hay inputs
+      const resultDiv = document.getElementById('result');
+      const errorDiv = document.getElementById('error');
+      if (resultDiv) resultDiv.style.display = 'none';
+      if (errorDiv) errorDiv.style.display = 'none';
+    }
     return;
   }
   
   // Actualizar estado
   state.isLoading = true;
-  updateCalculateButton(true, 'Calculando...');
-  renderLoading();
+  if (showLoading) {
+    updateCalculateButton(true, 'Calculando...');
+    renderLoading();
+  }
   
   try {
     // Cargar precios si no están en cache
@@ -149,8 +165,26 @@ async function handleCalculate() {
   } finally {
     // Restaurar estado
     state.isLoading = false;
-    updateCalculateButton(false, 'Calcular');
+    if (showLoading) {
+      updateCalculateButton(false, 'Calcular');
+    }
   }
+}
+
+/**
+ * Cálculo automático con debounce
+ * Se ejecuta cuando cambian los inputs
+ */
+function handleAutoCalculate() {
+  // Limpiar timeout anterior
+  if (calculateTimeout) {
+    clearTimeout(calculateTimeout);
+  }
+  
+  // Programar nuevo cálculo después del debounce
+  calculateTimeout = setTimeout(() => {
+    handleCalculate(false); // false = no mostrar loading en cálculo automático
+  }, CALCULATE_DEBOUNCE_MS);
 }
 
 /**
@@ -173,6 +207,8 @@ async function handleRefresh() {
       elements.refreshBtn.textContent = 'Precios actualizados';
       // Invalidar cache de precios para forzar recarga
       state.prices = null;
+      // Recalcular automáticamente si hay valores en el formulario
+      handleAutoCalculate();
     } else {
       elements.refreshBtn.textContent = 'Datos recientes';
     }
@@ -193,9 +229,9 @@ async function handleRefresh() {
 export function initUI() {
   const elements = getElements();
   
-  // Event listener para calcular
+  // Event listener para calcular (botón manual)
   if (elements.calculateBtn) {
-    elements.calculateBtn.addEventListener('click', handleCalculate);
+    elements.calculateBtn.addEventListener('click', () => handleCalculate(true));
   }
   
   // Event listener para actualizar precios
@@ -203,11 +239,28 @@ export function initUI() {
     elements.refreshBtn.addEventListener('click', handleRefresh);
   }
   
-  // Permitir calcular con Enter en el input
+  // Cálculo automático cuando cambian los inputs
+  if (elements.amountInput) {
+    elements.amountInput.addEventListener('input', handleAutoCalculate);
+    elements.amountInput.addEventListener('change', handleAutoCalculate);
+  }
+  
+  if (elements.fiatFromSelect) {
+    elements.fiatFromSelect.addEventListener('change', handleAutoCalculate);
+  }
+  
+  if (elements.fiatToSelect) {
+    elements.fiatToSelect.addEventListener('change', handleAutoCalculate);
+  }
+  
+  // Permitir calcular con Enter en el input (forzar cálculo inmediato)
   if (elements.amountInput) {
     elements.amountInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        handleCalculate();
+        if (calculateTimeout) {
+          clearTimeout(calculateTimeout);
+        }
+        handleCalculate(true);
       }
     });
   }
