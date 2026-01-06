@@ -5,24 +5,15 @@
   "framework": null,
   "rewrites": [
     {
-      "source": "/(.*\\.(js|css|svg|png|jpg|jpeg|gif|ico|woff|woff2|ttf|eot))",
-      "destination": "/$1"
-    },
-    {
-      "source": "/frontend/(.*)",
-      "destination": "/frontend/$1"
-    },
-    {
-      "source": "/calculator/(.*)",
-      "destination": "/calculator/$1"
-    },
-    {
-      "source": "/despertador/(.*)",
-      "destination": "/despertador/$1"
-    },
-    {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/index.html",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": "text/html"
+        }
+      ]
     }
   ],
   "headers": [
@@ -58,15 +49,6 @@
         {
           "key": "Content-Type",
           "value": "image/svg+xml"
-        }
-      ]
-    },
-    {
-      "source": "/(.*\\.html)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
         }
       ]
     }
