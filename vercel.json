@@ -3,19 +3,6 @@
   "buildCommand": "echo 'No build step required'",
   "outputDirectory": ".",
   "framework": null,
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": "text/html"
-        }
-      ]
-    }
-  ],
   "headers": [
     {
       "source": "/(.*\\.js)",
