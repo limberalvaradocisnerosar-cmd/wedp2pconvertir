@@ -141,6 +141,26 @@
         <div id="error" style="display: none;"></div>
     </div>
     
-    <script type="module" src="/frontend/index.js"></script>
+    <script>
+        // Cargar configuraciones públicas antes de inicializar
+        (async function() {
+            try {
+                const response = await fetch('/api/config');
+                if (response.ok) {
+                    const config = await response.json();
+                    // Exponer variables en window para que el calculador las pueda leer
+                    window.NEXT_PUBLIC_SUPABASE_URL = config.NEXT_PUBLIC_SUPABASE_URL || config.VITE_SUPABASE_URL;
+                    window.NEXT_PUBLIC_SUPABASE_ANON_KEY = config.NEXT_PUBLIC_SUPABASE_ANON_KEY || config.VITE_SUPABASE_ANON_KEY;
+                }
+            } catch (error) {
+                console.error('Error cargando configuración:', error);
+            }
+            // Inicializar la aplicación después de cargar las variables
+            const script = document.createElement('script');
+            script.type = 'module';
+            script.src = '/frontend/index.js';
+            document.body.appendChild(script);
+        })();
+    </script>
 </body>
 </html>
