@@ -2,11 +2,11 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/frontend/:path*",
-      "destination": "/frontend/:path*"
+      "source": "/frontend/(.*)",
+      "destination": "/frontend/$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api).*)",
       "destination": "/frontend/index.html"
     }
   ]
