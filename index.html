@@ -29,9 +29,31 @@
     <div id="app">
         <div class="loading">Cargando convertidor...</div>
     </div>
-    <script type="module">
-        import { init } from './frontend/index.js';
-        init();
+    <script>
+        // Cargar variables de entorno desde el endpoint de API
+        (async function() {
+            try {
+                const response = await fetch('/api/env');
+                if (response.ok) {
+                    const env = await response.json();
+                    // Exponer variables en window para que los módulos las puedan leer
+                    window.NEXT_PUBLIC_SUPABASE_URL = env.NEXT_PUBLIC_SUPABASE_URL || env.VITE_SUPABASE_URL;
+                    window.NEXT_PUBLIC_SUPABASE_ANON_KEY = env.NEXT_PUBLIC_SUPABASE_ANON_KEY || env.VITE_SUPABASE_ANON_KEY;
+                    window.NEXT_PUBLIC_API_RUN_URL = env.NEXT_PUBLIC_API_RUN_URL || env.VITE_API_RUN_URL;
+                    window.NEXT_PUBLIC_CROM_TOKEN = env.NEXT_PUBLIC_CROM_TOKEN || env.VITE_CROM_TOKEN;
+                }
+            } catch (error) {
+                console.error('Error cargando variables de entorno:', error);
+            }
+            // Inicializar la aplicación después de cargar las variables
+            const script = document.createElement('script');
+            script.type = 'module';
+            script.textContent = `
+                import { init } from './frontend/index.js';
+                init();
+            `;
+            document.body.appendChild(script);
+        })();
     </script>
 </body>
 </html>
