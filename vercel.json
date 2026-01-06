@@ -3,6 +3,32 @@
   "buildCommand": "echo 'No build step required'",
   "outputDirectory": ".",
   "framework": null,
+  "rewrites": [
+    {
+      "source": "/frontend/:path*",
+      "destination": "/frontend/:path*"
+    },
+    {
+      "source": "/calculator/:path*",
+      "destination": "/calculator/:path*"
+    },
+    {
+      "source": "/despertador/:path*",
+      "destination": "/despertador/:path*"
+    },
+    {
+      "source": "/public/:path*",
+      "destination": "/public/:path*"
+    },
+    {
+      "source": "/index.html",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*\\.js)",
