@@ -54,6 +54,23 @@ const server = createServer(async (req, res) => {
   
   // Manejar API routes
   if (req.url.startsWith('/api/')) {
+    // Endpoint de configuración pública
+    if (req.url === '/api/config' && req.method === 'GET') {
+      const config = {
+        NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+        VITE_SUPABASE_URL: process.env.VITE_SUPABASE_URL || '',
+        VITE_SUPABASE_ANON_KEY: process.env.VITE_SUPABASE_ANON_KEY || ''
+      };
+      
+      res.writeHead(200, { 
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      });
+      res.end(JSON.stringify(config));
+      return;
+    }
+    
     if (req.url === '/api/wakeup' && req.method === 'POST') {
       // Verificar cooldown
       const now = Date.now();
