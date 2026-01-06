@@ -120,3 +120,33 @@ calculateBtn.addEventListener('click', async () => {
     calculateBtn.textContent = 'Calcular';
   }
 });
+
+// Botón de actualizar precios (wakeup)
+const refreshBtn = document.getElementById('refresh-btn');
+if (refreshBtn) {
+  refreshBtn.addEventListener('click', async () => {
+    refreshBtn.disabled = true;
+    refreshBtn.textContent = 'Actualizando...';
+
+    try {
+      const res = await fetch('/api/wakeup', { method: 'POST' });
+      const data = await res.json();
+
+      if (data.status === 'cooldown') {
+        refreshBtn.textContent = `Espera ${data.remainingSeconds}s`;
+      } else if (data.status === 'executed') {
+        refreshBtn.textContent = 'Precios actualizados';
+      } else {
+        refreshBtn.textContent = 'Datos recientes';
+      }
+
+    } catch {
+      refreshBtn.textContent = 'Error';
+    }
+
+    setTimeout(() => {
+      refreshBtn.disabled = false;
+      refreshBtn.textContent = 'Actualizar precios';
+    }, 2000);
+  });
+}
