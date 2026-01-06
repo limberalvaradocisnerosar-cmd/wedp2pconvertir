@@ -5,8 +5,20 @@
   "framework": null,
   "rewrites": [
     {
+      "source": "/(.*\\.(js|css|svg|png|jpg|jpeg|gif|ico|woff|woff2|ttf|eot))",
+      "destination": "/$1"
+    },
+    {
       "source": "/frontend/(.*)",
       "destination": "/frontend/$1"
+    },
+    {
+      "source": "/calculator/(.*)",
+      "destination": "/calculator/$1"
+    },
+    {
+      "source": "/despertador/(.*)",
+      "destination": "/despertador/$1"
     },
     {
       "source": "/(.*)",
@@ -15,33 +27,46 @@
   ],
   "headers": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
-        }
-      ]
-    },
-    {
-      "source": "/frontend/(.*\\.js)",
+      "source": "/(.*\\.js)",
       "headers": [
         {
           "key": "Content-Type",
           "value": "application/javascript; charset=utf-8"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
         }
       ]
     },
     {
-      "source": "/frontend/(.*\\.css)",
+      "source": "/(.*\\.css)",
       "headers": [
         {
           "key": "Content-Type",
           "value": "text/css; charset=utf-8"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.svg)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.html)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html; charset=utf-8"
         }
       ]
     }
