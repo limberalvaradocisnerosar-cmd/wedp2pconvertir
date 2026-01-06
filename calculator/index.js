@@ -10,9 +10,8 @@ import { supabase } from './supabase.js';
  * Ejemplo: { ARS: { buy: 1050.23, sell: 1072.10 }, BOB: { buy: 6.91, sell: 7.02 } }
  */
 export async function getPrices() {
-  const { data, error } = await supabase
-    .from('p2p_prices')
-    .select('fiat, side, price_avg');
+  const table = await supabase.from('p2p_prices');
+  const { data, error } = await table.select('fiat, side, price_avg');
 
   if (error) {
     throw new Error(`Error al leer Supabase: ${error.message}`);
