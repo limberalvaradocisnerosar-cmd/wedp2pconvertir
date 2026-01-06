@@ -63,14 +63,11 @@ async function getSupabaseClient() {
 }
 
 // Exportar cliente con método from que funciona async
+// El cliente se inicializa la primera vez que se usa
 export const supabase = {
-  from(table) {
-    return {
-      select: async (columns) => {
-        const client = await getSupabaseClient();
-        return client.from(table).select(columns);
-      }
-    };
+  async from(table) {
+    const client = await getSupabaseClient();
+    return client.from(table);
   }
 };
 
