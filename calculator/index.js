@@ -1,13 +1,13 @@
 /**
  * Motor de cálculo del convertidor P2P
- * Lee precios desde Supabase y calcula conversiones
+ * Solo lee precios y calcula. Sin lógica extra.
  */
 import { supabase } from './supabase.js';
 
 /**
  * Obtiene todos los precios desde Supabase y los agrupa por fiat
  * @returns {Promise<Object>} Objeto con precios agrupados por fiat
- * Ejemplo: { ARS: { buy: 1050, sell: 1072 }, BOB: { buy: 6.91, sell: 7.02 } }
+ * Ejemplo: { ARS: { buy: 1050.23, sell: 1072.10 }, BOB: { buy: 6.91, sell: 7.02 } }
  */
 export async function getPrices() {
   const { data, error } = await supabase
@@ -15,23 +15,10 @@ export async function getPrices() {
     .select('fiat, side, price_avg');
 
   if (error) {
-    console.error('Supabase error:', error);
-    throw error;
+    throw new Error(`Error al leer Supabase: ${error.message}`);
   }
 
-  /**
-   * Convertimos esto:
-   * [
-   *  { fiat: 'ARS', side: 'BUY', price_avg: 1050 },
-   *  { fiat: 'ARS', side: 'SELL', price_avg: 1072 }
-   * ]
-   *
-   * En esto:
-   * {
-   *   ARS: { buy: 1050, sell: 1072 }
-   * }
-   */
-
+  // Agrupar por fiat y separar BUY/SELL
   const prices = {};
 
   for (const row of data) {
@@ -52,13 +39,13 @@ export async function getPrices() {
 }
 
 /**
- * Calcula la conversión de monedas siguiendo las 5 fases
+ * Calcula la conversión de monedas siguiendo las 5 fases exactas
  * @param {Object} params - Parámetros de conversión
  * @param {number} params.amount - Monto a convertir
  * @param {string} params.fiatFrom - Moneda origen (ej: "ARS")
  * @param {string} params.fiatTo - Moneda destino (ej: "BOB")
  * @param {Object} params.prices - Precios agrupados por fiat
- * @returns {number} - Resultado de la conversión
+ * @returns {number} - Resultado de la conversión truncado a 2 decimales
  */
 export function calculate({
   amount,
@@ -66,19 +53,19 @@ export function calculate({
   fiatTo,
   prices
 }) {
-  // 1. amount → USDT usando BUY
+  // Fase 1: Convertir amount a USDT usando prices[fiatFrom].buy
   const usdt = amount / prices[fiatFrom].buy;
 
-  // 2. truncar a 2 decimales (NO redondear)
+  // Fase 2: Truncar a 2 decimales (NO redondear)
   const usdtTruncated = Math.trunc(usdt * 100) / 100;
 
-  // 3. restar fee fijo
+  // Fase 3: Restar 0.14 USDT fijo
   const usdtAfterFee = usdtTruncated - 0.14;
 
-  // 4. convertir a fiat destino usando SELL
+  // Fase 4: Convertir a fiat destino usando prices[fiatTo].sell
   const result = usdtAfterFee * prices[fiatTo].sell;
 
-  // 5. truncar resultado final
+  // Fase 5: Truncar el resultado final a 2 decimales (NO redondear)
   return Math.trunc(result * 100) / 100;
 }
 
