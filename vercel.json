@@ -1,12 +1,18 @@
 {
   "version": 2,
+  "cleanUrls": false,
+  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/frontend/(.*)",
-      "destination": "/frontend/$1"
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
     },
     {
-      "source": "/((?!api).*)",
+      "source": "/frontend/:path*",
+      "destination": "/frontend/:path*"
+    },
+    {
+      "source": "/(.*)",
       "destination": "/frontend/index.html"
     }
   ]
