@@ -1,0 +1,20 @@
+{
+  "name": "convertidor-web",
+  "version": "1.0.0",
+  "description": "Convertidor P2P - Web pública",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "vercel": "vercel dev"
+  },
+  "keywords": [
+    "p2p",
+    "convertidor"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vercel": "^34.0.0"
+  }
+}
