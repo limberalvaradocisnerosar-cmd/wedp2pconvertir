@@ -25,7 +25,7 @@ export function CurrencyInput({
 
   // Obtener bandera del fiat (placeholder)
   function getFlagUrl(fiatCode) {
-    return `/public/flags/${fiatCode?.toLowerCase()}.svg` || '';
+    return `/frontend/public/flags/${fiatCode?.toLowerCase()}.svg` || '';
   }
 
   return `
