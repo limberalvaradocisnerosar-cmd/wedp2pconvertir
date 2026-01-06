@@ -3,14 +3,14 @@
   "buildCommand": "echo 'No build step required'",
   "outputDirectory": ".",
   "framework": null,
-  "routes": [
+  "rewrites": [
     {
-      "src": "/frontend/(.*)",
-      "dest": "/frontend/$1"
+      "source": "/frontend/(.*)",
+      "destination": "/frontend/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
