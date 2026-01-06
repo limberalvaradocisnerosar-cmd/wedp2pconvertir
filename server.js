@@ -8,6 +8,10 @@ import { readFileSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join, extname } from 'path';
 import { createReadStream } from 'fs';
+import dotenv from 'dotenv';
+
+// Cargar variables de entorno desde .env.local
+dotenv.config({ path: '.env.local' });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -47,12 +51,44 @@ const server = createServer(async (req, res) => {
   // Manejar API routes
   if (req.url.startsWith('/api/')) {
     if (req.url === '/api/wakeup' && req.method === 'POST') {
-      // Simular respuesta de API
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ 
-        status: 'executed',
-        message: 'Wakeup successful (local simulation)'
-      }));
+      // Llamar realmente a la API externa
+      const apiRunUrl = process.env.API_RUN_URL;
+      const cronToken = process.env.CRON_TOKEN;
+      
+      if (!apiRunUrl || !cronToken) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ 
+          error: 'API_RUN_URL o CRON_TOKEN no configurados en .env.local'
+        }));
+        return;
+      }
+      
+      try {
+        // Hacer la llamada real al Proyecto 1
+        const response = await fetch(apiRunUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-cron-token': cronToken
+          }
+        });
+        
+        const data = await response.json();
+        
+        res.writeHead(response.status, { 
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify(data));
+        
+      } catch (error) {
+        console.error('Error en wakeup:', error);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ 
+          error: 'Wakeup failed',
+          message: error.message
+        }));
+      }
       return;
     }
   }
