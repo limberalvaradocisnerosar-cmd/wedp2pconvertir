@@ -1,69 +1,13 @@
 {
   "version": 2,
-  "buildCommand": "echo 'No build step required'",
-  "outputDirectory": ".",
-  "framework": null,
   "rewrites": [
     {
       "source": "/frontend/:path*",
       "destination": "/frontend/:path*"
     },
     {
-      "source": "/calculator/:path*",
-      "destination": "/calculator/:path*"
-    },
-    {
-      "source": "/despertador/:path*",
-      "destination": "/despertador/:path*"
-    },
-    {
-      "source": "/public/:path*",
-      "destination": "/public/:path*"
-    },
-    {
-      "source": "/index.html",
-      "destination": "/index.html"
-    },
-    {
       "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*\\.js)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/javascript; charset=utf-8"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
-    },
-    {
-      "source": "/(.*\\.css)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/css; charset=utf-8"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
-    },
-    {
-      "source": "/(.*\\.svg)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "image/svg+xml"
-        }
-      ]
+      "destination": "/frontend/index.html"
     }
   ]
 }
