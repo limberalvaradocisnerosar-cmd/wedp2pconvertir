@@ -63,11 +63,13 @@ export async function getPricesByFiats(fiat1, fiat2) {
   try {
     const supabase = await createSupabaseClient();
     
-    // Leer precios para fiat1 y fiat2
+    // Leer precios para fiat1 (BUY) y fiat2 (SELL)
+    // La tabla tiene: fiat, side (BUY/SELL), price_avg, created_at
     const { data: prices, error } = await supabase
       .from('p2p_prices')
-      .select('fiat, buy_price, sell_price, updated_at')
-      .in('fiat', [fiat1, fiat2]);
+      .select('fiat, side, price_avg, created_at')
+      .in('fiat', [fiat1, fiat2])
+      .order('created_at', { ascending: false });
     
     if (error) {
       throw new Error(`Error al leer Supabase: ${error.message}`);
@@ -77,29 +79,31 @@ export async function getPricesByFiats(fiat1, fiat2) {
       throw new Error(`No se encontraron precios para ${fiat1} o ${fiat2}`);
     }
     
-    // Separar los precios por fiat
-    const fiat1Data = prices.find(p => p.fiat === fiat1);
-    const fiat2Data = prices.find(p => p.fiat === fiat2);
+    // Buscar precio BUY para fiat1 (precio de compra)
+    const fiat1BuyData = prices.find(p => p.fiat === fiat1 && p.side === 'BUY');
     
-    if (!fiat1Data) {
-      throw new Error(`No se encontró precio para ${fiat1}`);
+    // Buscar precio SELL para fiat2 (precio de venta)
+    const fiat2SellData = prices.find(p => p.fiat === fiat2 && p.side === 'SELL');
+    
+    if (!fiat1BuyData) {
+      throw new Error(`No se encontró precio BUY para ${fiat1}`);
     }
     
-    if (!fiat2Data) {
-      throw new Error(`No se encontró precio para ${fiat2}`);
+    if (!fiat2SellData) {
+      throw new Error(`No se encontró precio SELL para ${fiat2}`);
     }
     
-    // Obtener el updated_at más reciente
-    const updatedAt1 = new Date(fiat1Data.updated_at).getTime();
-    const updatedAt2 = new Date(fiat2Data.updated_at).getTime();
-    const mostRecentUpdatedAt = updatedAt1 > updatedAt2 
-      ? fiat1Data.updated_at 
-      : fiat2Data.updated_at;
+    // Obtener el created_at más reciente
+    const createdAt1 = new Date(fiat1BuyData.created_at).getTime();
+    const createdAt2 = new Date(fiat2SellData.created_at).getTime();
+    const mostRecentCreatedAt = createdAt1 > createdAt2 
+      ? fiat1BuyData.created_at 
+      : fiat2SellData.created_at;
     
     return {
-      fiat1Buy: Number(fiat1Data.buy_price),
-      fiat2Sell: Number(fiat2Data.sell_price),
-      updatedAt: mostRecentUpdatedAt
+      fiat1Buy: Number(fiat1BuyData.price_avg),
+      fiat2Sell: Number(fiat2SellData.price_avg),
+      updatedAt: mostRecentCreatedAt
     };
   } catch (error) {
     throw new Error(`Error en getPricesByFiats: ${error.message}`);
