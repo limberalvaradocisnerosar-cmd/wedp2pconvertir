@@ -10,15 +10,8 @@ import { dirname, join, extname } from 'path';
 import { createReadStream } from 'fs';
 import dotenv from 'dotenv';
 
-// Cargar variables de entorno desde .env.local
+// Cargar variables de entorno desde .env.local (si existe)
 dotenv.config({ path: '.env.local' });
-
-// Verificar que las variables se cargaron (solo en desarrollo)
-if (process.env.NODE_ENV !== 'production') {
-  console.log('📋 Variables de entorno cargadas:');
-  console.log('  API_RUN_URL:', process.env.API_RUN_URL ? '✅ Configurado' : '❌ No configurado');
-  console.log('  CRON_TOKEN:', process.env.CRON_TOKEN ? '✅ Configurado' : '❌ No configurado');
-}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -71,11 +64,6 @@ const server = createServer(async (req, res) => {
       }
       
       try {
-        console.log('🔔 Wakeup llamado:');
-        console.log('  URL:', apiRunUrl);
-        console.log('  Token presente:', cronToken ? 'Sí' : 'No');
-        console.log('  Token (primeros 10 chars):', cronToken ? cronToken.substring(0, 10) + '...' : 'N/A');
-        
         // Hacer la llamada real al Proyecto 1
         const response = await fetch(apiRunUrl, {
           method: 'POST',
@@ -85,11 +73,7 @@ const server = createServer(async (req, res) => {
           }
         });
         
-        console.log('  Status:', response.status);
-        console.log('  Headers recibidos:', Object.fromEntries(response.headers.entries()));
-        
         const data = await response.json();
-        console.log('  Respuesta:', data);
         
         res.writeHead(response.status, { 
           'Content-Type': 'application/json',
