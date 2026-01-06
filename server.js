@@ -22,7 +22,27 @@ const MIME_TYPES = {
 };
 
 const server = createServer(async (req, res) => {
-  let filePath = join(__dirname, req.url === '/' ? '/frontend/index.html' : req.url);
+  // Manejar favicon
+  if (req.url === '/favicon.ico') {
+    const faviconPath = join(__dirname, 'public', 'favicon.ico');
+    if (existsSync(faviconPath)) {
+      res.writeHead(200, { 'Content-Type': 'image/x-icon' });
+      createReadStream(faviconPath).pipe(res);
+      return;
+    } else {
+      // Si no existe, responder 204 (No Content) para evitar 404
+      res.writeHead(204);
+      res.end();
+      return;
+    }
+  }
+  
+  // Manejar ruta raíz
+  if (req.url === '/') {
+    req.url = '/frontend/index.html';
+  }
+  
+  let filePath = join(__dirname, req.url);
   
   // Manejar API routes
   if (req.url.startsWith('/api/')) {
