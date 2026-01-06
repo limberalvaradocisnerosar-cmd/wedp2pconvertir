@@ -30,34 +30,47 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 // Crear cliente de Supabase usando CDN (compatible con navegador)
 let supabaseClient = null;
+let clientPromise = null;
 
 async function getSupabaseClient() {
   if (supabaseClient) {
     return supabaseClient;
   }
   
-  // Intentar import desde CDN (navegador)
-  try {
-    const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
-    supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
-    return supabaseClient;
-  } catch (e) {
-    // Si falla CDN, intentar import local (si está instalado)
+  if (clientPromise) {
+    return clientPromise;
+  }
+  
+  clientPromise = (async () => {
+    // Intentar import desde CDN (navegador)
     try {
-      const { createClient } = await import('@supabase/supabase-js');
+      const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
       supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
       return supabaseClient;
-    } catch (err) {
-      throw new Error('No se pudo cargar Supabase client');
+    } catch (e) {
+      // Si falla CDN, intentar import local (si está instalado)
+      try {
+        const { createClient } = await import('@supabase/supabase-js');
+        supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+        return supabaseClient;
+      } catch (err) {
+        throw new Error('No se pudo cargar Supabase client');
+      }
     }
-  }
+  })();
+  
+  return clientPromise;
 }
 
-// Exportar función async para obtener el cliente
+// Exportar cliente con método from que funciona async
 export const supabase = {
-  async from(table) {
-    const client = await getSupabaseClient();
-    return client.from(table);
+  from(table) {
+    return {
+      async select(columns) {
+        const client = await getSupabaseClient();
+        return client.from(table).select(columns);
+      }
+    };
   }
 };
 
