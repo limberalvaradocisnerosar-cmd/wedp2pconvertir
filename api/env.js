@@ -1,11 +1,13 @@
 /**
  * API endpoint para exponer variables de entorno al frontend
+ * Vercel Serverless Function
  * Solo expone variables con prefijo NEXT_PUBLIC_ o VITE_
  */
-export default function handler(req, res) {
+export default async function handler(req, res) {
   // Solo permitir GET
   if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
   }
 
   // Obtener variables de entorno con prefijos públicos
@@ -23,8 +25,9 @@ export default function handler(req, res) {
 
   // Configurar headers CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
   res.setHeader('Content-Type', 'application/json');
 
-  return res.status(200).json(env);
+  res.status(200).json(env);
 }
 
