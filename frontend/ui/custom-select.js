@@ -98,8 +98,19 @@ export function createCustomSelect(selectElement) {
       const abbr = option.getAttribute('data-abbr') || option.value;
       const fullText = option.textContent;
       
+      const optionImg = document.createElement('img');
+      optionImg.src = iconMap[option.value] || '';
+      optionImg.alt = abbr;
+      optionImg.className = 'option-icon';
+      optionImg.draggable = false;
+      optionImg.oncontextmenu = (e) => e.preventDefault();
+      optionImg.ondragstart = (e) => e.preventDefault();
+      optionImg.onerror = function() { this.style.display = 'none'; };
+      optionImg.style.pointerEvents = 'none';
+      optionImg.style.userSelect = 'none';
+      
       optionElement.innerHTML = `
-        <img src="${iconMap[option.value] || ''}" alt="${abbr}" class="option-icon" onerror="this.style.display='none'">
+        ${optionImg.outerHTML}
         <span class="option-text">${fullText}</span>
         ${isSelected ? '<svg class="option-check" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4L6 11.5L2.5 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
       `;
