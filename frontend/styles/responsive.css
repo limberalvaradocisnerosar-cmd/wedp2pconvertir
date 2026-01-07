@@ -231,8 +231,8 @@
   }
 
   .custom-select-icon {
-    width: 36px;
-    height: 36px;
+    width: 43px !important;
+    height: 43px !important;
   }
 
   .custom-select-text {
