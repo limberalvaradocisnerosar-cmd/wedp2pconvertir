@@ -110,8 +110,8 @@
   }
 
   .custom-select-icon {
-    width: 32px;
-    height: 32px;
+    width: 38px !important;
+    height: 38px !important;
   }
 
   .custom-select-text {
@@ -124,13 +124,13 @@
   /* El selector personalizado maneja los estilos responsive */
 
   .swap-btn {
-    width: 26px !important;
-    height: 26px !important;
+    width: 39px !important;
+    height: 39px !important;
   }
 
   .swap-icon {
-    width: 15px !important;
-    height: 15px !important;
+    width: 22px !important;
+    height: 22px !important;
   }
 
   .input-section {
@@ -240,18 +240,23 @@
     font-weight: 600;
   }
 
+  .custom-select-icon {
+    width: 43px !important;
+    height: 43px !important;
+  }
+
   /* Los iconos se ajustan automáticamente en custom-select */
 
   /* El selector personalizado maneja los estilos responsive */
 
   .swap-btn {
-    width: 30px !important;
-    height: 30px !important;
+    width: 45px !important;
+    height: 45px !important;
   }
 
   .swap-icon {
-    width: 17px !important;
-    height: 17px !important;
+    width: 26px !important;
+    height: 26px !important;
   }
 
   .input-section {
