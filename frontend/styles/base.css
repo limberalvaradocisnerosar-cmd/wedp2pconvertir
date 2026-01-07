@@ -1,6 +1,6 @@
 /**
  * base.css - Reset y variables base
- * Estilo limpio tipo Apple
+ * Solo fundamentos: reset, variables, tipografía base
  */
 
 /* ============================================
@@ -35,7 +35,7 @@ body {
 }
 
 /* ============================================
-   VARIABLES CSS
+   VARIABLES CSS BASE
    ============================================ */
 
 :root {
@@ -98,7 +98,7 @@ body {
 }
 
 /* ============================================
-   TIPOGRAFÍA
+   TIPOGRAFÍA BASE
    ============================================ */
 
 h1, h2, h3, h4, h5, h6 {
@@ -161,7 +161,7 @@ textarea {
 }
 
 /* ============================================
-   UTILIDADES
+   UTILIDADES BASE
    ============================================ */
 
 .sr-only {
@@ -175,4 +175,3 @@ textarea {
   white-space: nowrap;
   border-width: 0;
 }
-

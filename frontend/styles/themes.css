@@ -1,0 +1,157 @@
+/**
+ * themes.css - Sistema de temas (Claro / Oscuro / Automático)
+ * Solo variables de tema y aplicación
+ */
+
+/* ============================================
+   VARIABLES DE TEMA CLARO (default)
+   ============================================ */
+
+:root {
+  /* Colores de fondo */
+  --theme-bg-primary: #F5F5F7;
+  --theme-bg-secondary: #FFFFFF;
+  --theme-bg-tertiary: #FAFAFA;
+  
+  /* Colores de texto */
+  --theme-text-primary: #1D1D1F;
+  --theme-text-secondary: #86868B;
+  --theme-text-tertiary: #AEAEB2;
+  
+  /* Bordes */
+  --theme-border: #D2D2D7;
+  --theme-border-light: #E5E5EA;
+  
+  /* Sombras */
+  --theme-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --theme-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --theme-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  
+  /* Cards */
+  --theme-card-bg: #FFFFFF;
+  --theme-card-border: #E5E5EA;
+}
+
+/* ============================================
+   TEMA OSCURO
+   ============================================ */
+
+[data-theme="dark"] {
+  /* Colores de fondo */
+  --theme-bg-primary: #1C1C1E;
+  --theme-bg-secondary: #2C2C2E;
+  --theme-bg-tertiary: #3A3A3C;
+  
+  /* Colores de texto */
+  --theme-text-primary: #FFFFFF;
+  --theme-text-secondary: #AEAEB2;
+  --theme-text-tertiary: #8E8E93;
+  
+  /* Bordes */
+  --theme-border: #38383A;
+  --theme-border-light: #48484A;
+  
+  /* Sombras */
+  --theme-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --theme-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --theme-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  
+  /* Cards */
+  --theme-card-bg: #2C2C2E;
+  --theme-card-border: #38383A;
+}
+
+/* ============================================
+   APLICACIÓN DE TEMA AL BODY
+   ============================================ */
+
+body {
+  background-color: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================
+   SELECTOR DE TEMA (solo en panel)
+   ============================================ */
+
+.theme-selector-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.theme-card {
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--theme-shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  transition: all var(--transition-base);
+}
+
+.theme-label {
+  font-weight: 500;
+  color: var(--theme-text-primary);
+  margin: 0;
+}
+
+.theme-select {
+  flex: 1;
+  max-width: 200px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.9375rem;
+  color: var(--theme-text-primary);
+  background: var(--theme-bg-secondary);
+  border: 1px solid var(--theme-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.theme-select:hover {
+  border-color: var(--color-primary);
+}
+
+.theme-select:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+/* ============================================
+   UTILIDADES DE TEMA
+   ============================================ */
+
+.theme-bg-primary {
+  background-color: var(--theme-bg-primary);
+}
+
+.theme-bg-secondary {
+  background-color: var(--theme-bg-secondary);
+}
+
+.theme-text-primary {
+  color: var(--theme-text-primary);
+}
+
+.theme-text-secondary {
+  color: var(--theme-text-secondary);
+}
+
+.theme-border {
+  border-color: var(--theme-border);
+}
+
+/* Modo oscuro - ajustes específicos */
+[data-theme="dark"] .converter-card {
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .result-section {
+  background: linear-gradient(135deg, rgba(0, 122, 255, 0.15) 0%, rgba(0, 122, 255, 0.08) 100%);
+  border-color: rgba(0, 122, 255, 0.3);
+}

@@ -1,0 +1,160 @@
+<!-- Panel de Información - Componente HTML puro -->
+<!-- Selector de Tema -->
+<section class="theme-selector-section">
+    <div class="theme-card">
+        <label for="theme-select" class="theme-label">Tema:</label>
+        <select id="theme-select" class="theme-select">
+            <option value="auto" selected>Automático</option>
+            <option value="light">Claro</option>
+            <option value="dark">Oscuro</option>
+        </select>
+    </div>
+</section>
+
+<!-- Origen de Datos -->
+<section class="info-section">
+    <div class="info-card">
+        <div class="card-icon">📊</div>
+        <h2>Origen de los Datos</h2>
+        <p class="card-description">
+            Todos los precios provienen directamente de <strong>Binance P2P</strong>, 
+            la plataforma de intercambio peer-to-peer más grande del mundo.
+        </p>
+        <div class="card-details">
+            <div class="detail-item">
+                <span class="detail-label">Fuente:</span>
+                <span class="detail-value">Binance P2P API</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Actualización:</span>
+                <span class="detail-value">En tiempo real</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Método de Cálculo -->
+<section class="info-section">
+    <div class="info-card">
+        <div class="card-icon">🔢</div>
+        <h2>Método de Cálculo</h2>
+        <p class="card-description">
+            Utilizamos un algoritmo robusto que garantiza precios justos y representativos del mercado.
+        </p>
+        <div class="method-steps">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Recolección</h3>
+                    <p>Obtenemos los últimos <strong>15 anuncios</strong> de compra/venta para cada moneda</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Filtrado</h3>
+                    <p>Ignoramos los <strong>5 más altos</strong> y los <strong>5 más bajos</strong> para eliminar outliers</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Promedio</h3>
+                    <p>Calculamos el promedio de los <strong>5 anuncios centrales</strong> restantes</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Protección</h3>
+                    <p>Aplicamos validaciones para evitar precios anómalos o fuera de rango</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Separación BUY / SELL -->
+<section class="info-section">
+    <div class="info-card">
+        <div class="card-icon">💱</div>
+        <h2>Separación BUY / SELL</h2>
+        <p class="card-description">
+            Los precios de compra y venta se calculan y almacenan por separado para mayor precisión.
+        </p>
+        <div class="buy-sell-explanation">
+            <div class="buy-sell-item buy">
+                <div class="buy-sell-icon">📈</div>
+                <div class="buy-sell-content">
+                    <h3>Precio BUY (Compra)</h3>
+                    <p>Precio al que puedes comprar USDT con tu moneda local. Se usa para convertir tu moneda → USDT.</p>
+                </div>
+            </div>
+            <div class="buy-sell-item sell">
+                <div class="buy-sell-icon">📉</div>
+                <div class="buy-sell-content">
+                    <h3>Precio SELL (Venta)</h3>
+                    <p>Precio al que puedes vender USDT por moneda local. Se usa para convertir USDT → tu moneda.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Datos Actuales -->
+<section class="info-section">
+    <div class="info-card">
+        <div class="card-icon">💹</div>
+        <h2>Precios Actuales</h2>
+        <p class="card-description">
+            Precios promedio calculados y almacenados en tiempo real.
+        </p>
+        <div class="prices-table-container">
+            <table class="prices-table">
+                <thead>
+                    <tr>
+                        <th>Moneda</th>
+                        <th>Precio BUY</th>
+                        <th>Precio SELL</th>
+                        <th>Última Actualización</th>
+                    </tr>
+                </thead>
+                <tbody id="prices-tbody">
+                    <tr class="loading-row">
+                        <td colspan="4" class="loading-text">Cargando precios...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Protección -->
+<section class="info-section">
+    <div class="info-card">
+        <div class="card-icon">🛡️</div>
+        <h2>Protección contra Precios Anómalos</h2>
+        <p class="card-description">
+            Implementamos múltiples capas de validación para garantizar la integridad de los datos.
+        </p>
+        <div class="protection-list">
+            <div class="protection-item">
+                <span class="protection-check">✓</span>
+                <span>Filtrado de outliers (5 más altos y 5 más bajos)</span>
+            </div>
+            <div class="protection-item">
+                <span class="protection-check">✓</span>
+                <span>Validación de rangos razonables por moneda</span>
+            </div>
+            <div class="protection-item">
+                <span class="protection-check">✓</span>
+                <span>Detección de variaciones extremas</span>
+            </div>
+            <div class="protection-item">
+                <span class="protection-check">✓</span>
+                <span>Actualización automática cada 60 segundos mínimo</span>
+            </div>
+        </div>
+    </div>
+</section>
+

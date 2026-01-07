@@ -11,6 +11,7 @@ import {
   renderLastUpdate,
   updateCalculateButton
 } from './render.js';
+import { parseFormattedNumber, initInputFormatter } from './input-formatter.js';
 
 // Estado del convertidor
 let state = {
@@ -110,7 +111,8 @@ async function handleCalculate(showLoading = true) {
   const elements = getElements();
   
   // Obtener valores del formulario
-  const amount = parseFloat(elements.amountInput.value);
+  // El input está formateado, necesitamos parsearlo
+  const amount = parseFormattedNumber(elements.amountInput.value);
   const fiatFrom = elements.fiatFromSelect.value;
   const fiatTo = elements.fiatToSelect.value;
   
@@ -229,6 +231,11 @@ async function handleRefresh() {
 export function initUI() {
   const elements = getElements();
   
+  // Inicializar formateo del input PRIMERO
+  if (elements.amountInput) {
+    initInputFormatter(elements.amountInput);
+  }
+  
   // Event listener para calcular (botón manual)
   if (elements.calculateBtn) {
     elements.calculateBtn.addEventListener('click', () => handleCalculate(true));
@@ -240,8 +247,12 @@ export function initUI() {
   }
   
   // Cálculo automático cuando cambian los inputs
+  // El formateo ya maneja el evento 'input', así que usamos un listener separado
   if (elements.amountInput) {
-    elements.amountInput.addEventListener('input', handleAutoCalculate);
+    // Usar un pequeño delay para que el formateo termine primero
+    elements.amountInput.addEventListener('input', () => {
+      setTimeout(handleAutoCalculate, 100);
+    });
     elements.amountInput.addEventListener('change', handleAutoCalculate);
   }
   

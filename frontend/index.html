@@ -8,51 +8,108 @@
     <link rel="stylesheet" href="/frontend/styles/base.css">
     <link rel="stylesheet" href="/frontend/styles/layout.css">
     <link rel="stylesheet" href="/frontend/styles/components.css">
+    <link rel="stylesheet" href="/frontend/styles/themes.css">
+    <link rel="stylesheet" href="/frontend/styles/panel.css">
+    <link rel="stylesheet" href="/frontend/styles/custom-select.css">
+    <link rel="stylesheet" href="/frontend/styles/responsive.css">
 </head>
 <body>
+    <!-- Botón flotante del panel -->
+    <button id="panel-toggle-btn" class="panel-toggle-btn floating" title="Ver información">
+        <img src="/frontend/public/ajustes.svg" alt="Ajustes" class="panel-icon">
+    </button>
+
     <div class="container">
-        <h1>Test Convertidor P2P</h1>
-        
-        <div class="form-group">
-            <label for="amount">Monto:</label>
-            <input type="number" id="amount" placeholder="Ej: 100000" step="0.01" min="0">
+        <div class="converter-card">
+            <!-- Header con monedas -->
+            <div class="card-header">
+                <div class="currency-selectors-container">
+                    <!-- Moneda Origen -->
+                    <div class="currency-selector-wrapper">
+                        <label for="fiatFrom" class="currency-selector-label">De</label>
+                        <div class="currency-selector-box">
+                            <img src="/frontend/public/banderas/argentina.svg" alt="ARS" class="currency-icon" id="icon-from" onerror="this.style.display='none'">
+                            <select id="fiatFrom" class="currency-select">
+                                <option value="ARS" selected data-abbr="ARS">ARS - Peso Argentino</option>
+                                <option value="BOB" data-abbr="BOB">BOB - Boliviano</option>
+                                <option value="CLP" data-abbr="CLP">CLP - Peso Chileno</option>
+                                <option value="MXN" data-abbr="MXN">MXN - Peso Mexicano</option>
+                                <option value="PEN" data-abbr="PEN">PEN - Sol Peruano</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón de Intercambio -->
+                    <button id="swap-currencies-btn" class="swap-btn" title="Intercambiar monedas" aria-label="Intercambiar monedas">
+                        <img src="/frontend/public/intercambio.svg" alt="Intercambiar" class="swap-icon">
+                    </button>
+                    
+                    <!-- Moneda Destino -->
+                    <div class="currency-selector-wrapper">
+                        <label for="fiatTo" class="currency-selector-label">A</label>
+                        <div class="currency-selector-box">
+                            <img src="/frontend/public/banderas/bolivia.svg" alt="BOB" class="currency-icon" id="icon-to" onerror="this.style.display='none'">
+                            <select id="fiatTo" class="currency-select">
+                                <option value="ARS" data-abbr="ARS">ARS - Peso Argentino</option>
+                                <option value="BOB" selected data-abbr="BOB">BOB - Boliviano</option>
+                                <option value="CLP" data-abbr="CLP">CLP - Peso Chileno</option>
+                                <option value="MXN" data-abbr="MXN">MXN - Peso Mexicano</option>
+                                <option value="PEN" data-abbr="PEN">PEN - Sol Peruano</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input principal -->
+            <div class="input-section">
+                <label for="amount" class="input-label">Monto a convertir</label>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="amount" 
+                        class="main-input" 
+                        placeholder="0,00" 
+                        autocomplete="off"
+                        inputmode="decimal"
+                    >
+                    <span class="input-currency" id="input-currency">ARS</span>
+                </div>
+            </div>
+
+
+            <!-- Resultado -->
+            <div id="result" class="result-section" style="display: none;"></div>
+            <div id="error" class="error-section" style="display: none;"></div>
+
+            <!-- Botón actualizar y microcopy -->
+            <div class="card-footer">
+                <button id="refresh-btn" class="refresh-btn-premium">
+                    <svg class="refresh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14L18.36 18.36A9 9 0 0 1 3.51 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Actualizar precios</span>
+                </button>
+                <p class="microcopy">Precios basados en Binance P2P</p>
+            </div>
         </div>
-        
-        <div class="form-group">
-            <label for="fiatFrom">De:</label>
-            <select id="fiatFrom">
-                <option value="">Seleccionar...</option>
-                <option value="ARS">ARS - Peso Argentino</option>
-                <option value="BOB">BOB - Boliviano</option>
-                <option value="CLP">CLP - Peso Chileno</option>
-                <option value="MXN">MXN - Peso Mexicano</option>
-                <option value="PEN">PEN - Sol Peruano</option>
-            </select>
+    </div>
+
+    <!-- Panel de Información (oculto por defecto) -->
+    <div id="info-panel" class="info-panel" style="display: none;">
+        <div class="info-panel-overlay" id="panel-overlay"></div>
+        <div class="info-panel-content">
+            <div class="info-panel-header">
+                <h2>Panel de Información</h2>
+                <button id="panel-close-btn" class="panel-close-btn" title="Cerrar">✕</button>
+            </div>
+
+            <div class="info-panel-body" id="panel-body">
+                <!-- El contenido se carga dinámicamente desde frontend/htmls/panel.html -->
+            </div>
         </div>
-        
-        <div class="form-group">
-            <label for="fiatTo">A:</label>
-            <select id="fiatTo">
-                <option value="">Seleccionar...</option>
-                <option value="ARS">ARS - Peso Argentino</option>
-                <option value="BOB">BOB - Boliviano</option>
-                <option value="CLP">CLP - Peso Chileno</option>
-                <option value="MXN">MXN - Peso Mexicano</option>
-                <option value="PEN">PEN - Sol Peruano</option>
-            </select>
-        </div>
-        
-        <button id="calculate-btn">Calcular</button>
-        
-        <div class="refresh-section">
-            <button id="refresh-btn" class="refresh-btn">
-                Actualizar precios
-            </button>
-        </div>
-        
-        <div id="result" style="display: none;"></div>
-        <div id="error" style="display: none;"></div>
-        <div id="last-update" style="display: none;"></div>
     </div>
     
     <script>
@@ -70,10 +127,229 @@
                 console.error('Error cargando configuración:', error);
             }
             // Inicializar la aplicación después de cargar las variables
-            const script = document.createElement('script');
-            script.type = 'module';
-            script.src = '/frontend/index.js';
-            document.body.appendChild(script);
+            // Esperar un momento para asegurar que el DOM esté listo
+            setTimeout(() => {
+                const script = document.createElement('script');
+                script.type = 'module';
+                script.src = '/frontend/index.js';
+                script.onerror = function() {
+                    console.error('Error cargando /frontend/index.js');
+                };
+                document.body.appendChild(script);
+            }, 100);
+        })();
+
+        // Sistema de Panel y Temas
+        (function() {
+            // Panel toggle
+            const panelToggle = document.getElementById('panel-toggle-btn');
+            const panel = document.getElementById('info-panel');
+            const panelClose = document.getElementById('panel-close-btn');
+            const panelOverlay = document.getElementById('panel-overlay');
+
+            function openPanel() {
+                panel.style.display = 'block';
+                setTimeout(() => {
+                    panel.classList.add('active');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closePanel() {
+                panel.classList.remove('active');
+                setTimeout(() => {
+                    panel.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+
+            if (panelToggle) {
+                panelToggle.addEventListener('click', openPanel);
+            }
+            if (panelClose) {
+                panelClose.addEventListener('click', closePanel);
+            }
+            if (panelOverlay) {
+                panelOverlay.addEventListener('click', closePanel);
+            }
+
+            // Aplicar tema
+            function applyTheme(theme) {
+                const html = document.documentElement;
+                if (theme === 'auto') {
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+                    
+                    // Escuchar cambios del sistema
+                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                        html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+                    });
+                } else {
+                    html.setAttribute('data-theme', theme);
+                }
+            }
+
+            // Aplicar tema inicial si existe
+            const savedTheme = localStorage.getItem('theme') || 'auto';
+            applyTheme(savedTheme);
+
+            // Intercambiador de monedas (simplificado - el selector personalizado maneja su propio display)
+            const swapBtn = document.getElementById('swap-currencies-btn');
+            const fiatFrom = document.getElementById('fiatFrom');
+            const fiatTo = document.getElementById('fiatTo');
+            const inputCurrency = document.getElementById('input-currency');
+            
+            // Mapa de íconos de banderas
+            const iconMap = {
+                'ARS': '/frontend/public/banderas/argentina.svg',
+                'BOB': '/frontend/public/banderas/bolivia.svg',
+                'CLP': '/frontend/public/banderas/chile.svg',
+                'MXN': '/frontend/public/banderas/mexico.svg',
+                'PEN': '/frontend/public/banderas/peru.svg'
+            };
+            
+            /**
+             * Actualiza el display visual de las monedas
+             * Solo actualiza el input y los íconos, el selector personalizado maneja su propio display
+             */
+            function updateCurrencyDisplay() {
+                if (fiatFrom && fiatTo && inputCurrency) {
+                    const fromValue = fiatFrom.value;
+                    
+                    // Actualizar moneda en el input
+                    inputCurrency.textContent = fromValue;
+                    
+                    // Actualizar íconos (el selector personalizado ya actualiza los suyos)
+                    const iconFrom = document.getElementById('icon-from');
+                    const iconTo = document.getElementById('icon-to');
+                    
+                    if (iconFrom && iconMap[fromValue]) {
+                        iconFrom.src = iconMap[fromValue];
+                        iconFrom.alt = fromValue;
+                        iconFrom.style.display = 'block';
+                    }
+                    
+                    if (iconTo && iconMap[fiatTo.value]) {
+                        iconTo.src = iconMap[fiatTo.value];
+                        iconTo.alt = fiatTo.value;
+                        iconTo.style.display = 'block';
+                    }
+                }
+            }
+            
+            // Intercambiar monedas
+            if (swapBtn && fiatFrom && fiatTo) {
+                swapBtn.addEventListener('click', () => {
+                    const temp = fiatFrom.value;
+                    fiatFrom.value = fiatTo.value;
+                    fiatTo.value = temp;
+                    
+                    // Disparar eventos change para que el selector personalizado se actualice
+                    fiatFrom.dispatchEvent(new Event('change', { bubbles: true }));
+                    fiatTo.dispatchEvent(new Event('change', { bubbles: true }));
+                    
+                    // Actualizar display
+                    updateCurrencyDisplay();
+                });
+            }
+            
+            // Actualizar display cuando cambian los selects
+            if (fiatFrom && fiatTo) {
+                fiatFrom.addEventListener('change', updateCurrencyDisplay);
+                fiatTo.addEventListener('change', updateCurrencyDisplay);
+            }
+            
+            // Inicializar display
+            updateCurrencyDisplay();
+
+            // Cargar contenido del panel desde HTML
+            async function loadPanelContent() {
+                const panelBody = document.getElementById('panel-body');
+                if (!panelBody) return;
+
+                try {
+                    // Cargar el HTML del panel
+                    const response = await fetch('/frontend/htmls/panel.html');
+                    if (!response.ok) throw new Error('No se pudo cargar el panel');
+                    
+                    const html = await response.text();
+                    panelBody.innerHTML = html;
+
+                    // Inicializar sistema de temas después de cargar el HTML
+                    initThemeSystem();
+
+                    // Cargar precios en la tabla
+                    loadPanelPrices();
+                } catch (error) {
+                    console.error('Error cargando panel:', error);
+                    panelBody.innerHTML = '<div class="error-text">Error al cargar el panel</div>';
+                }
+            }
+
+            // Inicializar sistema de temas
+            function initThemeSystem() {
+                const themeSelect = document.getElementById('theme-select');
+                if (!themeSelect) return;
+
+                // Cargar tema guardado
+                const savedTheme = localStorage.getItem('theme') || 'auto';
+                themeSelect.value = savedTheme;
+                applyTheme(savedTheme);
+
+                // Escuchar cambios de tema
+                themeSelect.addEventListener('change', (e) => {
+                    const theme = e.target.value;
+                    localStorage.setItem('theme', theme);
+                    applyTheme(theme);
+                });
+            }
+
+            // Cargar precios en el panel
+            async function loadPanelPrices() {
+                const tbody = document.getElementById('prices-tbody');
+                if (!tbody) return;
+
+                try {
+                    const { getPrices } = await import('/frontend/calculator/index.js');
+                    const prices = await getPrices();
+                    
+                    if (!prices || Object.keys(prices).length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="4" class="empty-text">No hay precios disponibles</td></tr>';
+                        return;
+                    }
+
+                    const fiats = Object.keys(prices).sort();
+                    tbody.innerHTML = fiats.map(fiat => {
+                        const buy = prices[fiat]?.buy || 'N/A';
+                        const sell = prices[fiat]?.sell || 'N/A';
+                        const buyFormatted = typeof buy === 'number' ? buy.toFixed(2) : buy;
+                        const sellFormatted = typeof sell === 'number' ? sell.toFixed(2) : sell;
+                        
+                        return `
+                            <tr>
+                                <td><strong>${fiat}</strong></td>
+                                <td>${buyFormatted}</td>
+                                <td>${sellFormatted}</td>
+                                <td>Reciente</td>
+                            </tr>
+                        `;
+                    }).join('');
+                } catch (error) {
+                    console.error('Error cargando precios:', error);
+                    tbody.innerHTML = '<tr><td colspan="4" class="error-text">Error al cargar precios</td></tr>';
+                }
+            }
+
+            // Cargar contenido cuando se abre el panel
+            if (panelToggle) {
+                panelToggle.addEventListener('click', () => {
+                    if (!panel.classList.contains('loaded')) {
+                        loadPanelContent();
+                        panel.classList.add('loaded');
+                    }
+                    setTimeout(loadPanelPrices, 100);
+                });
+            }
         })();
     </script>
 </body>

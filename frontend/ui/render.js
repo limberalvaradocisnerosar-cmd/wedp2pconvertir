@@ -13,24 +13,19 @@ export function renderResult(result, fiatTo) {
   const errorDiv = document.getElementById('error');
   
   // Ocultar errores
-  errorDiv.style.display = 'none';
+  if (errorDiv) {
+    errorDiv.style.display = 'none';
+  }
   
   // Mostrar resultado
-  resultDiv.style.display = 'block';
-  resultDiv.className = 'result';
-  resultDiv.innerHTML = `
-    <strong>Resultado:</strong>
-    <div class="result-value">${formatNumber(result)} ${fiatTo}</div>
-  `;
-  
-  // Animación de entrada
-  resultDiv.style.opacity = '0';
-  resultDiv.style.transform = 'translateY(10px)';
-  setTimeout(() => {
-    resultDiv.style.transition = 'all 0.3s ease';
-    resultDiv.style.opacity = '1';
-    resultDiv.style.transform = 'translateY(0)';
-  }, 10);
+  if (resultDiv) {
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'result-section';
+    resultDiv.innerHTML = `
+      <strong>Resultado</strong>
+      <div class="result-value">${formatNumber(result)} ${fiatTo}</div>
+    `;
+  }
 }
 
 /**
@@ -101,12 +96,21 @@ export function updateCalculateButton(disabled, text) {
 }
 
 /**
- * Formatea un número con separadores de miles
+ * Formatea un número con puntos de mil y coma decimal
  * @param {number} num - Número a formatear
- * @returns {string} - Número formateado
+ * @returns {string} - Número formateado (ej: "1.234.567,89")
  */
 function formatNumber(num) {
-  return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // Convertir a string con 2 decimales
+  const parts = num.toFixed(2).split('.');
+  const integerPart = parts[0];
+  const decimalPart = parts[1];
+  
+  // Agregar puntos de mil
+  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  
+  // Devolver con coma decimal
+  return `${formattedInteger},${decimalPart}`;
 }
 
 /**
