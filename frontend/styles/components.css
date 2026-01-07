@@ -435,13 +435,13 @@ button:focus {
 
 [data-theme="light"] .swap-btn,
 :root:not([data-theme="dark"]) .swap-btn {
-  background: #B3E5FC;
-  box-shadow: 0 2px 8px rgba(3, 169, 244, 0.25), 0 0 0 1px rgba(3, 169, 244, 0.1);
+  background: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.25), 0 0 0 1px rgba(0, 122, 255, 0.1);
 }
 
 [data-theme="dark"] .swap-btn {
-  background: #FFB74D;
-  box-shadow: 0 2px 8px rgba(255, 183, 77, 0.3), 0 0 0 1px rgba(255, 183, 77, 0.15);
+  background: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3), 0 0 0 1px rgba(0, 122, 255, 0.15);
 }
 
 .swap-btn:hover {
@@ -450,13 +450,13 @@ button:focus {
 
 [data-theme="light"] .swap-btn:hover,
 :root:not([data-theme="dark"]) .swap-btn:hover {
-  background: #81D4FA;
-  box-shadow: 0 4px 12px rgba(3, 169, 244, 0.35), 0 0 0 1px rgba(3, 169, 244, 0.2);
+  background: var(--color-primary-hover);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.35), 0 0 0 1px rgba(0, 122, 255, 0.2);
 }
 
 [data-theme="dark"] .swap-btn:hover {
-  background: #FFA726;
-  box-shadow: 0 4px 12px rgba(255, 183, 77, 0.4), 0 0 0 1px rgba(255, 183, 77, 0.25);
+  background: var(--color-primary-hover);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4), 0 0 0 1px rgba(0, 122, 255, 0.25);
 }
 
 .swap-btn:active {
@@ -466,11 +466,13 @@ button:focus {
 
 [data-theme="light"] .swap-btn:active,
 :root:not([data-theme="dark"]) .swap-btn:active {
-  box-shadow: 0 1px 4px rgba(3, 169, 244, 0.2), 0 0 0 1px rgba(3, 169, 244, 0.1);
+  background: var(--color-primary-active);
+  box-shadow: 0 1px 4px rgba(0, 122, 255, 0.2), 0 0 0 1px rgba(0, 122, 255, 0.1);
 }
 
 [data-theme="dark"] .swap-btn:active {
-  box-shadow: 0 1px 4px rgba(255, 183, 77, 0.25), 0 0 0 1px rgba(255, 183, 77, 0.15);
+  background: var(--color-primary-active);
+  box-shadow: 0 1px 4px rgba(0, 122, 255, 0.25), 0 0 0 1px rgba(0, 122, 255, 0.15);
 }
 
 .swap-icon {
@@ -490,7 +492,7 @@ button:focus {
 }
 
 [data-theme="dark"] .swap-icon {
-  filter: brightness(0) saturate(100%);
+  filter: brightness(0) saturate(100%) invert(1);
 }
 
 .swap-btn::before {
