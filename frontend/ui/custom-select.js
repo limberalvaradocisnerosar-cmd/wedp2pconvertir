@@ -44,19 +44,16 @@ export function createCustomSelect(selectElement) {
     'PEN': '/frontend/public/banderas/peru.png'
   };
   
-  // Función para actualizar el botón con el valor seleccionado
   function updateButton() {
     const selectedOption = selectElement.options[selectElement.selectedIndex];
     const abbr = selectedOption.getAttribute('data-abbr') || selectedOption.value;
     
-    // Obtener ícono actualizado
     const currentIcon = icon || selectElement.parentElement.querySelector('.currency-icon');
     const iconSrc = iconMap[abbr] || (currentIcon ? currentIcon.src : '');
     
-    const fullText = selectedOption.textContent;
     selectButton.innerHTML = `
       ${iconSrc ? `<img src="${iconSrc}" alt="${abbr}" class="custom-select-icon">` : ''}
-      <span class="custom-select-text">${fullText}</span>
+      <span class="custom-select-text">${abbr}</span>
       <svg class="custom-select-arrow" width="10" height="10" viewBox="0 0 12 12" fill="none">
         <path d="M6 9L1 4h10z" fill="currentColor"/>
       </svg>
@@ -150,40 +147,36 @@ export function createCustomSelect(selectElement) {
   }
   
   function openDropdown() {
-    // Actualizar opciones antes de abrir para reflejar cambios en el otro selector
     createOptions();
     
     customSelect.classList.add('open');
     
-    // Esperar un frame para que el DOM se actualice
     requestAnimationFrame(() => {
       const selectRect = selectButton.getBoundingClientRect();
       const spaceBelow = window.innerHeight - selectRect.bottom;
-      const spaceAbove = selectRect.top;
       
-      // Ancho del dropdown = ancho del botón
-      dropdown.style.width = `${selectRect.width}px`;
+      dropdown.style.top = '100%';
+      dropdown.style.bottom = 'auto';
+      dropdown.style.marginTop = '8px';
+      dropdown.style.marginBottom = '0';
+      dropdown.classList.remove('dropdown-up');
       
-      // Calcular posición vertical - por defecto abajo
-      if (spaceBelow < 200 && spaceAbove > spaceBelow) {
-        // Mostrar arriba solo si no hay espacio abajo
-        dropdown.style.top = 'auto';
-        dropdown.style.bottom = '100%';
-        dropdown.style.marginTop = '0';
-        dropdown.style.marginBottom = '8px';
-        dropdown.classList.add('dropdown-up');
-      } else {
-        // Mostrar abajo (por defecto) - justo debajo del botón
-        dropdown.style.top = '100%';
-        dropdown.style.bottom = 'auto';
-        dropdown.style.marginTop = '8px';
-        dropdown.style.marginBottom = '0';
-        dropdown.classList.remove('dropdown-up');
-      }
-      
-      // Posición horizontal - alinear con el botón (ya está en 0 por CSS)
       dropdown.style.left = '0';
       dropdown.style.right = 'auto';
+      
+      const minWidth = selectRect.width;
+      const optionElements = dropdown.querySelectorAll('.custom-select-option');
+      let maxContentWidth = minWidth;
+      
+      optionElements.forEach(option => {
+        const optionWidth = option.scrollWidth;
+        if (optionWidth > maxContentWidth) {
+          maxContentWidth = optionWidth;
+        }
+      });
+      
+      const maxWidth = Math.min(maxContentWidth + 32, window.innerWidth - 32);
+      dropdown.style.width = `${Math.max(minWidth, maxWidth)}px`;
     });
   }
   

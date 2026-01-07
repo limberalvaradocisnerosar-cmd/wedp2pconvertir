@@ -215,19 +215,6 @@
             const savedTheme = localStorage.getItem('theme') || 'auto';
             applyTheme(savedTheme);
 
-            const inputCurrency = document.getElementById('input-currency');
-            const fiatFrom = document.getElementById('fiatFrom');
-            
-            function updateInputCurrency() {
-                if (fiatFrom && inputCurrency) {
-                    inputCurrency.textContent = fiatFrom.value;
-                }
-            }
-            
-            if (fiatFrom) {
-                fiatFrom.addEventListener('change', updateInputCurrency);
-                updateInputCurrency();
-            }
 
             // Cargar contenido del panel desde HTML
             async function loadPanelContent() {

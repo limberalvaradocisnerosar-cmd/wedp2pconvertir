@@ -8,8 +8,7 @@ import {
   renderResult, 
   renderError, 
   renderLoading,
-  renderLastUpdate,
-  updateCalculateButton
+  renderLastUpdate
 } from './render.js';
 import { parseFormattedNumber, initInputFormatter } from './input-formatter.js';
 
@@ -32,7 +31,6 @@ function getElements() {
     amountInput: document.getElementById('amount'),
     fiatFromSelect: document.getElementById('fiatFrom'),
     fiatToSelect: document.getElementById('fiatTo'),
-    calculateBtn: document.getElementById('calculate-btn'),
     refreshBtn: document.getElementById('refresh-btn')
   };
 }
@@ -124,10 +122,8 @@ async function handleCalculate(showLoading = true) {
     return;
   }
   
-  // Actualizar estado
   state.isLoading = true;
   if (showLoading) {
-    updateCalculateButton(true, 'Calculando...');
     renderLoading();
   }
   
@@ -161,11 +157,7 @@ async function handleCalculate(showLoading = true) {
     if (resultDiv) resultDiv.style.display = 'none';
     if (errorDiv) errorDiv.style.display = 'none';
   } finally {
-    // Restaurar estado
     state.isLoading = false;
-    if (showLoading) {
-      updateCalculateButton(false, 'Calcular');
-    }
   }
 }
 
@@ -231,9 +223,6 @@ export function initUI() {
     initInputFormatter(elements.amountInput);
   }
   
-  if (elements.calculateBtn) {
-    elements.calculateBtn.addEventListener('click', () => handleCalculate(true));
-  }
   
   if (elements.refreshBtn) {
     elements.refreshBtn.addEventListener('click', handleRefresh);

@@ -89,18 +89,6 @@ export function renderLastUpdate(timestamp) {
   }
 }
 
-/**
- * Actualiza el estado del botón de calcular
- * @param {boolean} disabled - Si el botón está deshabilitado
- * @param {string} text - Texto del botón
- */
-export function updateCalculateButton(disabled, text) {
-  const btn = document.getElementById('calculate-btn');
-  if (btn) {
-    btn.disabled = disabled;
-    btn.textContent = text;
-  }
-}
 
 /**
  * Formatea un número con puntos de mil y coma decimal

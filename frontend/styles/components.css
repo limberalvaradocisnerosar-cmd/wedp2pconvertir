@@ -480,15 +480,17 @@ button:focus {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
   position: relative;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 [data-theme="light"] .swap-icon,
 :root:not([data-theme="dark"]) .swap-icon {
-  filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(165deg) brightness(98%) contrast(101%);
+  filter: brightness(0) saturate(100%) invert(1);
 }
 
 [data-theme="dark"] .swap-icon {
-  filter: brightness(0) saturate(100%) invert(70%) sepia(95%) saturate(1352%) hue-rotate(340deg) brightness(102%) contrast(101%);
+  filter: brightness(0) saturate(100%);
 }
 
 .swap-btn::before {
