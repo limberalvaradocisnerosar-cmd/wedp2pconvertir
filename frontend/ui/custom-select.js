@@ -54,13 +54,41 @@ export function createCustomSelect(selectElement) {
     const currentIcon = icon || selectElement.parentElement.querySelector('.currency-icon');
     const iconSrc = iconMap[abbr] || (currentIcon ? currentIcon.src : '');
     
-    selectButton.innerHTML = `
-      ${iconSrc ? `<img src="${iconSrc}" alt="${abbr}" class="custom-select-icon">` : ''}
-      <span class="custom-select-text">${abbr}</span>
-      <svg class="custom-select-arrow" width="10" height="10" viewBox="0 0 12 12" fill="none">
-        <path d="M6 9L1 4h10z" fill="currentColor"/>
-      </svg>
-    `;
+    // Limpiar contenido previo
+    selectButton.innerHTML = '';
+    
+    // Crear imagen protegida
+    if (iconSrc) {
+      const imgElement = document.createElement('img');
+      imgElement.src = iconSrc;
+      imgElement.alt = abbr;
+      imgElement.className = 'custom-select-icon';
+      imgElement.draggable = false;
+      imgElement.oncontextmenu = (e) => e.preventDefault();
+      imgElement.ondragstart = (e) => e.preventDefault();
+      imgElement.style.pointerEvents = 'none';
+      imgElement.style.userSelect = 'none';
+      selectButton.appendChild(imgElement);
+    }
+    
+    // Crear texto
+    const textSpan = document.createElement('span');
+    textSpan.className = 'custom-select-text';
+    textSpan.textContent = abbr;
+    selectButton.appendChild(textSpan);
+    
+    // Crear flecha
+    const arrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    arrowSvg.setAttribute('class', 'custom-select-arrow');
+    arrowSvg.setAttribute('width', '10');
+    arrowSvg.setAttribute('height', '10');
+    arrowSvg.setAttribute('viewBox', '0 0 12 12');
+    arrowSvg.setAttribute('fill', 'none');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M6 9L1 4h10z');
+    path.setAttribute('fill', 'currentColor');
+    arrowSvg.appendChild(path);
+    selectButton.appendChild(arrowSvg);
   }
   
   // Obtener el otro selector para evitar duplicados
