@@ -45,23 +45,20 @@ function getElements() {
  * @returns {string|null} - Mensaje de error o null si es válido
  */
 function validateInputs(amount, fiatFrom, fiatTo) {
+  // Validación silenciosa - no mostrar mensajes, solo retornar si es válido
   if (!amount || amount <= 0) {
-    return 'Por favor, ingresa un monto para convertir';
+    return false;
   }
   
-  if (!fiatFrom) {
-    return 'Selecciona la moneda de origen';
-  }
-  
-  if (!fiatTo) {
-    return 'Selecciona la moneda de destino';
+  if (!fiatFrom || !fiatTo) {
+    return false;
   }
   
   if (fiatFrom === fiatTo) {
-    return 'Selecciona monedas diferentes para convertir';
+    return false;
   }
   
-  return null;
+  return true;
 }
 
 /**
@@ -116,19 +113,14 @@ async function handleCalculate(showLoading = true) {
   const fiatFrom = elements.fiatFromSelect.value;
   const fiatTo = elements.fiatToSelect.value;
   
-  // Validar inputs
-  const validationError = validateInputs(amount, fiatFrom, fiatTo);
-  if (validationError) {
-    // Solo mostrar error si hay valores parciales, no si está vacío
-    if (amount || fiatFrom || fiatTo) {
-      renderError(validationError);
-    } else {
-      // Limpiar resultado si no hay inputs
-      const resultDiv = document.getElementById('result');
-      const errorDiv = document.getElementById('error');
-      if (resultDiv) resultDiv.style.display = 'none';
-      if (errorDiv) errorDiv.style.display = 'none';
-    }
+  // Validar inputs - silenciosamente, solo ocultar resultado si no es válido
+  const isValid = validateInputs(amount, fiatFrom, fiatTo);
+  if (!isValid) {
+    // Simplemente ocultar resultado y error - sin mensajes
+    const resultDiv = document.getElementById('result');
+    const errorDiv = document.getElementById('error');
+    if (resultDiv) resultDiv.style.display = 'none';
+    if (errorDiv) errorDiv.style.display = 'none';
     return;
   }
   
@@ -163,7 +155,11 @@ async function handleCalculate(showLoading = true) {
     
   } catch (error) {
     console.error('Error en cálculo:', error);
-    renderError(error.message || 'Error al calcular la conversión');
+    // Ocultar resultado en caso de error, sin mostrar mensaje
+    const resultDiv = document.getElementById('result');
+    const errorDiv = document.getElementById('error');
+    if (resultDiv) resultDiv.style.display = 'none';
+    if (errorDiv) errorDiv.style.display = 'none';
   } finally {
     // Restaurar estado
     state.isLoading = false;

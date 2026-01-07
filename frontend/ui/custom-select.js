@@ -9,6 +9,12 @@
  */
 export function createCustomSelect(selectElement) {
   if (!selectElement) return;
+  
+  // Evitar inicialización duplicada
+  if (selectElement.dataset.customSelectInitialized === 'true') {
+    return;
+  }
+  selectElement.dataset.customSelectInitialized = 'true';
 
   // Crear contenedor del selector personalizado
   const customSelect = document.createElement('div');
@@ -26,13 +32,16 @@ export function createCustomSelect(selectElement) {
   // Obtener el ícono si existe
   const icon = selectElement.parentElement.querySelector('.currency-icon');
   
+  // Flag para evitar loops infinitos
+  let isUpdating = false;
+  
   // Mapa de íconos de banderas
   const iconMap = {
-    'ARS': '/frontend/public/banderas/argentina.svg',
-    'BOB': '/frontend/public/banderas/bolivia.svg',
-    'CLP': '/frontend/public/banderas/chile.svg',
-    'MXN': '/frontend/public/banderas/mexico.svg',
-    'PEN': '/frontend/public/banderas/peru.svg'
+    'ARS': '/frontend/public/banderas/argentina.png',
+    'BOB': '/frontend/public/banderas/bolivia.png',
+    'CLP': '/frontend/public/banderas/chile.png',
+    'MXN': '/frontend/public/banderas/mexico.png',
+    'PEN': '/frontend/public/banderas/peru.png'
   };
   
   // Función para actualizar el botón con el valor seleccionado
@@ -92,7 +101,6 @@ export function createCustomSelect(selectElement) {
         <img src="${iconMap[option.value] || ''}" alt="${abbr}" class="option-icon" onerror="this.style.display='none'">
         <span class="option-text">${fullText}</span>
         ${isSelected ? '<svg class="option-check" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4L6 11.5L2.5 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
-        ${isDisabled ? '<span class="option-disabled-hint">Ya seleccionada</span>' : ''}
       `;
       
       if (!isDisabled) {
@@ -112,10 +120,15 @@ export function createCustomSelect(selectElement) {
             icon.alt = option.value;
           }
           
-          // Disparar evento change después de actualizar visualmente
+        // Disparar evento change después de actualizar visualmente
+        // Usar flag para evitar loops
+        if (!isUpdating) {
+          isUpdating = true;
           setTimeout(() => {
             selectElement.dispatchEvent(new Event('change', { bubbles: true }));
+            isUpdating = false;
           }, 10);
+        }
         });
       } else {
         optionElement.style.cursor = 'not-allowed';
@@ -141,25 +154,36 @@ export function createCustomSelect(selectElement) {
     
     customSelect.classList.add('open');
     
-    // Calcular posición del dropdown con position: fixed
-    const rect = selectButton.getBoundingClientRect();
-    const spaceBelow = window.innerHeight - rect.bottom;
-    const spaceAbove = rect.top;
-    
-    // Calcular posición
-    if (spaceBelow < 200 && spaceAbove > spaceBelow) {
-      // Mostrar arriba
-      dropdown.style.top = `${rect.top + window.scrollY - dropdown.offsetHeight - 8}px`;
-      dropdown.classList.add('dropdown-up');
-    } else {
-      // Mostrar abajo
-      dropdown.style.top = `${rect.bottom + window.scrollY + 8}px`;
-      dropdown.classList.remove('dropdown-up');
-    }
-    
-    // Posición horizontal
-    dropdown.style.left = `${rect.left + window.scrollX}px`;
-    dropdown.style.width = `${rect.width}px`;
+    // Esperar un frame para que el DOM se actualice
+    requestAnimationFrame(() => {
+      const selectRect = selectButton.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - selectRect.bottom;
+      const spaceAbove = selectRect.top;
+      
+      // Ancho del dropdown = ancho del botón
+      dropdown.style.width = `${selectRect.width}px`;
+      
+      // Calcular posición vertical - por defecto abajo
+      if (spaceBelow < 200 && spaceAbove > spaceBelow) {
+        // Mostrar arriba solo si no hay espacio abajo
+        dropdown.style.top = 'auto';
+        dropdown.style.bottom = '100%';
+        dropdown.style.marginTop = '0';
+        dropdown.style.marginBottom = '8px';
+        dropdown.classList.add('dropdown-up');
+      } else {
+        // Mostrar abajo (por defecto) - justo debajo del botón
+        dropdown.style.top = '100%';
+        dropdown.style.bottom = 'auto';
+        dropdown.style.marginTop = '8px';
+        dropdown.style.marginBottom = '0';
+        dropdown.classList.remove('dropdown-up');
+      }
+      
+      // Posición horizontal - alinear con el botón (ya está en 0 por CSS)
+      dropdown.style.left = '0';
+      dropdown.style.right = 'auto';
+    });
   }
   
   function closeDropdown() {
@@ -194,18 +218,23 @@ export function createCustomSelect(selectElement) {
   }, true);
   
   // Escuchar cambios del select nativo (por si cambia programáticamente)
+  // Solo actualizar botón, no recrear opciones para evitar loops
   selectElement.addEventListener('change', () => {
     updateButton();
-    createOptions();
+    // Solo actualizar opciones si el dropdown está abierto
+    if (customSelect.classList.contains('open')) {
+      createOptions();
+    }
   });
   
   // Escuchar cambios del otro selector para actualizar opciones deshabilitadas
   const otherSelector = getOtherSelector();
   if (otherSelector) {
     otherSelector.addEventListener('change', () => {
-      // Solo actualizar si el dropdown está abierto
-      if (customSelect.classList.contains('open')) {
+      if (!isUpdating && customSelect.classList.contains('open')) {
+        isUpdating = true;
         createOptions();
+        setTimeout(() => { isUpdating = false; }, 100);
       }
     });
   }

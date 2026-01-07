@@ -17,13 +17,12 @@ export function renderResult(result, fiatTo) {
     errorDiv.style.display = 'none';
   }
   
-  // Mostrar resultado
+  // Mostrar resultado - diseño minimalista
   if (resultDiv) {
     resultDiv.style.display = 'block';
     resultDiv.className = 'result-section';
     resultDiv.innerHTML = `
-      <strong>Resultado</strong>
-      <div class="result-value">${formatNumber(result)} ${fiatTo}</div>
+      <div class="result-value">= ${formatNumber(result)} ${fiatTo}</div>
     `;
   }
 }

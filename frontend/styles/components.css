@@ -601,7 +601,7 @@ button:focus {
 
 .result-section {
   margin: 12px 0;
-  padding: 16px;
+  padding: 20px;
   background: linear-gradient(135deg, rgba(0, 122, 255, 0.08) 0%, rgba(0, 122, 255, 0.04) 100%);
   border: 1px solid rgba(0, 122, 255, 0.2);
   border-radius: 12px;
@@ -613,20 +613,10 @@ button:focus {
   font-size: 2rem;
   font-weight: 700;
   color: var(--color-primary);
-  letter-spacing: -0.03em;
-  margin: 4px 0;
+  letter-spacing: -0.02em;
+  margin: 0;
   line-height: 1.2;
-}
-
-.result-section strong {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--theme-text-secondary, var(--color-text-secondary));
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 8px;
-  opacity: 0.8;
+  font-variant-numeric: tabular-nums;
 }
 
 .result.loading {
