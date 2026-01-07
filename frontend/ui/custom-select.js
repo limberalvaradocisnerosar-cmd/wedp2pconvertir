@@ -53,6 +53,7 @@ export function createCustomSelect(selectElement) {
     const currentIcon = icon || selectElement.parentElement.querySelector('.currency-icon');
     const iconSrc = iconMap[abbr] || (currentIcon ? currentIcon.src : '');
     
+    // Solo mostrar código (ARS, BOB) con icono, no el texto completo
     selectButton.innerHTML = `
       ${iconSrc ? `<img src="${iconSrc}" alt="${abbr}" class="custom-select-icon">` : ''}
       <span class="custom-select-text">${abbr}</span>
@@ -210,12 +211,8 @@ export function createCustomSelect(selectElement) {
     }
   });
 
-  // Cerrar al hacer scroll
-  window.addEventListener('scroll', () => {
-    if (customSelect.classList.contains('open')) {
-      closeDropdown();
-    }
-  }, true);
+  // NO cerrar al hacer scroll - permitir scroll dentro del dropdown
+  // El dropdown tiene su propio scroll interno y debe permanecer abierto
   
   // Escuchar cambios del select nativo (por si cambia programáticamente)
   // Solo actualizar botón, no recrear opciones para evitar loops

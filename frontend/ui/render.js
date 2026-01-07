@@ -49,7 +49,6 @@ export function renderError(message) {
       <div class="error-message">${message}</div>
     `;
     
-    // Animación de entrada
     errorDiv.style.opacity = '0';
     errorDiv.style.transform = 'translateY(-10px)';
     setTimeout(() => {

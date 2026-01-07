@@ -51,8 +51,8 @@ input[type="number"]:focus,
 input[type="text"]:focus,
 select:focus {
   outline: none;
-  border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+  border-color: var(--theme-border);
+  box-shadow: none;
 }
 
 input[type="number"]:hover,
@@ -86,6 +86,7 @@ select:not(.currency-select):disabled {
   position: relative;
   display: flex;
   align-items: center;
+  z-index: 1;
 }
 
 .main-input {
@@ -146,14 +147,12 @@ select:not(.currency-select):disabled {
 
 .main-input:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--theme-border);
   background: var(--theme-bg-tertiary);
   color: var(--theme-text-primary);
   -webkit-text-fill-color: var(--theme-text-primary);
-  box-shadow: 
-    0 0 0 4px rgba(0, 122, 255, 0.1),
-    0 4px 12px rgba(0, 122, 255, 0.15);
-  transform: translateY(-1px);
+  box-shadow: none;
+  transform: none;
 }
 
 .main-input:hover:not(:focus) {
@@ -272,7 +271,7 @@ button:active:not(:disabled) {
 
 button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+  box-shadow: none;
 }
 
 /* Botón flotante del panel - Premium */
@@ -301,30 +300,11 @@ button:focus {
 }
 
 /* Efecto de pulso sutil */
-.panel-toggle-btn.floating::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(0, 122, 255, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s ease, height 0.6s ease;
-}
-
-.panel-toggle-btn.floating:hover::before {
-  width: 100%;
-  height: 100%;
-}
 
 .panel-toggle-btn.floating:hover {
   background: var(--theme-bg-tertiary, var(--color-bg-tertiary));
-  border-color: var(--color-primary);
-  box-shadow: 
-    0 8px 24px rgba(0, 122, 255, 0.25),
-    0 0 0 4px rgba(0, 122, 255, 0.1);
+  border-color: var(--theme-border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   transform: translateY(-3px);
 }
 
@@ -381,11 +361,8 @@ button:focus {
 
 /* Focus visible para accesibilidad */
 .panel-toggle-btn.floating:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 4px;
-  box-shadow: 
-    0 8px 24px rgba(0, 122, 255, 0.25),
-    0 0 0 4px rgba(0, 122, 255, 0.2);
+  outline: none;
+  box-shadow: none;
 }
 
 /* Mejoras específicas para tema oscuro */
@@ -399,10 +376,8 @@ button:focus {
 
 [data-theme="dark"] .panel-toggle-btn.floating:hover {
   background: var(--theme-bg-tertiary, #3A3A3C);
-  border-color: var(--color-primary);
-  box-shadow: 
-    0 8px 24px rgba(0, 122, 255, 0.4),
-    0 0 0 4px rgba(0, 122, 255, 0.15);
+  border-color: var(--theme-border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 /* Mejoras específicas para tema claro */
@@ -418,10 +393,8 @@ button:focus {
 [data-theme="light"] .panel-toggle-btn.floating:hover,
 :root:not([data-theme="dark"]) .panel-toggle-btn.floating:hover {
   background: var(--theme-bg-tertiary, #FAFAFA);
-  border-color: var(--color-primary);
-  box-shadow: 
-    0 8px 24px rgba(0, 122, 255, 0.2),
-    0 0 0 4px rgba(0, 122, 255, 0.1);
+  border-color: var(--theme-border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Efecto de brillo sutil en hover */
@@ -443,44 +416,97 @@ button:focus {
   opacity: 1;
 }
 
-/* Botón intercambio */
 .swap-btn {
-  width: 36px;
-  height: 36px;
+  width: 22px;
+  height: 22px;
   border-radius: var(--radius-md);
-  background: var(--theme-bg-tertiary, var(--color-bg-tertiary));
-  border: 1.5px solid var(--theme-border, var(--color-border));
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-slow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
   padding: 0;
-  margin-top: 20px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  margin: 0;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="light"] .swap-btn,
+:root:not([data-theme="dark"]) .swap-btn {
+  background: #B3E5FC;
+  box-shadow: 0 2px 8px rgba(3, 169, 244, 0.25), 0 0 0 1px rgba(3, 169, 244, 0.1);
+}
+
+[data-theme="dark"] .swap-btn {
+  background: #FFB74D;
+  box-shadow: 0 2px 8px rgba(255, 183, 77, 0.3), 0 0 0 1px rgba(255, 183, 77, 0.15);
 }
 
 .swap-btn:hover {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  transform: rotate(180deg) scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  transform: translateY(-2px) rotate(180deg);
+}
+
+[data-theme="light"] .swap-btn:hover,
+:root:not([data-theme="dark"]) .swap-btn:hover {
+  background: #81D4FA;
+  box-shadow: 0 4px 12px rgba(3, 169, 244, 0.35), 0 0 0 1px rgba(3, 169, 244, 0.2);
+}
+
+[data-theme="dark"] .swap-btn:hover {
+  background: #FFA726;
+  box-shadow: 0 4px 12px rgba(255, 183, 77, 0.4), 0 0 0 1px rgba(255, 183, 77, 0.25);
 }
 
 .swap-btn:active {
-  transform: rotate(180deg) scale(0.95);
+  transform: translateY(0) rotate(180deg) scale(0.9);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] .swap-btn:active,
+:root:not([data-theme="dark"]) .swap-btn:active {
+  box-shadow: 0 1px 4px rgba(3, 169, 244, 0.2), 0 0 0 1px rgba(3, 169, 244, 0.1);
+}
+
+[data-theme="dark"] .swap-btn:active {
+  box-shadow: 0 1px 4px rgba(255, 183, 77, 0.25), 0 0 0 1px rgba(255, 183, 77, 0.15);
 }
 
 .swap-icon {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   object-fit: contain;
-  transition: all var(--transition-base);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  position: relative;
 }
 
-.swap-btn:hover .swap-icon {
-  filter: brightness(0) invert(1);
+[data-theme="light"] .swap-icon,
+:root:not([data-theme="dark"]) .swap-icon {
+  filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(165deg) brightness(98%) contrast(101%);
+}
+
+[data-theme="dark"] .swap-icon {
+  filter: brightness(0) saturate(100%) invert(70%) sepia(95%) saturate(1352%) hue-rotate(340deg) brightness(102%) contrast(101%);
+}
+
+.swap-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.swap-btn:active::before {
+  width: 200%;
+  height: 200%;
 }
 
 /* Botón refresh premium */
@@ -574,12 +600,7 @@ button:focus {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.currency-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
-}
+/* Los iconos de moneda se manejan en custom-select.css */
 
 .currency-code {
   font-size: 1rem;
@@ -602,11 +623,15 @@ button:focus {
 .result-section {
   margin: 12px 0;
   padding: 20px;
-  background: linear-gradient(135deg, rgba(0, 122, 255, 0.08) 0%, rgba(0, 122, 255, 0.04) 100%);
-  border: 1px solid rgba(0, 122, 255, 0.2);
+  background: var(--theme-bg-tertiary);
+  border: 1px solid var(--theme-border-light);
   border-radius: 12px;
   text-align: center;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .result-section .result-value {
@@ -632,8 +657,8 @@ button:focus {
 .error-section {
   margin: 12px 0;
   padding: 16px 20px;
-  background: linear-gradient(135deg, rgba(0, 122, 255, 0.08) 0%, rgba(0, 122, 255, 0.04) 100%);
-  border: 1.5px solid rgba(0, 122, 255, 0.2);
+  background: var(--theme-bg-tertiary);
+  border: 1px solid var(--theme-border-light);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -656,25 +681,7 @@ button:focus {
   flex: 1;
 }
 
-[data-theme="dark"] .error-section {
-  background: linear-gradient(135deg, rgba(0, 122, 255, 0.12) 0%, rgba(0, 122, 255, 0.06) 100%);
-  border-color: rgba(0, 122, 255, 0.3);
-}
-
-[data-theme="dark"] .error-message {
-  color: #FFFFFF;
-}
-
-.error {
-  margin-top: var(--spacing-xl);
-  padding: var(--spacing-md) var(--spacing-lg);
-  background: rgba(255, 59, 48, 0.1);
-  border: 1px solid rgba(255, 59, 48, 0.2);
-  border-radius: var(--radius-md);
-  color: var(--color-error);
-  font-size: 0.9375rem;
-  text-align: center;
-}
+/* Los temas se manejan con variables CSS */
 
 /* ============================================
    MICROCOPY
@@ -739,6 +746,5 @@ select:disabled {
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--color-border-focus);
-  outline-offset: 2px;
+  outline: none;
 }

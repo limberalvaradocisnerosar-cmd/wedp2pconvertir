@@ -33,7 +33,6 @@
                 <div class="currency-selectors-container">
                     <!-- Moneda Origen -->
                     <div class="currency-selector-wrapper">
-                        <label for="fiatFrom" class="currency-selector-label">De</label>
                         <div class="currency-selector-box">
                             <select id="fiatFrom" class="currency-select">
                                 <option value="ARS" selected data-abbr="ARS">ARS - Peso Argentino</option>
@@ -52,7 +51,6 @@
                     
                     <!-- Moneda Destino -->
                     <div class="currency-selector-wrapper">
-                        <label for="fiatTo" class="currency-selector-label">A</label>
                         <div class="currency-selector-box">
                             <select id="fiatTo" class="currency-select">
                                 <option value="ARS" data-abbr="ARS">ARS - Peso Argentino</option>
@@ -174,6 +172,7 @@
                 }, 300);
             }
 
+            // Event listeners del panel
             if (panelToggle) {
                 panelToggle.addEventListener('click', () => {
                     const isOpen = panel.classList.contains('active') || panel.style.display === 'block';
@@ -181,6 +180,11 @@
                         closePanel();
                     } else {
                         openPanel();
+                        // Cargar contenido solo la primera vez
+                        if (!panel.classList.contains('loaded')) {
+                            loadPanelContent();
+                            panel.classList.add('loaded');
+                        }
                     }
                 });
             }
@@ -211,16 +215,12 @@
             const savedTheme = localStorage.getItem('theme') || 'auto';
             applyTheme(savedTheme);
 
-            // Intercambiador de monedas - el selector personalizado maneja las banderas
+            // Intercambiador de monedas
             const swapBtn = document.getElementById('swap-currencies-btn');
             const fiatFrom = document.getElementById('fiatFrom');
             const fiatTo = document.getElementById('fiatTo');
             const inputCurrency = document.getElementById('input-currency');
             
-            /**
-             * Actualiza solo la moneda en el input
-             * Las banderas las maneja custom-select.js
-             */
             function updateInputCurrency() {
                 if (fiatFrom && inputCurrency) {
                     inputCurrency.textContent = fiatFrom.value;
@@ -329,16 +329,6 @@
                 }
             }
 
-            // Cargar contenido cuando se abre el panel
-            if (panelToggle) {
-                panelToggle.addEventListener('click', () => {
-                    if (!panel.classList.contains('loaded')) {
-                        loadPanelContent();
-                        panel.classList.add('loaded');
-                    }
-                    setTimeout(loadPanelPrices, 100);
-                });
-            }
         })();
     </script>
 </body>
