@@ -231,18 +231,29 @@
   }
 
   .custom-select-icon {
-    width: 43px !important;
-    height: 43px !important;
+    width: 34px !important;
+    height: 34px !important;
   }
 
   .custom-select-text {
-    font-size: 1rem;
+    font-size: 0.875rem;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+    min-width: auto;
+    flex-shrink: 0;
   }
 
-  .custom-select-icon {
-    width: 43px !important;
-    height: 43px !important;
+  .custom-select-button {
+    gap: 6px;
+    min-width: 0;
+    overflow: visible;
+  }
+
+  .currency-selector-box {
+    min-width: 0;
+    overflow: visible;
   }
 
   /* Los iconos se ajustan automáticamente en custom-select */
