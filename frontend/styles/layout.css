@@ -90,8 +90,14 @@
   box-shadow: none;
 }
 
-/* El selector personalizado maneja los iconos y estilos */
-/* Los estilos base del select nativo están ocultos por custom-select */
+.currency-select {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
 /* .currency-pair eliminado - no se usa */
 

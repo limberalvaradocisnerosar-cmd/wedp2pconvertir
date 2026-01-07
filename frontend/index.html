@@ -215,11 +215,8 @@
             const savedTheme = localStorage.getItem('theme') || 'auto';
             applyTheme(savedTheme);
 
-            // Intercambiador de monedas
-            const swapBtn = document.getElementById('swap-currencies-btn');
-            const fiatFrom = document.getElementById('fiatFrom');
-            const fiatTo = document.getElementById('fiatTo');
             const inputCurrency = document.getElementById('input-currency');
+            const fiatFrom = document.getElementById('fiatFrom');
             
             function updateInputCurrency() {
                 if (fiatFrom && inputCurrency) {
@@ -227,29 +224,10 @@
                 }
             }
             
-            // Intercambiar monedas
-            if (swapBtn && fiatFrom && fiatTo) {
-                swapBtn.addEventListener('click', () => {
-                    const temp = fiatFrom.value;
-                    fiatFrom.value = fiatTo.value;
-                    fiatTo.value = temp;
-                    
-                    // Disparar eventos change para que el selector personalizado se actualice
-                    fiatFrom.dispatchEvent(new Event('change', { bubbles: true }));
-                    fiatTo.dispatchEvent(new Event('change', { bubbles: true }));
-                    
-                    // Actualizar solo el input
-                    updateInputCurrency();
-                });
-            }
-            
-            // Actualizar input cuando cambia el select origen
             if (fiatFrom) {
                 fiatFrom.addEventListener('change', updateInputCurrency);
+                updateInputCurrency();
             }
-            
-            // Inicializar input
-            updateInputCurrency();
 
             // Cargar contenido del panel desde HTML
             async function loadPanelContent() {

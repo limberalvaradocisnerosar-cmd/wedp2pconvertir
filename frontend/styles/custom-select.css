@@ -28,11 +28,10 @@
   background: transparent;
   cursor: pointer;
   font-family: inherit;
-  font-size: 0.875rem;
-  font-weight: 600;
   color: var(--theme-text-primary, var(--color-text-primary));
   text-align: left;
   transition: all var(--transition-base);
+  min-width: 0;
 }
 
 .custom-select-button:hover {
@@ -49,6 +48,11 @@
   padding: 0;
   margin: 0;
   display: block;
+  mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] .custom-select-icon {
+  mix-blend-mode: screen;
 }
 
 .custom-select-text {
@@ -57,6 +61,9 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .custom-select-arrow {
@@ -180,6 +187,11 @@
   padding: 0;
   margin: 0;
   display: block;
+  mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] .option-icon {
+  mix-blend-mode: screen;
 }
 
 .option-text {

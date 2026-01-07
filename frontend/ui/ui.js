@@ -227,25 +227,39 @@ async function handleRefresh() {
 export function initUI() {
   const elements = getElements();
   
-  // Inicializar formateo del input PRIMERO
   if (elements.amountInput) {
     initInputFormatter(elements.amountInput);
   }
   
-  // Event listener para calcular (botón manual)
   if (elements.calculateBtn) {
     elements.calculateBtn.addEventListener('click', () => handleCalculate(true));
   }
   
-  // Event listener para actualizar precios
   if (elements.refreshBtn) {
     elements.refreshBtn.addEventListener('click', handleRefresh);
   }
   
-  // Cálculo automático cuando cambian los inputs
-  // El formateo ya maneja el evento 'input', así que usamos un listener separado
+  const swapBtn = document.getElementById('swap-currencies-btn');
+  const inputCurrency = document.getElementById('input-currency');
+  
+  if (swapBtn && elements.fiatFromSelect && elements.fiatToSelect) {
+    swapBtn.addEventListener('click', () => {
+      const temp = elements.fiatFromSelect.value;
+      elements.fiatFromSelect.value = elements.fiatToSelect.value;
+      elements.fiatToSelect.value = temp;
+      
+      elements.fiatFromSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      elements.fiatToSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      
+      if (inputCurrency && elements.fiatFromSelect) {
+        inputCurrency.textContent = elements.fiatFromSelect.value;
+      }
+      
+      handleAutoCalculate();
+    });
+  }
+  
   if (elements.amountInput) {
-    // Usar un pequeño delay para que el formateo termine primero
     elements.amountInput.addEventListener('input', () => {
       setTimeout(handleAutoCalculate, 100);
     });
@@ -253,14 +267,18 @@ export function initUI() {
   }
   
   if (elements.fiatFromSelect) {
-    elements.fiatFromSelect.addEventListener('change', handleAutoCalculate);
+    elements.fiatFromSelect.addEventListener('change', () => {
+      if (inputCurrency) {
+        inputCurrency.textContent = elements.fiatFromSelect.value;
+      }
+      handleAutoCalculate();
+    });
   }
   
   if (elements.fiatToSelect) {
     elements.fiatToSelect.addEventListener('change', handleAutoCalculate);
   }
   
-  // Permitir calcular con Enter en el input (forzar cálculo inmediato)
   if (elements.amountInput) {
     elements.amountInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
@@ -270,6 +288,10 @@ export function initUI() {
         handleCalculate(true);
       }
     });
+  }
+  
+  if (inputCurrency && elements.fiatFromSelect) {
+    inputCurrency.textContent = elements.fiatFromSelect.value;
   }
 }
 

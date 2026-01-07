@@ -53,10 +53,10 @@ export function createCustomSelect(selectElement) {
     const currentIcon = icon || selectElement.parentElement.querySelector('.currency-icon');
     const iconSrc = iconMap[abbr] || (currentIcon ? currentIcon.src : '');
     
-    // Solo mostrar código (ARS, BOB) con icono, no el texto completo
+    const fullText = selectedOption.textContent;
     selectButton.innerHTML = `
       ${iconSrc ? `<img src="${iconSrc}" alt="${abbr}" class="custom-select-icon">` : ''}
-      <span class="custom-select-text">${abbr}</span>
+      <span class="custom-select-text">${fullText}</span>
       <svg class="custom-select-arrow" width="10" height="10" viewBox="0 0 12 12" fill="none">
         <path d="M6 9L1 4h10z" fill="currentColor"/>
       </svg>

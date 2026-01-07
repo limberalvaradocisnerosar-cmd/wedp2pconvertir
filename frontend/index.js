@@ -7,12 +7,8 @@ import { initCustomSelects } from './ui/custom-select.js';
 
 // Inicializar UI cuando el DOM esté listo
 function initialize() {
+  initCustomSelects();
   initUI();
-  // Inicializar selectores personalizados después de un pequeño delay
-  // para asegurar que el DOM esté completamente listo
-  setTimeout(() => {
-    initCustomSelects();
-  }, 100);
 }
 
 if (document.readyState === 'loading') {
