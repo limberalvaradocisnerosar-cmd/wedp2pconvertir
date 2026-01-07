@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método de Cálculo - Convertidor P2P</title>
+    <link rel="icon" href="/frontend/public/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/frontend/styles/base.css">
+    <link rel="stylesheet" href="/frontend/styles/themes.css">
+    <link rel="stylesheet" href="/frontend/styles/panel.css">
+    <style>
+        body {
+            padding: var(--spacing-xl);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .page-header {
+            margin-bottom: var(--spacing-2xl);
+        }
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--theme-text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--theme-bg-secondary);
+            border: 1px solid var(--theme-border);
+            border-radius: var(--radius-md);
+            color: var(--theme-text-primary);
+            text-decoration: none;
+            transition: all var(--transition-base);
+            margin-bottom: var(--spacing-lg);
+        }
+        .back-btn:hover {
+            background: var(--theme-bg-tertiary);
+            border-color: var(--color-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <a href="javascript:history.back()" class="back-btn">← Volver</a>
+        <h1>Método de Cálculo</h1>
+    </div>
+    
+    <div class="info-card">
+        <div class="card-icon">
+            <img src="/frontend/public/panelconfi/meotodo-calculo.svg" alt="Método de cálculo" class="card-icon-img" draggable="false" oncontextmenu="return false;" ondragstart="return false;" style="pointer-events: none; user-select: none;">
+        </div>
+        <h2>Método de Cálculo</h2>
+        <p class="card-description">
+            Utilizamos un algoritmo robusto que garantiza precios justos y representativos del mercado.
+        </p>
+        <div class="method-steps">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Recolección</h3>
+                    <p>Obtenemos los últimos <strong>15 anuncios</strong> de compra/venta para cada moneda</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Filtrado</h3>
+                    <p>Ignoramos los <strong>5 más altos</strong> y los <strong>5 más bajos</strong> para eliminar outliers</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Promedio</h3>
+                    <p>Calculamos el promedio de los <strong>5 anuncios centrales</strong> restantes</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Protección</h3>
+                    <p>Aplicamos validaciones para evitar precios anómalos o fuera de rango</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

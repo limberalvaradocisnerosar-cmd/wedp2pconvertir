@@ -232,8 +232,9 @@
                     // Inicializar sistema de temas después de cargar el HTML
                     initThemeSystem();
 
-                    // Cargar precios en la tabla
-                    loadPanelPrices();
+                    // Inicializar botones del panel y popups
+                    const { initPanelButtons } = await import('/frontend/ui/panel-popups.js');
+                    initPanelButtons();
                 } catch (error) {
                     console.error('Error cargando panel:', error);
                     panelBody.innerHTML = '<div class="error-text">Error al cargar el panel</div>';
@@ -242,19 +243,39 @@
 
             // Inicializar sistema de temas
             function initThemeSystem() {
-                const themeSelect = document.getElementById('theme-select');
-                if (!themeSelect) return;
+                const themeButtons = document.querySelectorAll('.theme-btn');
+                if (!themeButtons || themeButtons.length === 0) return;
 
                 // Cargar tema guardado
                 const savedTheme = localStorage.getItem('theme') || 'auto';
-                themeSelect.value = savedTheme;
+                
+                // Aplicar tema guardado
                 applyTheme(savedTheme);
-
-                // Escuchar cambios de tema
-                themeSelect.addEventListener('change', (e) => {
-                    const theme = e.target.value;
-                    localStorage.setItem('theme', theme);
-                    applyTheme(theme);
+                
+                // Marcar botón activo según tema guardado
+                themeButtons.forEach(btn => {
+                    const btnTheme = btn.getAttribute('data-theme');
+                    if (btnTheme === savedTheme) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                    
+                    // Agregar event listener a cada botón
+                    btn.addEventListener('click', () => {
+                        const theme = btn.getAttribute('data-theme');
+                        localStorage.setItem('theme', theme);
+                        applyTheme(theme);
+                        
+                        // Actualizar estado activo de todos los botones
+                        themeButtons.forEach(b => {
+                            if (b === btn) {
+                                b.classList.add('active');
+                            } else {
+                                b.classList.remove('active');
+                            }
+                        });
+                    });
                 });
             }
 

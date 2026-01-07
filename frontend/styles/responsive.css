@@ -509,3 +509,44 @@
     transform: none;
   }
 }
+
+/* ============================================
+   PANEL LATERAL RESPONSIVE
+   ============================================ */
+
+@media (max-width: 480px) {
+  .info-panel-content {
+    width: 280px;
+    max-width: calc(100vw - 20px);
+  }
+  
+  .panel-info-btn {
+    min-height: 52px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  
+  .panel-btn-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .panel-btn-label {
+    font-size: 0.8125rem;
+  }
+  
+  .panel-section-title {
+    font-size: 0.6875rem;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 480px) and (min-height: 500px) {
+  .info-panel-content {
+    width: 300px;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 480px) and (min-height: 700px) {
+  .info-panel-content {
+    width: 320px;
+  }
+}

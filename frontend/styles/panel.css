@@ -35,20 +35,21 @@
 
 .info-panel-content {
   position: absolute;
-  top: 0;
+  top: 50%;
   right: 0;
-  width: 100%;
-  max-width: 800px;
-  height: 100%;
+  transform: translate(100%, -50%);
+  width: 320px;
+  max-width: calc(100vw - 40px);
+  max-height: 90vh;
   background: var(--theme-bg-primary);
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
   overflow-y: auto;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
 }
 
 .info-panel.active .info-panel-content {
-  transform: translateX(0);
+  transform: translate(0, -50%);
 }
 
 /* ============================================
@@ -60,7 +61,7 @@
   top: 0;
   background: var(--theme-bg-secondary);
   border-bottom: 1px solid var(--theme-border-light);
-  padding: var(--spacing-lg) var(--spacing-xl);
+  padding: var(--spacing-md) var(--spacing-lg);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,11 +70,11 @@
 }
 
 .info-panel-header h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 1.125rem;
+  font-weight: 600;
   color: var(--theme-text-primary);
   margin: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .panel-close-btn {
@@ -102,8 +103,210 @@
    ============================================ */
 
 .info-panel-body {
-  padding: var(--spacing-xl);
+  padding: var(--spacing-lg);
   max-width: 100%;
+}
+
+/* ============================================
+   BOTONES DEL PANEL
+   ============================================ */
+
+.panel-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: 0;
+}
+
+.panel-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.panel-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--theme-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+.panel-buttons-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: 0;
+  width: 100%;
+}
+
+.panel-info-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--theme-bg-secondary);
+  border: 2px solid var(--theme-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  width: 100%;
+  min-height: 56px;
+}
+
+.panel-info-btn:hover {
+  background: var(--theme-bg-tertiary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.15);
+}
+
+.panel-info-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.1);
+}
+
+.panel-info-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2), 0 4px 12px rgba(0, 122, 255, 0.25);
+}
+
+.panel-info-btn.active .panel-btn-icon {
+  filter: brightness(0) invert(1);
+}
+
+.panel-info-btn.active .panel-btn-label {
+  color: #FFFFFF;
+}
+
+.panel-btn-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.panel-btn-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--theme-text-primary);
+  text-align: left;
+  line-height: 1.2;
+  flex: 1;
+}
+
+/* ============================================
+   TARJETAS FLOTANTES (POPUPS)
+   ============================================ */
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.popup-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.popup-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  max-width: 600px;
+  width: calc(100% - 32px);
+  max-height: 80vh;
+  background: var(--theme-bg-secondary);
+  border-radius: var(--radius-xl);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(0, 0, 0, 0.1);
+  z-index: 2001;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-card.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: all;
+}
+
+.popup-content {
+  padding: var(--spacing-xl);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.popup-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--theme-text-primary);
+  margin-bottom: var(--spacing-md);
+  letter-spacing: -0.02em;
+}
+
+.popup-loading,
+.popup-error {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--theme-text-secondary);
+}
+
+.popup-error {
+  color: var(--color-error);
+}
+
+.info-card-popup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.info-card-popup .card-description {
+  margin-bottom: var(--spacing-md);
+}
+
+.info-card-popup .card-details {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+}
+
+.info-card-popup .buy-sell-explanation {
+  margin-top: var(--spacing-md);
+}
+
+.info-card-popup .prices-table-container {
+  margin-top: var(--spacing-md);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.info-card-popup .protection-list {
+  margin-top: var(--spacing-md);
 }
 
 /* ============================================
@@ -131,7 +334,18 @@
 .card-icon {
   font-size: 2.5rem;
   margin-bottom: var(--spacing-md);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+}
+
+.card-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .info-card h2 {
@@ -283,6 +497,18 @@
 .buy-sell-icon {
   font-size: 2rem;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.buy-sell-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .buy-sell-content h3 {
