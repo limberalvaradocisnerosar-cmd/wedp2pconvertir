@@ -39,8 +39,8 @@
 }
 
 .custom-select-icon {
-  width: 34px;
-  height: 34px;
+  width: 26px;
+  height: 26px;
   border-radius: var(--radius-full);
   object-fit: cover;
   flex-shrink: 0;
