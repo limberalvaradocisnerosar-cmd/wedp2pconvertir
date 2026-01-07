@@ -11,6 +11,7 @@
   position: relative;
   flex: 1;
   min-width: 0;
+  z-index: 1;
 }
 
 /* ============================================
@@ -72,16 +73,13 @@
    ============================================ */
 
 .custom-select-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
-  z-index: var(--z-dropdown);
+  position: fixed;
+  z-index: 9999;
   background: var(--theme-bg-secondary, var(--color-bg-secondary));
   border: 1.5px solid var(--theme-border, var(--color-border));
   border-radius: var(--radius-lg);
   box-shadow: 
-    0 4px 24px rgba(0, 0, 0, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.2),
     0 0 0 1px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   opacity: 0;
@@ -90,6 +88,7 @@
   transition: all var(--transition-slow);
   max-height: 300px;
   overflow-y: auto;
+  min-width: 200px;
 }
 
 .custom-select-wrapper.open .custom-select-dropdown {
@@ -99,8 +98,6 @@
 }
 
 .custom-select-dropdown.dropdown-up {
-  top: auto;
-  bottom: calc(100% + 8px);
   transform: translateY(10px) scale(0.95);
 }
 
@@ -139,6 +136,35 @@
 
 .custom-select-option.selected:hover {
   background: rgba(0, 122, 255, 0.15);
+}
+
+.custom-select-option.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--theme-bg-tertiary, var(--color-bg-tertiary));
+  position: relative;
+}
+
+.custom-select-option.disabled:hover {
+  background: var(--theme-bg-tertiary, var(--color-bg-tertiary));
+  transform: none;
+}
+
+.custom-select-option.disabled .option-text {
+  color: var(--theme-text-tertiary, var(--color-text-tertiary));
+}
+
+.custom-select-option.disabled .option-icon {
+  opacity: 0.4;
+  filter: grayscale(100%);
+}
+
+.option-disabled-hint {
+  font-size: 0.75rem;
+  color: var(--theme-text-tertiary, var(--color-text-tertiary));
+  font-style: italic;
+  margin-left: auto;
+  opacity: 0.7;
 }
 
 .option-icon {
@@ -197,21 +223,21 @@
 
 @media (max-width: 480px) {
   .custom-select-dropdown {
-    max-height: 250px;
+    max-height: 200px;
   }
 
   .custom-select-option {
-    padding: 10px 12px;
-    gap: 8px;
+    padding: 8px 10px;
+    gap: 6px;
   }
 
   .option-icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 
   .option-text {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
   }
 }
 

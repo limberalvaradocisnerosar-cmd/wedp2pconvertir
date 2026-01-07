@@ -46,19 +46,19 @@ function getElements() {
  */
 function validateInputs(amount, fiatFrom, fiatTo) {
   if (!amount || amount <= 0) {
-    return 'Ingresa un monto válido mayor a 0';
+    return 'Por favor, ingresa un monto para convertir';
   }
   
   if (!fiatFrom) {
-    return 'Selecciona la moneda origen';
+    return 'Selecciona la moneda de origen';
   }
   
   if (!fiatTo) {
-    return 'Selecciona la moneda destino';
+    return 'Selecciona la moneda de destino';
   }
   
   if (fiatFrom === fiatTo) {
-    return 'Las monedas origen y destino deben ser diferentes';
+    return 'Selecciona monedas diferentes para convertir';
   }
   
   return null;

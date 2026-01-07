@@ -12,6 +12,10 @@
       "destination": "/frontend/:path*"
     },
     {
+      "source": "/calculator/:path*",
+      "destination": "/calculator/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/frontend/index.html"
     }

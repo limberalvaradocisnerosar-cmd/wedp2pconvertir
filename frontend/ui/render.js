@@ -29,27 +29,36 @@ export function renderResult(result, fiatTo) {
 }
 
 /**
- * Muestra un error
- * @param {string} message - Mensaje de error
+ * Muestra un mensaje informativo (sin la palabra "Error")
+ * @param {string} message - Mensaje informativo
  */
 export function renderError(message) {
   const resultDiv = document.getElementById('result');
   const errorDiv = document.getElementById('error');
   
   // Ocultar resultado
-  resultDiv.style.display = 'none';
+  if (resultDiv) {
+    resultDiv.style.display = 'none';
+  }
   
-  // Mostrar error
-  errorDiv.style.display = 'block';
-  errorDiv.className = 'error';
-  errorDiv.textContent = `Error: ${message}`;
-  
-  // Animación de entrada
-  errorDiv.style.opacity = '0';
-  setTimeout(() => {
-    errorDiv.style.transition = 'opacity 0.3s ease';
-    errorDiv.style.opacity = '1';
-  }, 10);
+  // Mostrar mensaje informativo
+  if (errorDiv) {
+    errorDiv.style.display = 'block';
+    errorDiv.className = 'error-section';
+    errorDiv.innerHTML = `
+      <div class="error-icon">ℹ️</div>
+      <div class="error-message">${message}</div>
+    `;
+    
+    // Animación de entrada
+    errorDiv.style.opacity = '0';
+    errorDiv.style.transform = 'translateY(-10px)';
+    setTimeout(() => {
+      errorDiv.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      errorDiv.style.opacity = '1';
+      errorDiv.style.transform = 'translateY(0)';
+    }, 10);
+  }
 }
 
 /**

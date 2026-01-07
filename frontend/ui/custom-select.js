@@ -53,14 +53,36 @@ export function createCustomSelect(selectElement) {
     `;
   }
   
+  // Obtener el otro selector para evitar duplicados
+  function getOtherSelector() {
+    const allSelects = document.querySelectorAll('.currency-select');
+    if (allSelects.length !== 2) return null;
+    
+    // Identificar si este es el primero o segundo
+    const isFirst = selectElement.id === 'fiatFrom' || 
+                    (selectElement.id !== 'fiatTo' && allSelects[0] === selectElement);
+    
+    return isFirst ? allSelects[1] : allSelects[0];
+  }
+  
   // Crear opciones del dropdown
   function createOptions() {
     dropdown.innerHTML = '';
+    const otherSelector = getOtherSelector();
+    const otherValue = otherSelector ? otherSelector.value : null;
+    
     Array.from(selectElement.options).forEach((option, index) => {
       const optionElement = document.createElement('div');
+      const isSelected = option.selected;
+      const isDisabled = otherValue && option.value === otherValue && !isSelected;
+      
       optionElement.className = 'custom-select-option';
-      if (option.selected) {
+      if (isSelected) {
         optionElement.classList.add('selected');
+      }
+      if (isDisabled) {
+        optionElement.classList.add('disabled');
+        optionElement.title = 'Esta moneda ya está seleccionada en el otro campo';
       }
       
       const abbr = option.getAttribute('data-abbr') || option.value;
@@ -69,30 +91,35 @@ export function createCustomSelect(selectElement) {
       optionElement.innerHTML = `
         <img src="${iconMap[option.value] || ''}" alt="${abbr}" class="option-icon" onerror="this.style.display='none'">
         <span class="option-text">${fullText}</span>
-        ${option.selected ? '<svg class="option-check" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4L6 11.5L2.5 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
+        ${isSelected ? '<svg class="option-check" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4L6 11.5L2.5 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
+        ${isDisabled ? '<span class="option-disabled-hint">Ya seleccionada</span>' : ''}
       `;
       
-      optionElement.addEventListener('click', () => {
-        // Actualizar el select nativo
-        selectElement.selectedIndex = index;
-        
-        // Cerrar dropdown primero
-        closeDropdown();
-        
-        // Actualizar botón
-        updateButton();
-        
-        // Actualizar ícono si existe
-        if (icon) {
-          icon.src = iconMap[option.value] || '';
-          icon.alt = option.value;
-        }
-        
-        // Disparar evento change después de actualizar visualmente
-        setTimeout(() => {
-          selectElement.dispatchEvent(new Event('change', { bubbles: true }));
-        }, 10);
-      });
+      if (!isDisabled) {
+        optionElement.addEventListener('click', () => {
+          // Actualizar el select nativo
+          selectElement.selectedIndex = index;
+          
+          // Cerrar dropdown primero
+          closeDropdown();
+          
+          // Actualizar botón
+          updateButton();
+          
+          // Actualizar ícono si existe
+          if (icon) {
+            icon.src = iconMap[option.value] || '';
+            icon.alt = option.value;
+          }
+          
+          // Disparar evento change después de actualizar visualmente
+          setTimeout(() => {
+            selectElement.dispatchEvent(new Event('change', { bubbles: true }));
+          }, 10);
+        });
+      } else {
+        optionElement.style.cursor = 'not-allowed';
+      }
       
       dropdown.appendChild(optionElement);
     });
@@ -109,18 +136,30 @@ export function createCustomSelect(selectElement) {
   }
   
   function openDropdown() {
-    customSelect.classList.add('open');
+    // Actualizar opciones antes de abrir para reflejar cambios en el otro selector
     createOptions();
-    // Ajustar posición del dropdown si es necesario
+    
+    customSelect.classList.add('open');
+    
+    // Calcular posición del dropdown con position: fixed
     const rect = selectButton.getBoundingClientRect();
     const spaceBelow = window.innerHeight - rect.bottom;
     const spaceAbove = rect.top;
     
+    // Calcular posición
     if (spaceBelow < 200 && spaceAbove > spaceBelow) {
+      // Mostrar arriba
+      dropdown.style.top = `${rect.top + window.scrollY - dropdown.offsetHeight - 8}px`;
       dropdown.classList.add('dropdown-up');
     } else {
+      // Mostrar abajo
+      dropdown.style.top = `${rect.bottom + window.scrollY + 8}px`;
       dropdown.classList.remove('dropdown-up');
     }
+    
+    // Posición horizontal
+    dropdown.style.left = `${rect.left + window.scrollX}px`;
+    dropdown.style.width = `${rect.width}px`;
   }
   
   function closeDropdown() {
@@ -135,7 +174,7 @@ export function createCustomSelect(selectElement) {
   
   // Cerrar al hacer click fuera
   document.addEventListener('click', (e) => {
-    if (!customSelect.contains(e.target)) {
+    if (!customSelect.contains(e.target) && !dropdown.contains(e.target)) {
       closeDropdown();
     }
   });
@@ -146,12 +185,30 @@ export function createCustomSelect(selectElement) {
       closeDropdown();
     }
   });
+
+  // Cerrar al hacer scroll
+  window.addEventListener('scroll', () => {
+    if (customSelect.classList.contains('open')) {
+      closeDropdown();
+    }
+  }, true);
   
   // Escuchar cambios del select nativo (por si cambia programáticamente)
   selectElement.addEventListener('change', () => {
     updateButton();
     createOptions();
   });
+  
+  // Escuchar cambios del otro selector para actualizar opciones deshabilitadas
+  const otherSelector = getOtherSelector();
+  if (otherSelector) {
+    otherSelector.addEventListener('change', () => {
+      // Solo actualizar si el dropdown está abierto
+      if (customSelect.classList.contains('open')) {
+        createOptions();
+      }
+    });
+  }
   
   // Construir estructura
   customSelect.appendChild(selectButton);

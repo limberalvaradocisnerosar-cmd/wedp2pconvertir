@@ -15,8 +15,15 @@
 </head>
 <body>
     <!-- Botón flotante del panel -->
-    <button id="panel-toggle-btn" class="panel-toggle-btn floating" title="Ver información">
-        <img src="/frontend/public/ajustes.svg" alt="Ajustes" class="panel-icon">
+    <button 
+        id="panel-toggle-btn" 
+        class="panel-toggle-btn floating" 
+        title="Ver información y configuración"
+        aria-label="Abrir panel de información"
+        aria-expanded="false"
+        type="button"
+    >
+        <img src="/frontend/public/ajustes.svg" alt="Ajustes" class="panel-icon" aria-hidden="true">
     </button>
 
     <div class="container">
@@ -28,7 +35,6 @@
                     <div class="currency-selector-wrapper">
                         <label for="fiatFrom" class="currency-selector-label">De</label>
                         <div class="currency-selector-box">
-                            <img src="/frontend/public/banderas/argentina.svg" alt="ARS" class="currency-icon" id="icon-from" onerror="this.style.display='none'">
                             <select id="fiatFrom" class="currency-select">
                                 <option value="ARS" selected data-abbr="ARS">ARS - Peso Argentino</option>
                                 <option value="BOB" data-abbr="BOB">BOB - Boliviano</option>
@@ -48,7 +54,6 @@
                     <div class="currency-selector-wrapper">
                         <label for="fiatTo" class="currency-selector-label">A</label>
                         <div class="currency-selector-box">
-                            <img src="/frontend/public/banderas/bolivia.svg" alt="BOB" class="currency-icon" id="icon-to" onerror="this.style.display='none'">
                             <select id="fiatTo" class="currency-select">
                                 <option value="ARS" data-abbr="ARS">ARS - Peso Argentino</option>
                                 <option value="BOB" selected data-abbr="BOB">BOB - Boliviano</option>
@@ -149,6 +154,9 @@
 
             function openPanel() {
                 panel.style.display = 'block';
+                if (panelToggle) {
+                    panelToggle.setAttribute('aria-expanded', 'true');
+                }
                 setTimeout(() => {
                     panel.classList.add('active');
                 }, 10);
@@ -157,6 +165,9 @@
 
             function closePanel() {
                 panel.classList.remove('active');
+                if (panelToggle) {
+                    panelToggle.setAttribute('aria-expanded', 'false');
+                }
                 setTimeout(() => {
                     panel.style.display = 'none';
                     document.body.style.overflow = '';
@@ -164,7 +175,14 @@
             }
 
             if (panelToggle) {
-                panelToggle.addEventListener('click', openPanel);
+                panelToggle.addEventListener('click', () => {
+                    const isOpen = panel.classList.contains('active') || panel.style.display === 'block';
+                    if (isOpen) {
+                        closePanel();
+                    } else {
+                        openPanel();
+                    }
+                });
             }
             if (panelClose) {
                 panelClose.addEventListener('click', closePanel);
@@ -193,47 +211,19 @@
             const savedTheme = localStorage.getItem('theme') || 'auto';
             applyTheme(savedTheme);
 
-            // Intercambiador de monedas (simplificado - el selector personalizado maneja su propio display)
+            // Intercambiador de monedas - el selector personalizado maneja las banderas
             const swapBtn = document.getElementById('swap-currencies-btn');
             const fiatFrom = document.getElementById('fiatFrom');
             const fiatTo = document.getElementById('fiatTo');
             const inputCurrency = document.getElementById('input-currency');
             
-            // Mapa de íconos de banderas
-            const iconMap = {
-                'ARS': '/frontend/public/banderas/argentina.svg',
-                'BOB': '/frontend/public/banderas/bolivia.svg',
-                'CLP': '/frontend/public/banderas/chile.svg',
-                'MXN': '/frontend/public/banderas/mexico.svg',
-                'PEN': '/frontend/public/banderas/peru.svg'
-            };
-            
             /**
-             * Actualiza el display visual de las monedas
-             * Solo actualiza el input y los íconos, el selector personalizado maneja su propio display
+             * Actualiza solo la moneda en el input
+             * Las banderas las maneja custom-select.js
              */
-            function updateCurrencyDisplay() {
-                if (fiatFrom && fiatTo && inputCurrency) {
-                    const fromValue = fiatFrom.value;
-                    
-                    // Actualizar moneda en el input
-                    inputCurrency.textContent = fromValue;
-                    
-                    // Actualizar íconos (el selector personalizado ya actualiza los suyos)
-                    const iconFrom = document.getElementById('icon-from');
-                    const iconTo = document.getElementById('icon-to');
-                    
-                    if (iconFrom && iconMap[fromValue]) {
-                        iconFrom.src = iconMap[fromValue];
-                        iconFrom.alt = fromValue;
-                        iconFrom.style.display = 'block';
-                    }
-                    
-                    if (iconTo && iconMap[fiatTo.value]) {
-                        iconTo.src = iconMap[fiatTo.value];
-                        iconTo.alt = fiatTo.value;
-                        iconTo.style.display = 'block';
-                    }
+            function updateInputCurrency() {
+                if (fiatFrom && inputCurrency) {
+                    inputCurrency.textContent = fiatFrom.value;
                 }
             }
             
@@ -248,19 +238,18 @@
                     fiatFrom.dispatchEvent(new Event('change', { bubbles: true }));
                     fiatTo.dispatchEvent(new Event('change', { bubbles: true }));
                     
-                    // Actualizar display
-                    updateCurrencyDisplay();
+                    // Actualizar solo el input
+                    updateInputCurrency();
                 });
             }
             
-            // Actualizar display cuando cambian los selects
-            if (fiatFrom && fiatTo) {
-                fiatFrom.addEventListener('change', updateCurrencyDisplay);
-                fiatTo.addEventListener('change', updateCurrencyDisplay);
+            // Actualizar input cuando cambia el select origen
+            if (fiatFrom) {
+                fiatFrom.addEventListener('change', updateInputCurrency);
             }
             
-            // Inicializar display
-            updateCurrencyDisplay();
+            // Inicializar input
+            updateInputCurrency();
 
             // Cargar contenido del panel desde HTML
             async function loadPanelContent() {
@@ -310,7 +299,7 @@
                 if (!tbody) return;
 
                 try {
-                    const { getPrices } = await import('/frontend/calculator/index.js');
+                    const { getPrices } = await import('/calculator/index.js');
                     const prices = await getPrices();
                     
                     if (!prices || Object.keys(prices).length === 0) {
