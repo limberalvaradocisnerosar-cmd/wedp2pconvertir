@@ -29,6 +29,9 @@ export function createCustomSelect(selectElement) {
   const dropdown = document.createElement('div');
   dropdown.className = 'custom-select-dropdown';
   
+  // Ancho fijo del dropdown (se calcula una sola vez)
+  let fixedDropdownWidth = null;
+  
   // Obtener el ícono si existe
   const icon = selectElement.parentElement.querySelector('.currency-icon');
   
@@ -168,10 +171,6 @@ export function createCustomSelect(selectElement) {
       if (!container) return;
       
       const containerRect = container.getBoundingClientRect();
-      const wrapperRect = customSelect.getBoundingClientRect();
-      
-      const topOffset = containerRect.bottom - wrapperRect.top + 8;
-      const leftOffset = containerRect.left + (containerRect.width / 2) - wrapperRect.left;
       
       dropdown.style.position = 'fixed';
       dropdown.style.top = `${containerRect.bottom + 8}px`;
@@ -179,22 +178,34 @@ export function createCustomSelect(selectElement) {
       dropdown.style.transform = 'translateX(-50%)';
       dropdown.style.right = 'auto';
       
-      const optionElements = dropdown.querySelectorAll('.custom-select-option');
-      let maxContentWidth = 200;
+      // Calcular ancho solo la primera vez
+      if (fixedDropdownWidth === null) {
+        const optionElements = dropdown.querySelectorAll('.custom-select-option');
+        let maxContentWidth = 200;
+        
+        // Primero aplicar un ancho temporal para medir correctamente
+        dropdown.style.width = 'auto';
+        dropdown.style.minWidth = '200px';
+        dropdown.style.maxWidth = 'none';
+        
+        optionElements.forEach(option => {
+          option.style.whiteSpace = 'nowrap';
+          // Forzar un layout para obtener medidas precisas
+          const tempWidth = option.offsetWidth;
+          if (tempWidth > maxContentWidth) {
+            maxContentWidth = tempWidth;
+          }
+        });
+        
+        const maxWidth = Math.min(maxContentWidth + 48, window.innerWidth - 32);
+        fixedDropdownWidth = Math.max(200, maxWidth);
+      }
       
-      optionElements.forEach(option => {
-        option.style.whiteSpace = 'nowrap';
-        const optionWidth = option.scrollWidth;
-        if (optionWidth > maxContentWidth) {
-          maxContentWidth = optionWidth;
-        }
-      });
-      
-      const maxWidth = Math.min(maxContentWidth + 48, window.innerWidth - 32);
-      const fixedWidth = Math.max(200, maxWidth);
-      dropdown.style.width = `${fixedWidth}px`;
-      dropdown.style.minWidth = `${fixedWidth}px`;
-      dropdown.style.maxWidth = `${fixedWidth}px`;
+      // Aplicar ancho fijo siempre (resetear cualquier estilo previo)
+      dropdown.style.width = `${fixedDropdownWidth}px`;
+      dropdown.style.minWidth = `${fixedDropdownWidth}px`;
+      dropdown.style.maxWidth = `${fixedDropdownWidth}px`;
+      dropdown.style.boxSizing = 'border-box';
     });
   }
   
