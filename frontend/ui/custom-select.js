@@ -146,37 +146,55 @@ export function createCustomSelect(selectElement) {
     }
   }
   
+  function closeAllOtherSelects() {
+    const allSelects = document.querySelectorAll('.custom-select-wrapper');
+    allSelects.forEach(wrapper => {
+      if (wrapper !== customSelect && wrapper.classList.contains('open')) {
+        wrapper.classList.remove('open');
+      }
+    });
+  }
+
   function openDropdown() {
+    closeAllOtherSelects();
+    
+    dropdown.innerHTML = '';
     createOptions();
     
     customSelect.classList.add('open');
     
     requestAnimationFrame(() => {
-      const selectRect = selectButton.getBoundingClientRect();
-      const spaceBelow = window.innerHeight - selectRect.bottom;
+      const container = document.querySelector('.currency-selectors-container');
+      if (!container) return;
       
-      dropdown.style.top = '100%';
-      dropdown.style.bottom = 'auto';
-      dropdown.style.marginTop = '8px';
-      dropdown.style.marginBottom = '0';
-      dropdown.classList.remove('dropdown-up');
+      const containerRect = container.getBoundingClientRect();
+      const wrapperRect = customSelect.getBoundingClientRect();
       
-      dropdown.style.left = '0';
+      const topOffset = containerRect.bottom - wrapperRect.top + 8;
+      const leftOffset = containerRect.left + (containerRect.width / 2) - wrapperRect.left;
+      
+      dropdown.style.position = 'fixed';
+      dropdown.style.top = `${containerRect.bottom + 8}px`;
+      dropdown.style.left = `${containerRect.left + (containerRect.width / 2)}px`;
+      dropdown.style.transform = 'translateX(-50%)';
       dropdown.style.right = 'auto';
       
-      const minWidth = selectRect.width;
       const optionElements = dropdown.querySelectorAll('.custom-select-option');
-      let maxContentWidth = minWidth;
+      let maxContentWidth = 200;
       
       optionElements.forEach(option => {
+        option.style.whiteSpace = 'nowrap';
         const optionWidth = option.scrollWidth;
         if (optionWidth > maxContentWidth) {
           maxContentWidth = optionWidth;
         }
       });
       
-      const maxWidth = Math.min(maxContentWidth + 32, window.innerWidth - 32);
-      dropdown.style.width = `${Math.max(minWidth, maxWidth)}px`;
+      const maxWidth = Math.min(maxContentWidth + 48, window.innerWidth - 32);
+      const fixedWidth = Math.max(200, maxWidth);
+      dropdown.style.width = `${fixedWidth}px`;
+      dropdown.style.minWidth = `${fixedWidth}px`;
+      dropdown.style.maxWidth = `${fixedWidth}px`;
     });
   }
   
