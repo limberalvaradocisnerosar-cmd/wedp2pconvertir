@@ -98,22 +98,44 @@ export function createCustomSelect(selectElement) {
       const abbr = option.getAttribute('data-abbr') || option.value;
       const fullText = option.textContent;
       
-      const optionImg = document.createElement('img');
-      optionImg.src = iconMap[option.value] || '';
-      optionImg.alt = abbr;
-      optionImg.className = 'option-icon';
-      optionImg.draggable = false;
-      optionImg.oncontextmenu = (e) => e.preventDefault();
-      optionImg.ondragstart = (e) => e.preventDefault();
-      optionImg.onerror = function() { this.style.display = 'none'; };
-      optionImg.style.pointerEvents = 'none';
-      optionImg.style.userSelect = 'none';
+      // Crear imagen protegida
+      if (iconMap[option.value]) {
+        const optionImg = document.createElement('img');
+        optionImg.src = iconMap[option.value];
+        optionImg.alt = abbr;
+        optionImg.className = 'option-icon';
+        optionImg.draggable = false;
+        optionImg.oncontextmenu = (e) => e.preventDefault();
+        optionImg.ondragstart = (e) => e.preventDefault();
+        optionImg.onerror = function() { this.style.display = 'none'; };
+        optionImg.style.pointerEvents = 'none';
+        optionImg.style.userSelect = 'none';
+        optionElement.appendChild(optionImg);
+      }
       
-      optionElement.innerHTML = `
-        ${optionImg.outerHTML}
-        <span class="option-text">${fullText}</span>
-        ${isSelected ? '<svg class="option-check" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4L6 11.5L2.5 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
-      `;
+      // Crear texto
+      const textSpan = document.createElement('span');
+      textSpan.className = 'option-text';
+      textSpan.textContent = fullText;
+      optionElement.appendChild(textSpan);
+      
+      // Crear check si está seleccionado
+      if (isSelected) {
+        const checkSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        checkSvg.setAttribute('class', 'option-check');
+        checkSvg.setAttribute('width', '16');
+        checkSvg.setAttribute('height', '16');
+        checkSvg.setAttribute('viewBox', '0 0 16 16');
+        checkSvg.setAttribute('fill', 'none');
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M13.5 4L6 11.5L2.5 8');
+        path.setAttribute('stroke', 'currentColor');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('stroke-linecap', 'round');
+        path.setAttribute('stroke-linejoin', 'round');
+        checkSvg.appendChild(path);
+        optionElement.appendChild(checkSvg);
+      }
       
       if (!isDisabled) {
         optionElement.addEventListener('click', () => {
