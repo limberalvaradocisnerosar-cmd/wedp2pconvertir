@@ -1,91 +1,62 @@
 /**
- * custom-select.css - Selectores Personalizados
- * Solo estilos para selectores customizados
+ * custom-select.css - Estilos para el selector personalizado
+ * Diseño premium con dropdown animado
  */
 
-.custom-select {
+/* ============================================
+   CONTENEDOR DEL SELECTOR PERSONALIZADO
+   ============================================ */
+
+.custom-select-wrapper {
   position: relative;
+  flex: 1;
+  min-width: 0;
+  z-index: 100;
+}
+
+/* ============================================
+   BOTÓN DEL SELECTOR
+   ============================================ */
+
+.custom-select-button {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
-  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--theme-text-primary, var(--color-text-primary));
+  text-align: left;
+  transition: all var(--transition-base);
   min-width: 0;
-  background: var(--theme-bg-tertiary);
-  border: 1.5px solid var(--theme-border-light);
-  border-radius: var(--radius-md);
-  padding: 6px 12px;
-  transition: all var(--transition-base);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--theme-text-primary);
 }
 
-.custom-select:focus-within {
-  border-color: var(--theme-border);
-  box-shadow: none;
-}
-
-.custom-select.open {
-  border-color: var(--color-primary);
-  background: var(--theme-bg-secondary);
-}
-
-.custom-select-list {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background: var(--theme-bg-primary);
-  border: 1.5px solid var(--theme-border-light);
-  border-radius: var(--radius-md);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  z-index: 10;
-  max-height: 220px;
-  overflow-y: auto;
-  margin-top: 4px;
-  padding: 4px 0;
-  transition: all var(--transition-base);
-}
-
-.custom-select-option {
-  padding: 8px 16px;
-  font-size: 1rem;
-  color: var(--theme-text-primary);
-  cursor: pointer;
-  transition: background 0.2s;
-  border-radius: var(--radius-sm);
-}
-
-.custom-select-option.selected {
-  background: var(--color-primary);
-  color: #fff;
-}
-
-.custom-select-option:hover {
-  background: var(--theme-bg-secondary);
+.custom-select-button:hover {
+  color: var(--color-primary);
 }
 
 .custom-select-icon {
-  width: 25px !important;
-  height: 25px !important;
-  object-fit: contain;
+  width: 25px;
+  height: 25px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
+  margin: 0;
   display: block;
-  border-radius: 6px;
-  margin: 0;
-  padding: 0;
-}
+  background: transparent;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+} 
 
-.custom-select-text {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--theme-text-primary);
-  margin: 0;
-  padding: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+[data-theme="light"] .custom-select-icon,
+:root:not([data-theme="dark"]) .custom-select-icon {
+  filter: contrast(1.2) saturate(1.1);
+  mix-blend-mode: multiply;
 }
 
 [data-theme="dark"] .custom-select-icon {
@@ -129,7 +100,7 @@
   background: var(--theme-bg-secondary, var(--color-bg-secondary));
   border: 1.5px solid var(--theme-border, var(--color-border));
   border-radius: var(--radius-lg);
-  box-shadow:
+  box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.2),
     0 0 0 1px rgba(0, 0, 0, 0.05);
   overflow: hidden;
@@ -216,6 +187,7 @@
   opacity: 0.4;
   filter: grayscale(100%);
 }
+
 
 .option-icon {
   width: 32px;

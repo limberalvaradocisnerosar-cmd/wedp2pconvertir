@@ -36,10 +36,7 @@
 .info-panel-content {
   position: absolute;
   top: 50%;
-/**
- * panel.css - Estilos del Panel de Información
- * Solo estilos del panel lateral y popups
- */
+  right: 0;
   /* Entrada lateral desde la derecha (oculto por defecto fuera de pantalla) */
   transform: translateX(110%) translateY(-50%);
   /* Adaptativo al contenido: ancho automático con límites para evitar overflow */
@@ -94,7 +91,7 @@
   background: transparent;
   border: 1px solid var(--theme-border);
   padding: 0;
-  margin: 0;
+  margin: 0; 
   border-radius: var(--radius-md);
   color: var(--theme-text-primary);
   font-size: 1rem;
@@ -103,7 +100,7 @@
   flex-shrink: 0; /* evitar que se empuje fuera del header */
   box-sizing: border-box;
   margin-left: 6px;
-}
+} 
 
 .panel-close-btn:hover {
   transform: rotate(45deg);
@@ -194,7 +191,7 @@
   max-width: calc(120px - 40px);
   margin: 0;
   padding: 0;
-}
+} 
 .panel-info-btn:hover {
   transform: none;
   box-shadow: none;
@@ -221,7 +218,7 @@
   border-radius: 6px;
   margin: 0;
   padding: 0;
-}
+} 
 
 .panel-btn-label {
   font-size: 0.72rem;
@@ -233,7 +230,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: calc(100% - 56px); /* dejar espacio para icono + padding */
-}
+} 
 
 .panel-btn-label {
   font-size: 0.72rem;
@@ -245,7 +242,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 90px;
-}
+} 
 
 /* ============================================
    TARJETAS FLOTANTES (POPUPS)
@@ -301,6 +298,8 @@
 /* Content inside popup must fit into 300x290 */
 .popup-content { padding: 8px; overflow-y: auto; flex: 1 1 auto; height: calc(290px - 28px); box-sizing: border-box; }
 
+
+
 .popup-card.active {
   opacity: 1;
   transform: translate(-50%, -50%);
@@ -336,11 +335,13 @@
 /* Pre/code handling */
 .popup-content pre, .popup-content code { white-space: pre-wrap; word-break: break-word; }
 
+
 /* Ensure long words and content can wrap to avoid horizontal overflow */
 .popup-content { overflow-wrap: anywhere; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; }
 
 /* Optional visual state when popup was programmatically shrunk */
 .popup-card.shrunk { box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+
 
 /* For very narrow screens reduce fonts and padding so the card 'shrinks' logically */
 @media (max-width: 420px) {
@@ -349,6 +350,7 @@
   .popup-content th, .popup-content td { padding: 6px 4px; font-size: 0.82rem; }
   .popup-content h2 { font-size: 1rem }
 }
+
 
 .popup-loading,
 .popup-error {
@@ -415,7 +417,7 @@
 
 .info-card h2 { font-size: 1rem; font-weight: 700; color: var(--theme-text-primary); margin-bottom: 6px; letter-spacing: -0.02em; }
 
-.card-description { font-size: 0.92rem; line-height: 1.15; color: var(--theme-text-secondary); margin-bottom: 6px; }
+.card-description { font-size: 0.92rem; line-height: 1.15; color: var(--theme-text-secondary); margin-bottom: 6px; } 
 
 .card-description strong {
   color: var(--theme-text-primary);
@@ -489,7 +491,7 @@
 
 .step-content { flex: 1; }
 
-.step-content h3 { font-size: 1rem; margin-bottom: 4px; }
+.step-content h3 { font-size: 1rem; margin-bottom: 4px; } 
 
 .step-content p {
   font-size: 1rem;

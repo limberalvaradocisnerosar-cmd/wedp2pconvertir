@@ -3,11 +3,6 @@
  * Solo componentes: inputs, botones, resultados, errores
  */
 
-/**
- * components.css - Componentes UI
- * Solo componentes: inputs, botones, resultados, errores
- */
-
 /* ============================================
    LABELS
    ============================================ */
@@ -104,7 +99,7 @@ select:not(.currency-select):disabled {
   background: var(--theme-bg-tertiary);
   border: 2px solid var(--theme-border-light);
   border-radius: 14px;
-  transition:
+  transition: 
     border-color 0.3s ease,
     box-shadow 0.3s ease,
     transform 0.2s ease;
@@ -292,7 +287,7 @@ button:focus-visible {
   border-radius: var(--radius-full);
   background: var(--theme-bg-secondary, var(--color-bg-secondary));
   border: 1px solid var(--theme-border, var(--color-border));
-  box-shadow:
+  box-shadow: 
     0 4px 12px rgba(0, 0, 0, 0.10);
   z-index: 999;
   padding: 0;
@@ -317,7 +312,7 @@ button:focus-visible {
 
 .panel-toggle-btn.floating:active {
   transform: translateY(-1px);
-  box-shadow:
+  box-shadow: 
     0 4px 12px rgba(0, 122, 255, 0.2),
     0 0 0 2px rgba(0, 122, 255, 0.1);
 }
@@ -330,7 +325,7 @@ button:focus-visible {
   z-index: 1;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   filter: brightness(0) saturate(100%);
-}
+} 
 
 /* Tema claro - icono oscuro */
 [data-theme="light"] .panel-toggle-btn.floating .panel-icon,
@@ -376,7 +371,7 @@ button:focus-visible {
 [data-theme="dark"] .panel-toggle-btn.floating {
   background: var(--theme-bg-secondary, #2C2C2E);
   border-color: var(--theme-border, #48484A);
-  box-shadow:
+  box-shadow: 
     0 4px 16px rgba(0, 0, 0, 0.4),
     0 0 0 0 rgba(0, 122, 255, 0);
 }
@@ -392,7 +387,7 @@ button:focus-visible {
 :root:not([data-theme="dark"]) .panel-toggle-btn.floating {
   background: var(--theme-bg-secondary, #FFFFFF);
   border-color: var(--theme-border, #D2D2D7);
-  box-shadow:
+  box-shadow: 
     0 4px 16px rgba(0, 0, 0, 0.1),
     0 0 0 0 rgba(0, 122, 255, 0);
 }
@@ -464,6 +459,7 @@ button:focus-visible {
   .back-btn { padding: 6px 8px; font-size: 0.9rem; border-radius: 8px }
 }
 
+
 .swap-btn {
   width: 33px;
   height: 33px;
@@ -532,7 +528,7 @@ button:focus-visible {
   position: relative;
   max-width: 100%;
   max-height: 100%;
-}
+} 
 
 [data-theme="light"] .swap-icon,
 :root:not([data-theme="dark"]) .swap-icon {
