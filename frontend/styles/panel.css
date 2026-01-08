@@ -334,25 +334,25 @@
 .info-card {
   background: var(--theme-card-bg);
   border: 1px solid var(--theme-card-border);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-2xl);
-  box-shadow: var(--theme-shadow-md);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  box-shadow: var(--theme-shadow-sm);
   transition: all var(--transition-base);
 }
 
 .info-card:hover {
-  box-shadow: var(--theme-shadow-lg);
+  box-shadow: var(--theme-shadow-md);
   transform: translateY(-2px);
 }
 
 .card-icon {
-  font-size: 2.5rem;
-  margin-bottom: var(--spacing-md);
+  font-size: 1.9rem;
+  margin-bottom: var(--spacing-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
 }
 
 .card-icon-img {
@@ -363,18 +363,18 @@
 }
 
 .info-card h2 {
-  font-size: 1.75rem;
+  font-size: 1.125rem;
   font-weight: 700;
   color: var(--theme-text-primary);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
   letter-spacing: -0.02em;
 }
 
 .card-description {
-  font-size: 1.0625rem;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.25;
   color: var(--theme-text-secondary);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
 }
 
 .card-description strong {
@@ -415,24 +415,24 @@
 .method-steps {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
-  margin-top: var(--spacing-lg);
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-sm);
 }
 
 .step-item {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-sm);
   align-items: flex-start;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-sm);
   background: var(--theme-bg-tertiary);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   border: 1px solid var(--theme-border-light);
-  transition: all var(--transition-base);
+  transition: all var(--transition-fast);
 }
 
 .step-item:hover {
   background: var(--theme-bg-secondary);
-  transform: translateX(4px);
+  transform: translateX(2px);
 }
 
 .step-number {

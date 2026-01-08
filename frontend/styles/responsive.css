@@ -482,6 +482,119 @@
   }
 }
 
+/* Reglas aún más agresivas y específicas para móviles 360x500 - 360x800 */
+@media (min-width: 320px) and (max-width: 380px) and (min-height: 500px) and (max-height: 800px) {
+  /* Página global */
+  body {
+    padding: var(--spacing-xs) !important;
+    max-width: 100% !important;
+  }
+
+  .container {
+    padding: 6px !important;
+  }
+
+  /* Conversor */
+  .converter-card {
+    padding: 10px !important;
+    max-width: calc(100% - 12px) !important;
+    border-radius: 10px !important;
+  }
+
+  .page-header {
+    margin-bottom: var(--spacing-sm) !important;
+  }
+
+  .page-header h1 {
+    font-size: 1.125rem !important;
+    margin-bottom: var(--spacing-xs) !important;
+  }
+
+  /* Info cards */
+  .info-card {
+    padding: var(--spacing-xs) !important;
+    margin-bottom: var(--spacing-xs) !important;
+    max-width: calc(100% - 8px) !important;
+  }
+
+  .info-card h2 {
+    font-size: 1rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .card-description {
+    margin-bottom: 4px !important;
+    font-size: 0.9rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .method-steps {
+    grid-template-columns: 1fr !important;
+    gap: var(--spacing-xs) !important;
+    padding: var(--spacing-xs) !important;
+  }
+
+  .step-item {
+    gap: 8px !important;
+    padding: 0 !important;
+  }
+
+  .step-content h3 {
+    font-size: 0.95rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .step-number {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 0.95rem !important;
+  }
+
+  /* Panel compacto */
+  .info-panel-content {
+    width: 240px !important;
+    max-width: calc(100vw - 8px) !important;
+  }
+
+  .info-panel-body {
+    padding: 6px !important;
+  }
+
+  .panel-buttons-container {
+    gap: var(--spacing-xs) !important;
+  }
+
+  .panel-info-btn {
+    padding: 6px 6px !important;
+    min-height: 40px !important;
+  }
+
+  .panel-btn-icon {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .panel-btn-label {
+    font-size: 0.72rem !important;
+    max-width: 100px !important;
+  }
+
+  .panel-section-title {
+    font-size: 0.65rem !important;
+    padding: 0 2px !important;
+  }
+
+  /* Ajustes del input y resultado para que quepan mejor */
+  .main-input {
+    padding: 10px 42px 10px 8px !important;
+    font-size: 1.05rem !important;
+  }
+
+  .result-section .result-value {
+    font-size: 1.25rem !important;
+  }
+}
+
 /* ============================================
    REDUCIR ANIMACIONES (Accesibilidad)
    ============================================ */
