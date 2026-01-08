@@ -230,7 +230,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.98);
   max-width: 520px;
-  width: calc(100% - 24px);
+  width: min(520px, calc(100% - 48px));
   max-height: 86vh;
   background: var(--theme-bg-secondary);
   border-radius: var(--radius-lg);
@@ -242,6 +242,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  margin-left: 24px;
+  margin-right: 24px;
 }
 
 .popup-card.active {
@@ -262,7 +264,14 @@
   color: var(--theme-text-primary);
   margin-bottom: 8px;
   letter-spacing: -0.02em;
-} 
+}
+
+/* Ensure popups have good spacing on narrow screens */
+@media (max-width: 480px) {
+  .popup-card { width: calc(100% - 24px); left: 50%; transform: translate(-50%, -50%) scale(1); max-width: calc(100% - 24px); }
+  .popup-content { padding: 8px }
+}
+
 
 .popup-loading,
 .popup-error {

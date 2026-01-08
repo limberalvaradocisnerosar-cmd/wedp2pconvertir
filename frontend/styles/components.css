@@ -418,6 +418,48 @@ button:focus-visible {
   opacity: 1;
 }
 
+/* --------------------------------------------
+   Clean back button (usada en metodo-calculo)
+   -------------------------------------------- */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+  background: transparent;
+  border: 1px solid var(--theme-border);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.back-btn:hover {
+  background: var(--theme-bg-tertiary);
+  border-color: var(--color-primary);
+  transform: none;
+}
+
+/* Variant for dark mode */
+[data-theme="dark"] .back-btn {
+  color: var(--theme-text-primary);
+  border-color: var(--theme-border);
+  background: transparent;
+}
+
+[data-theme="dark"] .back-btn:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .back-btn { padding: 6px 8px; font-size: 0.9rem; border-radius: 8px }
+}
+
+
 .swap-btn {
   width: 33px;
   height: 33px;
