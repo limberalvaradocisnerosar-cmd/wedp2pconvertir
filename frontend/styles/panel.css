@@ -146,13 +146,35 @@
   padding: 2px 2px;
 }
 
-.panel-buttons-grid {
+..panel-buttons-grid {
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding: 0;
   width: auto; /* permitir que el contenedor se adapte al contenido */
 }
+
+/* Botones del panel: tamaño fijo 120x40 global */
+.panel-info-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; /* centrar icon + label en el espacio fijo */
+  gap: 8px;
+  padding: 6px 8px;
+  width: 120px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  background: var(--theme-bg-secondary);
+  border: 1px solid var(--theme-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 
 .panel-info-btn {
   display: flex;
@@ -176,14 +198,14 @@
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--theme-text-primary);
-  text-align: left;
+  text-align: center; /* centrar texto dentro del botón fijo */
   line-height: 1.05;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   flex: 0 1 auto;
-  max-width: 140px; /* limitar etiqueta para evitar que expanda demasiado el panel */
-} 
+  max-width: calc(120px - 40px); /* espacio disponible dentro del botón */
+}  
 .panel-info-btn:hover {
   transform: none;
   box-shadow: none;
@@ -205,14 +227,15 @@
 
 .panel-info-btn.active .panel-btn-label { color: #FFFFFF; }
 
-.panel-btn-icon {
-  width: 36px;
-  height: 36px;
+..panel-btn-icon {
+  width: 30px !important;
+  height: 30px !important;
   object-fit: contain;
   display: block;
   flex-shrink: 0;
   border-radius: 6px;
-}
+  margin-right: 6px;
+} 
 
 .panel-btn-label {
   font-size: 0.72rem;
