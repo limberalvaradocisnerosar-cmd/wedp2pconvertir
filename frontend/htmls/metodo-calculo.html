@@ -1,74 +1,46 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Método de Cálculo - Convertidor P2P</title>
-    <link rel="icon" href="/frontend/public/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/frontend/styles/base.css">
-    <link rel="stylesheet" href="/frontend/styles/themes.css">
-    <link rel="stylesheet" href="/frontend/styles/panel.css">
+<div class="page-header">
+  <button type="button" class="back-btn" data-close-popup aria-label="Volver">← Volver</button>
+  <h1>Método de Cálculo</h1>
+</div>
 
-</head>
-<body>
-    <div class="page-header">
-        <a href="javascript:history.back()" class="back-btn">← Volver</a>
-        <h1>Método de Cálculo</h1>
+<div class="info-card">
+  <div class="card-icon">
+    <img src="/frontend/public/panelconfi/meotodo-calculo.svg" alt="Método de cálculo" class="card-icon-img" draggable="false" oncontextmenu="return false;" ondragstart="return false;" style="pointer-events: none; user-select: none;">
+  </div>
+  <h2>Método de Cálculo</h2>
+  <p class="card-description">
+    Utilizamos un algoritmo robusto que garantiza precios justos y representativos del mercado.
+  </p>
+  <div class="method-steps">
+    <div class="step-item">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h3>Recolección</h3>
+        <p>Obtenemos los últimos <strong>15 anuncios</strong> de compra/venta para cada moneda</p>
+      </div>
     </div>
-    
-    <div class="info-card">
-        <div class="card-icon">
-            <img src="/frontend/public/panelconfi/meotodo-calculo.svg" alt="Método de cálculo" class="card-icon-img" draggable="false" oncontextmenu="return false;" ondragstart="return false;" style="pointer-events: none; user-select: none;">
-        </div>
-        <h2>Método de Cálculo</h2>
-        <p class="card-description">
-            Utilizamos un algoritmo robusto que garantiza precios justos y representativos del mercado.
-        </p>
-        <div class="method-steps">
-            <div class="step-item">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3>Recolección</h3>
-                    <p>Obtenemos los últimos <strong>15 anuncios</strong> de compra/venta para cada moneda</p>
-                </div>
-            </div>
-            <div class="step-item">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3>Filtrado</h3>
-                    <p>Ignoramos los <strong>5 más altos</strong> y los <strong>5 más bajos</strong> para eliminar outliers</p>
-                </div>
-            </div>
-            <div class="step-item">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h3>Promedio</h3>
-                    <p>Calculamos el promedio de los <strong>5 anuncios centrales</strong> restantes</p>
-                </div>
-            </div>
-            <div class="step-item">
-                <div class="step-number">4</div>
-                <div class="step-content">
-                    <h3>Protección</h3>
-                    <p>Aplicamos validaciones para evitar precios anómalos o fuera de rango</p>
-                </div>
-            </div>
-        </div>
+    <div class="step-item">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h3>Filtrado</h3>
+        <p>Ignoramos los <strong>5 más altos</strong> y los <strong>5 más bajos</strong> para eliminar outliers</p>
+      </div>
     </div>
-    <script type="module">
-        import { applyTheme } from '/frontend/ui/theme.js';
+    <div class="step-item">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h3>Promedio</h3>
+        <p>Calculamos el promedio de los <strong>5 anuncios centrales</strong> restantes</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h3>Protección</h3>
+        <p>Aplicamos validaciones para evitar precios anómalos o fuera de rango</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-        // Aplicar el tema guardado (o 'auto' por defecto) al cargar la página
-        const savedTheme = localStorage.getItem('theme') || 'auto';
-        applyTheme(savedTheme);
-
-        // Si el tema cambia en otra pestaña (storage event), actualizar dinámicamente
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'theme') {
-                applyTheme(e.newValue || 'auto');
-            }
-        });
-    </script>
-</body>
-</html>
 

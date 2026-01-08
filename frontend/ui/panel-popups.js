@@ -4,6 +4,8 @@
  */
 
 let currentPopup = null;
+let popupResizeHandler = null; // used to remove resize listener when popup closes
+
 
 /**
  * Abre una tarjeta flotante con el contenido especificado
@@ -49,10 +51,63 @@ export async function openPopup(contentFile, isPage = false) {
         const html = await response.text();
         content.innerHTML = html;
         
+        // Si la página incluye un botón con data-close-popup, enlazar cierre
+        const closeButtons = content.querySelectorAll('[data-close-popup]');
+        closeButtons.forEach(btn => btn.addEventListener('click', () => closePopup()));
+
         // Si es precios-actuales, cargar los precios
         if (contentFile === 'precios-actuales') {
             loadPopupPrices();
         }
+
+        // Función para ajustar el popup al viewport (ancho/alto) y reducir fuente si es necesario
+        function adjustPopupFit() {
+            const maxW = window.innerWidth - 48; // margen lateral mínimo
+            const maxH = window.innerHeight - 48;
+
+            // Ajustar ancho si excede
+            const popupRect = popup.getBoundingClientRect();
+            if (popupRect.width > maxW) popup.style.width = `calc(100% - 48px)`;
+            else popup.style.width = ''; // restaurar si cabe
+
+            // Ajustar alto máximo del contenido
+            if (popupRect.height > maxH) {
+                content.style.maxHeight = `${maxH - 24}px`;
+            } else {
+                content.style.maxHeight = '';
+            }
+
+            // Intentar reducir la fuente gradualmente hasta un mínimo para que encaje
+            const computed = window.getComputedStyle(popup);
+            let fontPx = parseFloat(computed.fontSize);
+            const minFontPx = 12; // no reducir bajo ~12px
+            const step = 1; // px por iteración
+            let iter = 0;
+            const maxIter = 10;
+
+            while (iter < maxIter) {
+                const rect = popup.getBoundingClientRect();
+                if (rect.width <= maxW && rect.height <= maxH) break;
+                if (fontPx <= minFontPx) break;
+                fontPx = Math.max(minFontPx, fontPx - step);
+                popup.style.fontSize = `${fontPx}px`;
+                iter++;
+            }
+
+            if (iter > 0) popup.classList.add('shrunk'); else popup.classList.remove('shrunk');
+
+            // Si todavía excede, asegurar scroll interno en el contenido
+            const finalRect = popup.getBoundingClientRect();
+            if (finalRect.height > maxH) content.style.maxHeight = `${maxH - 24}px`;
+        }
+
+        // Ejecutar ajuste inicial dentro de RAF
+        requestAnimationFrame(() => adjustPopupFit());
+
+        // Recalcular en resize/orientationchange mientras el popup está abierto
+        popupResizeHandler = () => requestAnimationFrame(() => adjustPopupFit());
+        window.addEventListener('resize', popupResizeHandler);
+        window.addEventListener('orientationchange', popupResizeHandler);
     } catch (error) {
         console.error('Error cargando popup:', error);
         content.innerHTML = '<div class="popup-error">Error al cargar el contenido</div>';
@@ -88,6 +143,13 @@ export function closePopup() {
         popup.classList.remove('active');
         overlay?.classList.remove('active');
         
+        // Remover listeners de resize/orientation
+        if (popupResizeHandler) {
+            window.removeEventListener('resize', popupResizeHandler);
+            window.removeEventListener('orientationchange', popupResizeHandler);
+            popupResizeHandler = null;
+        }
+
         setTimeout(() => {
             popup.remove();
             overlay?.remove();

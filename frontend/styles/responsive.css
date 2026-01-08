@@ -560,18 +560,27 @@
     left: 50% !important;
     transform: translate(-50%, -50%) scale(1) !important;
     border-radius: 12px !important;
+    box-sizing: border-box !important;
+    font-size: 0.92rem !important;
   }
 
   .popup-content {
-    padding: 8px !important;
-    max-height: calc(80vh - 24px) !important;
+    padding: 6px !important;
+    max-height: calc(100vh - 48px) !important;
+    overflow-y: auto !important;
   }
 
   .popup-content h2 {
-    font-size: 1.05rem !important;
+    font-size: 1rem !important;
     margin-bottom: 6px !important;
     letter-spacing: -0.02em !important;
   }
+
+  /* Ensure tables scale down inside popups */
+  .popup-content table { width: 100% !important; font-size: 0.8rem !important; }
+  .popup-content th, .popup-content td { padding: 6px 4px !important; }
+  .popup-content img { max-width: 100% !important; height: auto !important; }
+
 
   /* Buy/Sell compact */
   .buy-sell-item {
@@ -629,17 +638,20 @@
   .panel-info-btn {
     padding: 6px 6px !important;
     min-height: 36px !important;
+    gap: 6px !important;
   }
 
   .panel-btn-icon {
     width: 18px !important;
     height: 18px !important;
+    margin-right: 6px !important;
   }
 
   .panel-btn-label {
-    font-size: 0.7rem !important;
-    max-width: 100px !important;
+    font-size: 0.68rem !important;
+    max-width: none !important;
     letter-spacing: -0.02em !important;
+    white-space: normal !important;
   }
 
   .panel-section-title {
