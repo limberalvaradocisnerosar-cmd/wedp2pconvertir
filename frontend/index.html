@@ -196,12 +196,16 @@
             }
 
             // Inicializar sistema de temas desde módulo compartido
-            const themeModule = await import('/frontend/ui/theme.js');
-            const { applyTheme, initThemeSystem } = themeModule;
-
-            // Aplicar tema inicial si existe
-            const savedTheme = localStorage.getItem('theme') || 'auto';
-            applyTheme(savedTheme);
+            // Usar import() sin await para no romper el script (este archivo no es type="module")
+            let initThemeSystemFn = null;
+            import('/frontend/ui/theme.js')
+                .then(({ applyTheme, initThemeSystem }) => {
+                    initThemeSystemFn = initThemeSystem;
+                    // Aplicar tema inicial si existe
+                    const savedTheme = localStorage.getItem('theme') || 'auto';
+                    applyTheme(savedTheme);
+                })
+                .catch(err => console.error('Error cargando theme module:', err));
 
 
             // Cargar contenido del panel desde HTML
@@ -218,7 +222,14 @@
                     panelBody.innerHTML = html;
 
                     // Inicializar sistema de temas después de cargar el HTML
-                    initThemeSystem();
+                    if (typeof initThemeSystemFn === 'function') {
+                        // Pasar el root (panelBody) para inicializar solo dentro del panel
+                        initThemeSystemFn(panelBody);
+                    } else {
+                        // Fallback: cargar el módulo si por alguna razón aún no está cargado
+                        const themeMod = await import('/frontend/ui/theme.js');
+                        themeMod.initThemeSystem(panelBody);
+                    }
 
                     // Inicializar botones del panel y popups
                     const { initPanelButtons } = await import('/frontend/ui/panel-popups.js');
