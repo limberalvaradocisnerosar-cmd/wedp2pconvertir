@@ -151,7 +151,7 @@
   flex-direction: column;
   gap: 4px;
   padding: 0;
-  width: 100%;
+  width: auto; /* permitir que el contenedor se adapte al contenido */
 }
 
 .panel-info-btn {
@@ -167,7 +167,7 @@
   transition: background-color var(--transition-fast), border-color var(--transition-fast);
   -webkit-tap-highlight-color: transparent;
   outline: none;
-  width: 100%;
+  width: auto; /* adaptativo al contenido */
   min-height: 40px; /* altura mínima para que haya 40px de espacio */
   box-sizing: border-box;
 } 
@@ -181,8 +181,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex: 1 1 auto;
-  max-width: none;
+  flex: 0 1 auto;
+  max-width: 140px; /* limitar etiqueta para evitar que expanda demasiado el panel */
 } 
 .panel-info-btn:hover {
   transform: none;

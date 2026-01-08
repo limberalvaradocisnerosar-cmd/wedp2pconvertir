@@ -678,7 +678,7 @@
     .popup-content h2 { font-size: 0.96rem !important; margin-bottom: 4px !important; }
 
       /* Panel más compacto: reducir huecos y mantener icon + label */
-    .info-panel-content { width: 200px !important; }
+    .info-panel-content { width: auto !important; max-width: 200px !important; }
     .panel-buttons-container { gap: 4px !important; padding: 2px !important; }
     .panel-info-btn { padding: 6px 8px !important; min-height: 40px !important; width: auto !important; height: auto !important; gap: 8px !important; border-radius: var(--radius-sm) !important; justify-content: space-between !important; align-items: center !important; }
     .panel-btn-icon { width: 20px !important; height: 20px !important; margin: 0 6px 0 0 !important; display: block; }
@@ -693,7 +693,7 @@
     /* Ajustes intermedios para pantallas 375/390/412 */
     .popup-card { width: min(480px, calc(100% - 24px)) !important; font-size: 0.95rem !important; }
     .popup-content { max-height: calc(100vh - 44px) !important; }
-    .info-panel-content { width: 260px !important; }
+    .info-panel-content { width: auto !important; max-width: 260px !important; }
     .panel-btn-label { font-size: 0.70rem !important; }
   }
 
@@ -713,7 +713,7 @@
 
   @media (max-width: 320px) {
     /* Para pantallas extremadamente estrechas */
-    .info-panel-content { width: 180px !important; }
+    .info-panel-content { width: auto !important; max-width: 180px !important; }
     .panel-btn-label { font-size: 0.62rem !important; }
     .panel-btn-icon { width: 16px !important; height: 16px !important; }
     .popup-card { font-size: 0.82rem !important; }

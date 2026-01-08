@@ -106,7 +106,6 @@
         <div class="info-panel-content">
             <div class="info-panel-header">
                 <h2>Ajustes</h2>
-                <button id="panel-close-btn" class="panel-close-btn" title="Cerrar">✕</button>
             </div>
 
             <div class="info-panel-body" id="panel-body">
@@ -147,7 +146,6 @@
             // Panel toggle
             const panelToggle = document.getElementById('panel-toggle-btn');
             const panel = document.getElementById('info-panel');
-            const panelClose = document.getElementById('panel-close-btn');
             const panelOverlay = document.getElementById('panel-overlay');
 
             function openPanel() {
@@ -188,9 +186,7 @@
                     }
                 });
             }
-            if (panelClose) {
-                panelClose.addEventListener('click', closePanel);
-            }
+
             if (panelOverlay) {
                 panelOverlay.addEventListener('click', closePanel);
             }
