@@ -672,15 +672,17 @@
   /* Ajustes específicos por ancho de dispositivo (más agresivos para móviles pequeñ@s) */
   @media (max-width: 360px) and (max-height: 900px) {
     /* Popups: ocupar casi todo el ancho, reducir fuente y padding */
-    .popup-card { width: calc(100% - 8px) !important; max-width: calc(100% - 8px) !important; font-size: 0.88rem !important; border-radius: 10px !important; }
+    .popup-card { width: calc(100% - 8px) !important; max-width: calc(100% - 8px) !important; font-size: 0.86rem !important; border-radius: 10px !important; max-height: calc(100vh - 64px) !important; }
     .popup-card.shrunk { transform: translate(-50%, -50%) scale(0.98) !important; }
-    .popup-content { padding: 6px !important; max-height: calc(100vh - 36px) !important; }
+    .popup-content { padding: 6px !important; max-height: calc(100vh - 96px) !important; overflow-y: auto !important; }
+    .popup-content h2 { font-size: 0.96rem !important; margin-bottom: 4px !important; }
 
-    /* Panel más compacto */
+    /* Panel más compacto: botones circulares icon-only, reducir huecos */
     .info-panel-content { width: 200px !important; }
-    .panel-info-btn { padding: 6px 6px !important; min-height: 36px !important; }
-    .panel-btn-label { font-size: 0.66rem !important; white-space: normal !important; }
-    .panel-btn-icon { width: 16px !important; height: 16px !important; }
+    .panel-buttons-container { gap: 4px !important; padding: 2px !important; }
+    .panel-info-btn { padding: 0 !important; min-height: 44px !important; width: 44px !important; height: 44px !important; gap: 0 !important; border-radius: 50% !important; justify-content: center !important; align-items: center !important; }
+    .panel-btn-icon { width: 20px !important; height: 20px !important; margin: 0 !important; display: block; }
+    .panel-btn-label { display: none !important; }
 
     /* Tablas/imagenes dentro del popup */
     .popup-content table { font-size: 0.78rem !important; }
@@ -693,6 +695,20 @@
     .popup-content { max-height: calc(100vh - 44px) !important; }
     .info-panel-content { width: 260px !important; }
     .panel-btn-label { font-size: 0.70rem !important; }
+  }
+
+  /* Ajustes adicionales para pantallas altas como 360x800: reducir fuente y padding para evitar overflow */
+  @media (min-width: 360px) and (max-width: 420px) and (min-height: 800px) {
+    .popup-card { max-height: calc(100vh - 92px) !important; font-size: 0.85rem !important; }
+    .popup-content { max-height: calc(100vh - 120px) !important; padding: 6px !important; overflow-y: auto !important; }
+    .popup-card .info-card { padding: 6px !important; }
+    .popup-content h2 { font-size: 0.96rem !important; }
+
+    /* Ajustar botones del panel para reducir huecos */
+    .panel-buttons-grid { gap: 4px !important; }
+    .panel-info-btn { padding: 4px !important; min-height: 40px !important; width: 40px !important; height: 40px !important; border-radius: 50% !important; gap: 0 !important; justify-content: center !important; align-items: center !important; }
+    .panel-btn-label { display: none !important; }
+    .panel-btn-icon { width: 20px !important; height: 20px !important; margin: 0 !important; }
   }
 
   @media (max-width: 320px) {
