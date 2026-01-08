@@ -37,19 +37,23 @@
   position: absolute;
   top: 50%;
   right: 0;
-  transform: translate(100%, -50%);
-  width: 320px;
-  max-width: calc(100vw - 40px);
+  /* Entrada lateral desde la derecha (oculto por defecto fuera de pantalla) */
+  transform: translateX(110%) translateY(-50%);
+  /* Dejar que el contenido determine la anchura, con límites */
+  width: max-content;
+  min-width: 180px;
+  max-width: 360px;
   max-height: 90vh;
   background: var(--theme-bg-primary);
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.18);
   overflow-y: auto;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+  transition: transform 320ms cubic-bezier(0.2, 0, 0, 1), width 200ms;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  padding: 0; /* el body del panel controla padding para mayor control */
 }
 
 .info-panel.active .info-panel-content {
-  transform: translate(0, -50%);
+  transform: translateX(0) translateY(-50%);
 }
 
 /* ============================================
@@ -61,7 +65,7 @@
   top: 0;
   background: var(--theme-bg-secondary);
   border-bottom: 1px solid var(--theme-border-light);
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-sm);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -78,8 +82,8 @@
 }
 
 .panel-close-btn {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,9 +91,13 @@
   border: 1px solid var(--theme-border);
   border-radius: var(--radius-full);
   color: var(--theme-text-primary);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: all var(--transition-fast);
+}
+
+.panel-close-btn:hover {
+  transform: rotate(45deg);
 }
 
 .panel-close-btn:hover {
@@ -103,8 +111,11 @@
    ============================================ */
 
 .info-panel-body {
-  padding: var(--spacing-lg);
+  padding: var(--spacing-sm);
   max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
 /* ============================================
@@ -114,7 +125,7 @@
 .panel-buttons-container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-xs);
   padding: 0;
 }
 
@@ -126,13 +137,13 @@
 }
 
 .panel-section-title {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   color: var(--theme-text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   margin: 0;
-  padding: var(--spacing-xs) var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-xs);
 }
 
 .panel-buttons-grid {
@@ -144,21 +155,21 @@
 }
 
 .panel-info-btn {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   gap: var(--spacing-sm);
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
   background: var(--theme-bg-secondary);
-  border: 2px solid var(--theme-border);
+  border: 1px solid var(--theme-border);
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: all var(--transition-fast);
   -webkit-tap-highlight-color: transparent;
   outline: none;
-  width: 100%;
-  min-height: 56px;
+  width: auto;
+  min-height: 44px;
 }
 
 .panel-info-btn:hover {
@@ -196,12 +207,15 @@
 }
 
 .panel-btn-label {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--theme-text-primary);
   text-align: left;
-  line-height: 1.2;
-  flex: 1;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
 }
 
 /* ============================================

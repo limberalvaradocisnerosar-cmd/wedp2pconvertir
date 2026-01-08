@@ -369,6 +369,13 @@
   }
 }
 
+/* Pantallas muy grandes: ancho del panel un poco mayor para aprovechar espacio */
+@media (min-width: 1200px) {
+  .info-panel-content {
+    max-width: 420px;
+  }
+}
+
 /* ============================================
    ORIENTACIÓN HORIZONTAL
    ============================================ */
@@ -516,22 +523,23 @@
 
 @media (max-width: 480px) {
   .info-panel-content {
-    width: 280px;
+    width: 260px;
     max-width: calc(100vw - 20px);
   }
   
   .panel-info-btn {
-    min-height: 52px;
-    padding: var(--spacing-xs) var(--spacing-sm);
+    min-height: 44px;
+    padding: var(--spacing-xs) var(--spacing-xs);
   }
   
   .panel-btn-icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
   
   .panel-btn-label {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
+    max-width: 120px;
   }
   
   .panel-section-title {
@@ -548,5 +556,64 @@
 @media (min-width: 360px) and (max-width: 480px) and (min-height: 700px) {
   .info-panel-content {
     width: 320px;
+  }
+}
+
+/* ==================================================
+   Reglas responsive específicas para metodo-calculo
+   ==================================================*/
+
+.info-card {
+  max-width: 900px;
+  padding: var(--spacing-lg);
+  margin: 0 auto;
+}
+
+.method-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-md);
+  align-items: start;
+}
+
+.step-item {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+}
+
+.step-number {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--theme-bg-secondary);
+  border: 1px solid var(--theme-border);
+  font-weight: 700;
+  color: var(--theme-text-primary);
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding-bottom: var(--spacing-md);
+  }
+  .page-header h1 {
+    font-size: 1.25rem;
+  }
+  .info-card {
+    padding: var(--spacing-md);
+  }
+  .method-steps {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  .step-item {
+    flex-direction: row;
+  }
+  .back-btn {
+    margin-bottom: var(--spacing-sm);
   }
 }

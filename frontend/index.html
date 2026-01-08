@@ -195,21 +195,9 @@
                 panelOverlay.addEventListener('click', closePanel);
             }
 
-            // Aplicar tema
-            function applyTheme(theme) {
-                const html = document.documentElement;
-                if (theme === 'auto') {
-                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
-                    
-                    // Escuchar cambios del sistema
-                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                        html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-                    });
-                } else {
-                    html.setAttribute('data-theme', theme);
-                }
-            }
+            // Inicializar sistema de temas desde módulo compartido
+            const themeModule = await import('/frontend/ui/theme.js');
+            const { applyTheme, initThemeSystem } = themeModule;
 
             // Aplicar tema inicial si existe
             const savedTheme = localStorage.getItem('theme') || 'auto';
@@ -241,43 +229,6 @@
                 }
             }
 
-            // Inicializar sistema de temas
-            function initThemeSystem() {
-                const themeButtons = document.querySelectorAll('.theme-btn');
-                if (!themeButtons || themeButtons.length === 0) return;
-
-                // Cargar tema guardado
-                const savedTheme = localStorage.getItem('theme') || 'auto';
-                
-                // Aplicar tema guardado
-                applyTheme(savedTheme);
-                
-                // Marcar botón activo según tema guardado
-                themeButtons.forEach(btn => {
-                    const btnTheme = btn.getAttribute('data-theme');
-                    if (btnTheme === savedTheme) {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                    
-                    // Agregar event listener a cada botón
-                    btn.addEventListener('click', () => {
-                        const theme = btn.getAttribute('data-theme');
-                        localStorage.setItem('theme', theme);
-                        applyTheme(theme);
-                        
-                        // Actualizar estado activo de todos los botones
-                        themeButtons.forEach(b => {
-                            if (b === btn) {
-                                b.classList.add('active');
-                            } else {
-                                b.classList.remove('active');
-                            }
-                        });
-                    });
-                });
-            }
 
             // Cargar precios en el panel
             async function loadPanelPrices() {

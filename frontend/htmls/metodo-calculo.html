@@ -87,6 +87,20 @@
             </div>
         </div>
     </div>
+    <script type="module">
+        import { applyTheme } from '/frontend/ui/theme.js';
+
+        // Aplicar el tema guardado (o 'auto' por defecto) al cargar la página
+        const savedTheme = localStorage.getItem('theme') || 'auto';
+        applyTheme(savedTheme);
+
+        // Si el tema cambia en otra pestaña (storage event), actualizar dinámicamente
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'theme') {
+                applyTheme(e.newValue || 'auto');
+            }
+        });
+    </script>
 </body>
 </html>
 
