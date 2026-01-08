@@ -103,21 +103,21 @@ body {
 .theme-btn {
   width: 120px !important;
   height: 40px !important;
-  padding: 6px 10px;
+  padding: 0;
+  margin: 0;
   border: 1.5px solid var(--theme-border);
   border-radius: var(--radius-sm);
   background: var(--theme-bg-secondary);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
   transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
   outline: none;
-  margin: 4px 0;
 } 
 
 .theme-btn:hover {
@@ -143,14 +143,14 @@ body {
 }
 
 .theme-icon {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   object-fit: contain;
   display: block;
   margin: 0;
   border-radius: 4px;
   flex-shrink: 0;
-}
+} 
 
 .theme-btn.active .theme-icon {
   filter: brightness(0) invert(1);

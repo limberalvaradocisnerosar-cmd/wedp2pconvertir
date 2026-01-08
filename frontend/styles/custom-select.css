@@ -39,8 +39,8 @@
 }
 
 .custom-select-icon {
-  width: 26px;
-  height: 26px;
+  width: 25px;
+  height: 25px;
   border-radius: var(--radius-full);
   object-fit: cover;
   flex-shrink: 0;
@@ -51,7 +51,7 @@
   background: transparent;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
-}
+} 
 
 [data-theme="light"] .custom-select-icon,
 :root:not([data-theme="dark"]) .custom-select-icon {

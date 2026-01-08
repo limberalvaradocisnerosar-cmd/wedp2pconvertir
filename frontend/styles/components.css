@@ -318,14 +318,14 @@ button:focus-visible {
 }
 
 .panel-toggle-btn.floating .panel-icon {
-  width: 22px;
-  height: 22px;
+  width: 25px;
+  height: 25px;
   object-fit: contain;
   position: relative;
   z-index: 1;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   filter: brightness(0) saturate(100%);
-}
+} 
 
 /* Tema claro - icono oscuro */
 [data-theme="light"] .panel-toggle-btn.floating .panel-icon,
@@ -520,15 +520,15 @@ button:focus-visible {
 }
 
 .swap-icon {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   object-fit: contain;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
   position: relative;
   max-width: 100%;
   max-height: 100%;
-}
+} 
 
 [data-theme="light"] .swap-icon,
 :root:not([data-theme="dark"]) .swap-icon {

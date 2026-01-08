@@ -188,8 +188,8 @@
   }
 
   .panel-toggle-btn.floating .panel-icon {
-    width: 18px !important;
-    height: 18px !important;
+    width: 25px !important;
+    height: 25px !important;
   }
 
   .refresh-icon {
@@ -325,8 +325,8 @@
   }
 
   .panel-toggle-btn.floating .panel-icon {
-    width: 20px !important;
-    height: 20px !important;
+    width: 25px !important;
+    height: 25px !important;
   }
 
   .refresh-icon {
@@ -681,9 +681,9 @@
 
       /* Panel más compacto: reducir huecos y mantener icon + label */
     .info-panel-content { width: auto !important; max-width: 200px !important; }
-    .panel-buttons-container { gap: 4px !important; padding: 2px !important; }
-    .panel-info-btn { padding: 6px 8px !important; width: 120px !important; height: 40px !important; min-height: 40px !important; gap: 8px !important; border-radius: var(--radius-sm) !important; align-items: center !important; }
-    .panel-btn-icon { width: 30px !important; height: 30px !important; margin: 0 6px 0 0 !important; display: block; }
+    .panel-buttons-container { gap: 4px !important; padding: 0 !important; }
+    .panel-info-btn { padding: 0 !important; margin: 0 !important; width: 120px !important; height: 40px !important; min-height: 40px !important; gap: 8px !important; border-radius: var(--radius-sm) !important; align-items: center !important; justify-content: flex-start !important; }
+    .panel-btn-icon { width: 25px !important; height: 25px !important; margin: 0 !important; display: block; }
     .panel-btn-label { display: inline-block !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; max-width: 120px !important; }
 
     /* Tablas/imagenes dentro del popup */
@@ -696,28 +696,28 @@
     .popup-card { width: 300px !important; max-width: 300px !important; height: 290px !important; font-size: 0.92rem !important; }
     .popup-content { max-height: calc(100vh - 44px) !important; }
     .info-panel-content { width: auto !important; max-width: 260px !important; }
-    .panel-btn-label { font-size: 0.70rem !important; }
+    .panel-btn-label { font-size: 0.70rem !important; text-align: left !important; padding: 0 !important; margin: 0 !important; }
   }
 
   /* Ajustes adicionales para pantallas altas como 360x800: reducir fuente y padding para evitar overflow */
   @media (min-width: 360px) and (max-width: 420px) and (min-height: 800px) {
     .popup-card { max-height: calc(100vh - 92px) !important; font-size: 0.85rem !important; }
-    .popup-content { max-height: calc(100vh - 120px) !important; padding: 6px !important; overflow-y: auto !important; }
-    .popup-card .info-card { padding: 6px !important; }
+    .popup-content { max-height: calc(100vh - 120px) !important; padding: 0 !important; overflow-y: auto !important; }
+    .popup-card .info-card { padding: 0 !important; }
     .popup-content h2 { font-size: 0.96rem !important; }
 
     /* Ajustar botones del panel para reducir huecos manteniendo label */
     .panel-buttons-grid { gap: 4px !important; }
-    .panel-info-btn { padding: 6px 8px !important; width: 120px !important; height: 40px !important; min-height: 40px !important; gap: 8px !important; border-radius: var(--radius-sm) !important; justify-content: center !important; align-items: center !important; }
-    .panel-btn-label { display: inline-block !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; max-width: 140px !important; }
-    .panel-btn-icon { width: 30px !important; height: 30px !important; margin: 0 8px 0 0 !important; }
+    .panel-info-btn { padding: 0 !important; margin: 0 !important; width: 120px !important; height: 40px !important; min-height: 40px !important; gap: 8px !important; border-radius: var(--radius-sm) !important; justify-content: flex-start !important; align-items: center !important; }
+    .panel-btn-label { display: inline-block !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; max-width: 140px !important; text-align: left !important; }
+    .panel-btn-icon { width: 25px !important; height: 25px !important; margin: 0 !important; }
   }
 
   @media (max-width: 320px) {
     /* Para pantallas extremadamente estrechas */
     .info-panel-content { width: auto !important; max-width: 180px !important; }
     .panel-btn-label { font-size: 0.62rem !important; }
-    .panel-btn-icon { width: 16px !important; height: 16px !important; }
+    .panel-btn-icon { width: 25px !important; height: 25px !important; margin: 0 !important; }
     .popup-card { width: 300px !important; max-width: 300px !important; height: 290px !important; font-size: 0.92rem !important; }
   }
 }

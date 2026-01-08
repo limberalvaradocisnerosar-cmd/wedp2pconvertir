@@ -83,13 +83,15 @@
 }
 
 .panel-close-btn {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   border: 1px solid var(--theme-border);
+  padding: 0;
+  margin: 0; 
   border-radius: var(--radius-md);
   color: var(--theme-text-primary);
   font-size: 1rem;
@@ -158,9 +160,10 @@
 .panel-info-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center; /* centrar icon + label en el espacio fijo */
+  justify-content: flex-start;
   gap: 8px;
-  padding: 6px 8px;
+  padding: 0;
+  margin: 0;
   width: 120px !important;
   height: 40px !important;
   min-height: 40px !important;
@@ -175,37 +178,20 @@
   overflow: hidden;
 }
 
-
-.panel-info-btn {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
-  padding: 6px 8px;
-  background: var(--theme-bg-secondary);
-  border: 1px solid var(--theme-border);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: background-color var(--transition-fast), border-color var(--transition-fast);
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-  width: auto; /* adaptativo al contenido */
-  min-height: 40px; /* altura mínima para que haya 40px de espacio */
-  box-sizing: border-box;
-} 
-
 .panel-btn-label {
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--theme-text-primary);
-  text-align: center; /* centrar texto dentro del botón fijo */
+  text-align: left;
   line-height: 1.05;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   flex: 0 1 auto;
-  max-width: calc(120px - 40px); /* espacio disponible dentro del botón */
-}  
+  max-width: calc(120px - 40px);
+  margin: 0;
+  padding: 0;
+} 
 .panel-info-btn:hover {
   transform: none;
   box-shadow: none;
@@ -227,14 +213,15 @@
 
 .panel-info-btn.active .panel-btn-label { color: #FFFFFF; }
 
-..panel-btn-icon {
-  width: 30px !important;
-  height: 30px !important;
+.panel-btn-icon {
+  width: 25px !important;
+  height: 25px !important;
   object-fit: contain;
   display: block;
   flex-shrink: 0;
   border-radius: 6px;
-  margin-right: 6px;
+  margin: 0;
+  padding: 0;
 } 
 
 .panel-btn-label {
@@ -672,7 +659,7 @@
 .buy-sell-icon-img{width:36px;height:36px}
 .buy-sell-content h3{font-size:1rem;margin-bottom:4px}
 .buy-sell-content p{font-size:0.9rem}
-@media (max-width:380px){.buy-sell-icon-img{width:30px;height:30px}}
+@media (max-width:380px){.buy-sell-icon-img{width:25px;height:25px}}
 
 /* Ensure popup loading text has reasonable padding on small screens */
 @media (max-width:380px){.prices-table tbody tr .loading-text{padding:12px !important}}
