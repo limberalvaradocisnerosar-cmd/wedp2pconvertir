@@ -39,10 +39,10 @@
   right: 0;
   /* Entrada lateral desde la derecha (oculto por defecto fuera de pantalla) */
   transform: translateX(110%) translateY(-50%);
-  /* Dejar que el contenido determine la anchura, con límites (más compacto) */
-  width: max-content;
-  min-width: 160px;
-  max-width: 280px;
+  /* Adaptativo al contenido: ancho automático con límites para evitar overflow */
+  width: auto;
+  min-width: 140px;
+  max-width: min(420px, calc(100vw - 24px));
   max-height: 92vh;
   background: var(--theme-bg-primary);
   box-shadow: -4px 0 18px rgba(0, 0, 0, 0.14);
@@ -50,6 +50,7 @@
   transition: transform 240ms cubic-bezier(0.2, 0, 0, 1), width 160ms;
   border-radius: var(--radius-md) 0 0 var(--radius-md);
   padding: 0; /* el body del panel controla padding para mayor control */
+  box-sizing: border-box;
 }
 
 .info-panel.active .info-panel-content {
@@ -94,7 +95,10 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all var(--transition-fast);
-}
+  flex-shrink: 0; /* evitar que se empuje fuera del header */
+  box-sizing: border-box;
+  margin-left: 6px;
+} 
 
 .panel-close-btn:hover {
   transform: rotate(45deg);
@@ -153,7 +157,7 @@
 .panel-info-btn {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 8px;
   padding: 6px 8px;
   background: var(--theme-bg-secondary);
@@ -164,8 +168,9 @@
   -webkit-tap-highlight-color: transparent;
   outline: none;
   width: 100%;
-  min-height: 36px;
-}
+  min-height: 40px; /* altura mínima para que haya 40px de espacio */
+  box-sizing: border-box;
+} 
 
 .panel-btn-label {
   font-size: 0.72rem;
@@ -201,12 +206,25 @@
 .panel-info-btn.active .panel-btn-label { color: #FFFFFF; }
 
 .panel-btn-icon {
-  width: 18px;
-  height: 18px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
   display: block;
   flex-shrink: 0;
+  border-radius: 6px;
 }
+
+.panel-btn-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--theme-text-primary);
+  text-align: left;
+  line-height: 1.05;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 56px); /* dejar espacio para icono + padding */
+} 
 
 .panel-btn-label {
   font-size: 0.72rem;
@@ -249,8 +267,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  min-width: 300px;
+  min-height: 300px;
   max-width: 520px;
-  width: min(520px, calc(100% - 48px));
+  width: min(520px, max(300px, calc(100% - 48px)));
   max-height: calc(100vh - 48px);
   background: var(--theme-bg-secondary);
   border-radius: var(--radius-lg);
@@ -265,9 +285,11 @@
   margin-left: 24px;
   margin-right: 24px;
   box-sizing: border-box;
-  /* scale down text a bit on narrow viewports so content fits */
   font-size: clamp(0.88rem, 1rem, 1rem);
 }
+
+.popup-content { padding: 12px; max-height: calc(100vh - 120px); overflow-y: auto; }
+
 
 .popup-card.active {
   opacity: 1;
