@@ -682,7 +682,7 @@
       /* Panel más compacto: reducir huecos y mantener icon + label */
     .info-panel-content { width: auto !important; max-width: 200px !important; }
     .panel-buttons-container { gap: 4px !important; padding: 2px !important; }
-    .panel-info-btn { padding: 6px 8px !important; width: 120px !important; height: 40px !important; min-height: 40px !important; gap: 8px !important; border-radius: var(--radius-sm) !important; justify-content: center !important; align-items: center !important; }
+    .panel-info-btn { padding: 6px 8px !important; width: 120px !important; height: 40px !important; min-height: 40px !important; gap: 8px !important; border-radius: var(--radius-sm) !important; align-items: center !important; }
     .panel-btn-icon { width: 30px !important; height: 30px !important; margin: 0 6px 0 0 !important; display: block; }
     .panel-btn-label { display: inline-block !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; max-width: 120px !important; }
 
