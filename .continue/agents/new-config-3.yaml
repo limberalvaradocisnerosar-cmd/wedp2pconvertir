@@ -9,4 +9,3 @@ models:
     baseUrl: http://localhost:11434
 
 defaultModel: qwen-local
-  - uses: ollama/qwen2.5-coder-7b
