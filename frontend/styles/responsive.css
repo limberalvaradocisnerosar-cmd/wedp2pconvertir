@@ -677,12 +677,12 @@
     .popup-content { padding: 6px !important; max-height: calc(100vh - 96px) !important; overflow-y: auto !important; }
     .popup-content h2 { font-size: 0.96rem !important; margin-bottom: 4px !important; }
 
-    /* Panel más compacto: botones circulares icon-only, reducir huecos */
+      /* Panel más compacto: reducir huecos y mantener icon + label */
     .info-panel-content { width: 200px !important; }
     .panel-buttons-container { gap: 4px !important; padding: 2px !important; }
-    .panel-info-btn { padding: 0 !important; min-height: 44px !important; width: 44px !important; height: 44px !important; gap: 0 !important; border-radius: 50% !important; justify-content: center !important; align-items: center !important; }
-    .panel-btn-icon { width: 20px !important; height: 20px !important; margin: 0 !important; display: block; }
-    .panel-btn-label { display: none !important; }
+    .panel-info-btn { padding: 6px 8px !important; min-height: 40px !important; width: auto !important; height: auto !important; gap: 8px !important; border-radius: var(--radius-sm) !important; justify-content: space-between !important; align-items: center !important; }
+    .panel-btn-icon { width: 20px !important; height: 20px !important; margin: 0 6px 0 0 !important; display: block; }
+    .panel-btn-label { display: inline-block !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; max-width: 120px !important; }
 
     /* Tablas/imagenes dentro del popup */
     .popup-content table { font-size: 0.78rem !important; }
@@ -704,11 +704,11 @@
     .popup-card .info-card { padding: 6px !important; }
     .popup-content h2 { font-size: 0.96rem !important; }
 
-    /* Ajustar botones del panel para reducir huecos */
+    /* Ajustar botones del panel para reducir huecos manteniendo label */
     .panel-buttons-grid { gap: 4px !important; }
-    .panel-info-btn { padding: 4px !important; min-height: 40px !important; width: 40px !important; height: 40px !important; border-radius: 50% !important; gap: 0 !important; justify-content: center !important; align-items: center !important; }
-    .panel-btn-label { display: none !important; }
-    .panel-btn-icon { width: 20px !important; height: 20px !important; margin: 0 !important; }
+    .panel-info-btn { padding: 6px 8px !important; min-height: 40px !important; width: auto !important; height: auto !important; border-radius: var(--radius-sm) !important; gap: 8px !important; justify-content: space-between !important; align-items: center !important; }
+    .panel-btn-label { display: inline-block !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; max-width: 140px !important; }
+    .panel-btn-icon { width: 20px !important; height: 20px !important; margin: 0 8px 0 0 !important; }
   }
 
   @media (max-width: 320px) {

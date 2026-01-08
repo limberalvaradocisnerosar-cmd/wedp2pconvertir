@@ -292,8 +292,18 @@
 
 /* Make images & tables inside popups responsive */
 .popup-content img { max-width: 100%; height: auto; display: block; }
-.popup-content table { width: 100%; table-layout: auto; font-size: 0.92rem; }
-.popup-content th, .popup-content td { padding: 8px 6px; }
+.popup-content table { width: 100%; table-layout: fixed; font-size: 0.92rem; display: block; overflow-x: auto; }
+.popup-content th, .popup-content td { padding: 8px 6px; word-break: break-word; }
+
+/* Ensure long words and content can wrap to avoid horizontal overflow */
+.popup-content { overflow-wrap: anywhere; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; }
+
+/* Make all elements inside popup respect container width */
+.popup-content * { max-width: 100%; box-sizing: border-box; }
+
+/* Pre/code handling */
+.popup-content pre, .popup-content code { white-space: pre-wrap; word-break: break-word; }
+
 
 /* Ensure long words and content can wrap to avoid horizontal overflow */
 .popup-content { overflow-wrap: anywhere; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; }

@@ -5,6 +5,7 @@
 
 let currentPopup = null;
 let popupResizeHandler = null; // used to remove resize listener when popup closes
+let popupMutationObserver = null; // observe content changes to readjust popup fit
 
 
 /**
@@ -108,6 +109,19 @@ export async function openPopup(contentFile, isPage = false) {
         popupResizeHandler = () => requestAnimationFrame(() => adjustPopupFit());
         window.addEventListener('resize', popupResizeHandler);
         window.addEventListener('orientationchange', popupResizeHandler);
+
+        // Observar cambios en el contenido (imagenes que cargan, nodos dinámicos) y reajustar
+        if (window.MutationObserver) {
+            const observer = new MutationObserver(() => requestAnimationFrame(() => adjustPopupFit()));
+            observer.observe(content, { childList: true, subtree: true, characterData: true });
+            popupMutationObserver = observer;
+        }
+
+        // Reajustar cuando las imágenes internas terminen de cargar
+        const imgs = content.querySelectorAll('img');
+        imgs.forEach(img => {
+            if (!img.complete) img.addEventListener('load', () => requestAnimationFrame(() => adjustPopupFit()));
+        });
     } catch (error) {
         console.error('Error cargando popup:', error);
         content.innerHTML = '<div class="popup-error">Error al cargar el contenido</div>';
@@ -148,6 +162,12 @@ export function closePopup() {
             window.removeEventListener('resize', popupResizeHandler);
             window.removeEventListener('orientationchange', popupResizeHandler);
             popupResizeHandler = null;
+        }
+
+        // Desconectar observer de contenido si existe
+        if (popupMutationObserver) {
+            try { popupMutationObserver.disconnect(); } catch (e) { /* ignore */ }
+            popupMutationObserver = null;
         }
 
         setTimeout(() => {
