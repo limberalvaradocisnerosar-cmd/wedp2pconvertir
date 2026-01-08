@@ -261,17 +261,18 @@
   pointer-events: all;
 }
 
-/* Popup card: responsive and shrink-to-fit */
+/* Popup card: fixed global size 300x290 and compact spacing */
 .popup-card {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 300px !important;
+  height: 290px !important;
   min-width: 300px;
-  min-height: 300px;
-  max-width: 520px;
-  width: min(520px, max(300px, calc(100% - 48px)));
-  max-height: calc(100vh - 48px);
+  min-height: 290px;
+  max-width: 300px;
+  max-height: 290px;
   background: var(--theme-bg-secondary);
   border-radius: var(--radius-lg);
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
@@ -282,13 +283,15 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  margin-left: 24px;
-  margin-right: 24px;
+  margin-left: 0;
+  margin-right: 0;
   box-sizing: border-box;
-  font-size: clamp(0.88rem, 1rem, 1rem);
+  font-size: 0.92rem;
 }
 
-.popup-content { padding: 12px; max-height: calc(100vh - 120px); overflow-y: auto; }
+/* Content inside popup must fit into 300x290 */
+.popup-content { padding: 8px; overflow-y: auto; flex: 1 1 auto; height: calc(290px - 28px); box-sizing: border-box; }
+
 
 
 .popup-card.active {
@@ -395,7 +398,7 @@
   background: var(--theme-card-bg);
   border: 1px solid var(--theme-card-border);
   border-radius: var(--radius-md);
-  padding: 8px;
+  padding: 6px; /* reducir padding */
   box-shadow: none;
   transition: all var(--transition-base);
 }
@@ -448,15 +451,15 @@
 .method-steps {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px; /* reducir espacio entre steps */
   margin-top: var(--spacing-xs);
 }
 
 .step-item {
   display: flex;
-  gap: 8px;
+  gap: 6px; /* reducir gap */
   align-items: flex-start;
-  padding: 6px;
+  padding: 4px; /* reducir padding para caber mejor */
   background: var(--theme-bg-tertiary);
   border-radius: var(--radius-sm);
   border: 1px solid var(--theme-border-light);
@@ -631,9 +634,9 @@
 @media (max-width:380px){.info-card-popup{padding:6px;font-size:0.9rem}}
 
 /* Prices table compact */
-.prices-table{width:100%;font-size:0.85rem;border-collapse:collapse}
-.prices-table th, .prices-table td{padding:8px 6px}
-@media (max-width:380px){.prices-table th,.prices-table td{padding:6px;font-size:0.78rem}}
+.prices-table{width:100%;font-size:0.82rem;border-collapse:collapse}
+.prices-table th, .prices-table td{padding:6px 4px}
+@media (max-width:380px){.prices-table th,.prices-table td{padding:5px;font-size:0.75rem}}
 
 /* Protection compact */
 .protection-list{display:flex;flex-direction:column;gap:6px}
