@@ -94,23 +94,24 @@ body {
 .theme-buttons-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* los botones son circulares y centrados */
+  align-items: stretch; /* dejar que las etiquetas se alineen a la izquierda */
   gap: 6px;
   justify-content: flex-start;
   width: 100%;
 }
 
 .theme-btn {
-  width: 40px;
+  width: auto;
   height: 40px;
-  padding: 0;
+  padding: 6px 10px;
   border: 1.5px solid var(--theme-border);
-  border-radius: 50%;
+  border-radius: var(--radius-sm);
   background: var(--theme-bg-secondary);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 8px;
   transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
@@ -142,15 +143,28 @@ body {
 }
 
 .theme-icon {
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   display: block;
   margin: 0;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .theme-btn.active .theme-icon {
   filter: brightness(0) invert(1);
+}
+
+.theme-btn-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+  text-align: left;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 } 
 
 /* Theme icon appearance by theme - make selector reflect the theme */
