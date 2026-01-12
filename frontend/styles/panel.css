@@ -142,7 +142,7 @@
 }
 
 html[data-theme="light"] .theme-icon {
-  filter: brightness(0) invert(0); /* Negro en tema claro */
+  filter: brightness(0) invert(0) !important; /* Negro en tema claro */
 }
 
 .theme-btn.active .theme-icon {
