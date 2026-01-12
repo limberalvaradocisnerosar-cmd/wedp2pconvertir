@@ -51,21 +51,35 @@
 .info-panel-header {
   border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .info-panel-header h2 {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
+  text-align: center;
 }
 
 /* Panel Body */
 .info-panel-body {
   flex: 1;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Panel Sections */
+.panel-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
 
 .panel-section-title {
   font-size: var(--font-size-sm);
@@ -74,6 +88,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: var(--space-sm);
+  text-align: center;
 }
 
 /* Theme Buttons Container */
@@ -81,13 +96,14 @@
   display: flex;
   gap: var(--space-xs);
   flex-direction: column;
+  align-items: center;
 }
 
 .theme-btn {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: var(--space-sm);
   width: 100px;
   height: 40px;
@@ -100,6 +116,7 @@
   cursor: pointer;
   padding: 0 var(--space-sm);
   color: var(--text-primary);
+  text-align: center;
 }
 
 .theme-btn:hover {
@@ -135,6 +152,7 @@ html[data-theme="light"] .theme-icon {
   font-size: var(--font-size-xs);
   white-space: nowrap;
   color: var(--text-primary);
+  text-align: center;
 }
 
 /* Panel Buttons Container */
@@ -143,7 +161,8 @@ html[data-theme="light"] .theme-icon {
   flex-direction: column;
   gap: var(--space-lg);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  border: 1px solid var(--border-color);
+  align-items: center;
 }
 
 /* Panel Buttons Grid */
@@ -151,13 +170,15 @@ html[data-theme="light"] .theme-icon {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+  align-items: center;
+  width: 100%;
 }
 
 .panel-info-btn {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: var(--space-sm);
   width: 100px;
   height: 40px;
@@ -170,6 +191,7 @@ html[data-theme="light"] .theme-icon {
   cursor: pointer;
   padding: 0 var(--space-sm);
   color: var(--text-primary);
+  text-align: center;
 }
 
 .panel-info-btn:hover {
@@ -205,4 +227,5 @@ html[data-theme="light"] .panel-btn-icon {
   font-size: var(--font-size-xs);
   white-space: nowrap;
   color: var(--text-primary);
+  text-align: center;
 }
