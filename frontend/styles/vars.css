@@ -7,8 +7,8 @@
   --bg-hover: #252525;
   
   --text-primary: #ffffff;
-  --text-secondary: #b3b3b3;
-  --text-tertiary: #808080;
+  --text-secondary: #c5c5c5;
+  --text-tertiary: #8a8a8a;
   --text-disabled: #4d4d4d;
   
   --border-color: #2a2a2a;
@@ -89,8 +89,8 @@ html[data-theme="light"] {
   --bg-hover: #f8f8f9;
   
   --text-primary: #0a0a0a;
-  --text-secondary: #4d4d4d;
-  --text-tertiary: #808080;
+  --text-secondary: #525252;
+  --text-tertiary: #737373;
   --text-disabled: #b3b3b3;
   
   --border-color: #e5e5e5;

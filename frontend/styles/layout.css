@@ -17,26 +17,30 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: var(--space-xl) var(--space-lg);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
   position: relative;
   z-index: 1;
 }
 
+html[data-theme="light"] .converter-card {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
 /* Card Sections */
 .card-header {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-xl);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .card-footer {
-  margin-top: var(--space-lg);
-  padding-top: var(--space-md);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
   border-top: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   align-items: center;
 }
 
@@ -60,7 +64,7 @@
 
 /* Input Section */
 .input-section {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-xl);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,12 +72,14 @@
 
 .input-label {
   display: block;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-secondary);
-  margin-bottom: var(--space-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-md);
   text-align: center;
   width: 100%;
+  opacity: 0.8;
+  letter-spacing: 0.2px;
 }
 
 .input-wrapper {
@@ -83,20 +89,21 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: var(--space-md) var(--space-lg);
-  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  padding: var(--space-lg) var(--space-xl);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
   width: 100%;
   box-shadow: var(--shadow-sm);
 }
 
 :root .converter-card .input-wrapper {
-  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.08), 0 1px 2px rgba(255, 255, 255, 0.06);
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(255, 255, 255, 0.08);
 }
 
 .input-wrapper:focus-within {
-  border-color: var(--border-color);
+  border-color: var(--border-focus);
   outline: none;
-  box-shadow: none;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.12), 0 2px 4px rgba(255, 255, 255, 0.1);
+  background: var(--bg-tertiary);
 }
 
 .main-input {
@@ -107,6 +114,7 @@
   width: 100%;
   background: transparent;
   text-align: center;
+  line-height: 1.4;
 }
 
 .main-input::placeholder {
@@ -125,12 +133,13 @@
 
 /* Result Section */
 .result-section {
-  margin-bottom: var(--space-lg);
-  padding: var(--space-lg);
-  background: var(--bg-secondary);
+  margin-bottom: var(--space-xl);
+  padding: var(--space-xl) var(--space-lg);
+  background: var(--bg-tertiary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   animation: fadeIn var(--transition-base);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .result-section.loading {
@@ -214,8 +223,22 @@
 /* Microcopy */
 .microcopy {
   font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
   color: var(--text-tertiary);
   text-align: center;
+  opacity: 0.6;
+  line-height: 1.4;
+  letter-spacing: 0.1px;
+}
+
+#last-update {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-tertiary);
+  text-align: center;
+  opacity: 0.6;
+  line-height: 1.4;
+  letter-spacing: 0.1px;
 }
 
 /* Animations */

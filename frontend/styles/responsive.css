@@ -52,6 +52,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding: var(--space-2xl);
+    min-height: 480px;
   }
   
   .card-header {
