@@ -3,6 +3,8 @@
  * Maneja la apertura/cierre de popups y animaciones
  */
 
+import { getTimeAgo } from './render.js';
+
 let currentPopup = null;
 let popupResizeHandler = null; // used to remove resize listener when popup closes
 let popupMutationObserver = null; // observe content changes to readjust popup fit
@@ -201,7 +203,8 @@ async function loadPopupPrices() {
             
             const buy = priceData.buy || 'N/A';
             const sell = priceData.sell || 'N/A';
-            const lastUpdate = priceData.lastUpdate || 'N/A';
+            const updatedAt = priceData.updated_at;
+            const lastUpdate = updatedAt ? getTimeAgo(updatedAt) : 'N/A';
             
             const buyFormatted = typeof buy === 'number' ? buy.toFixed(2) : buy;
             const sellFormatted = typeof sell === 'number' ? sell.toFixed(2) : sell;

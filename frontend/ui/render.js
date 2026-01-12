@@ -113,7 +113,7 @@ function formatNumber(num) {
  * @param {string} timestamp - Timestamp ISO
  * @returns {string} - Tiempo transcurrido (ej: "hace 5m")
  */
-function getTimeAgo(timestamp) {
+export function getTimeAgo(timestamp) {
   if (!timestamp) return 'N/A';
   
   try {

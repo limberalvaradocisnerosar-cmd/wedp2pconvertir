@@ -11,7 +11,7 @@ import { supabase } from './supabase.js';
  */
 export async function getPrices() {
   const table = await supabase.from('p2p_prices');
-  const { data, error } = await table.select('fiat, side, price_avg');
+  const { data, error } = await table.select('fiat, side, price_avg, updated_at');
 
   if (error) {
     throw new Error(`Error al leer Supabase: ${error.message}`);
@@ -31,6 +31,18 @@ export async function getPrices() {
 
     if (row.side === 'SELL') {
       prices[row.fiat].sell = Number(row.price_avg);
+    }
+
+    // Guardar el updated_at más reciente (comparar timestamps)
+    if (row.updated_at) {
+      const rowTimestamp = new Date(row.updated_at).getTime();
+      const currentTimestamp = prices[row.fiat].updated_at 
+        ? new Date(prices[row.fiat].updated_at).getTime() 
+        : 0;
+      
+      if (rowTimestamp > currentTimestamp) {
+        prices[row.fiat].updated_at = row.updated_at;
+      }
     }
   }
 
