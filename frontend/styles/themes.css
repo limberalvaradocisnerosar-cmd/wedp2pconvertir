@@ -1,25 +1,16 @@
-:root {
-  --bg: #0b0f14;
-  --card: #111827;
-  --border: #1f2937;
-  --text: #e5e7eb;
-  --muted: #9ca3af;
+/* Theme System */
+/* Themes are handled via CSS variables in vars.css */
+/* This file is for theme-specific overrides if needed */
 
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --danger: #ef4444;
+/* Auto theme detection is handled by JavaScript */
+/* Dark and light themes use the CSS variables defined in :root and [data-theme="light"] */
 
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-
-  --shadow: 0 20px 40px rgba(0,0,0,.35);
-}
-
-[data-theme="light"] {
-  --bg: #f8fafc;
-  --card: #ffffff;
-  --border: #e5e7eb;
-  --text: #0f172a;
-  --muted: #64748b;
+/* Ensure smooth theme transitions */
+body,
+.converter-card,
+.info-panel-content,
+.popup-card {
+  transition: background-color var(--transition-slow),
+              color var(--transition-slow),
+              border-color var(--transition-slow);
 }
