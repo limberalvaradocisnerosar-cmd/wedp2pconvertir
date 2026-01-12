@@ -151,7 +151,7 @@
   padding: 2px 2px;
 }
 
-..panel-buttons-grid {
+.panel-buttons-grid {
   display: flex;
   flex-direction: column;
   gap: 4px;
