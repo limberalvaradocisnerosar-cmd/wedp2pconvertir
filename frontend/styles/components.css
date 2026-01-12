@@ -28,11 +28,8 @@
 .swap-icon {
   width: 18px;
   height: 18px;
-  opacity: 0.8;
-}
-
-.swap-btn:hover .swap-icon {
   opacity: 1;
+  filter: brightness(0) saturate(100%) invert(48%) sepia(98%) saturate(2380%) hue-rotate(4deg) brightness(102%) contrast(104%);
 }
 
 /* Refresh Button */
