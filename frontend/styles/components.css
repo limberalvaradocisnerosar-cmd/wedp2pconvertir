@@ -380,6 +380,16 @@ html[data-theme="light"] .panel-icon {
   transition: all var(--transition-base);
 }
 
+/* Item de compra (BUY) - Verde */
+.buy-sell-item.buy .buy-sell-content h3 {
+  color: var(--success);
+}
+
+/* Item de venta (SELL) - Rojo */
+.buy-sell-item.sell .buy-sell-content h3 {
+  color: var(--error);
+}
+
 .buy-sell-item:hover {
   background: var(--bg-hover);
   border-color: var(--border-hover);
@@ -450,6 +460,18 @@ html[data-theme="light"] .panel-icon {
   padding: var(--space-md);
   color: var(--text-primary);
   border-bottom: 1px solid var(--border-color);
+}
+
+/* Columna COMPRA (segunda columna) - Verde */
+.prices-table th:nth-child(2),
+.prices-table td:nth-child(2) {
+  color: var(--success);
+}
+
+/* Columna VENTA (tercera columna) - Rojo */
+.prices-table th:nth-child(3),
+.prices-table td:nth-child(3) {
+  color: var(--error);
 }
 
 .prices-table tbody tr:last-child td {
