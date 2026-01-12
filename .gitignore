@@ -39,3 +39,4 @@ desktop.ini
 *.pem
 .cache/
 
+.gitignore
