@@ -36,7 +36,7 @@
 .custom-select-icon {
   width: 20px;
   height: 20px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -120,7 +120,7 @@
 .option-icon {
   width: 20px;
   height: 20px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   object-fit: cover;
   flex-shrink: 0;
 }

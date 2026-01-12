@@ -90,7 +90,6 @@
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
   width: 100%;
-  padding: 0;
   background: transparent;
 }
 
@@ -160,7 +159,6 @@
   font-size: var(--font-size-xs);
   color: var(--text-tertiary);
   text-align: center;
-  margin: 0;
 }
 
 /* Animations */
