@@ -831,7 +831,7 @@ img {
   -khtml-user-drag: none !important;
   -moz-user-drag: none !important;
   -o-user-drag: none !important;
-  user-drag: none !important;
+
   pointer-events: none !important;
   -webkit-touch-callout: none !important;
 }
