@@ -110,7 +110,12 @@
 .panel-icon {
   width: 20px;
   height: 20px;
-  opacity: 0.9;
+  opacity: 1;
+  filter: brightness(0) invert(1);
+}
+
+html[data-theme="light"] .panel-icon {
+  filter: brightness(0) invert(0);
 }
 
 .panel-toggle-btn:hover .panel-icon,

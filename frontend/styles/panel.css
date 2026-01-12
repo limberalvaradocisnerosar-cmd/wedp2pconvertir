@@ -110,9 +110,9 @@
 }
 
 .theme-btn.active {
-  background: var(--accent-subtle);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
+  background: var(--bg-hover);
+  border-color: var(--border-hover);
+  color: var(--text-primary);
 }
 
 .theme-icon {

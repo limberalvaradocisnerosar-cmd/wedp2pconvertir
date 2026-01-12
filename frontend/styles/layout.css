@@ -78,7 +78,9 @@
 }
 
 .input-wrapper:focus-within {
-  border-color: var(--border-hover);
+  border-color: var(--border-color);
+  outline: none;
+  box-shadow: none;
 }
 
 .main-input {

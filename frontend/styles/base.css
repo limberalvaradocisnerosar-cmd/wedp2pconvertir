@@ -39,10 +39,15 @@ body:has(.popup-overlay.active) {
 
 button:focus-visible,
 a:focus-visible,
-input:focus-visible,
 select:focus-visible {
   outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
+}
+
+input:focus-visible,
+input:focus,
+input:active {
+  outline: none !important;
 }
 
 /* Remove default button styles */
