@@ -81,7 +81,7 @@
 }
 
 /* Light Theme Variables */
-[data-theme="light"] {
+html[data-theme="light"] {
   --bg-primary: #ffffff;
   --bg-secondary: #f8f8f9;
   --bg-tertiary: #f1f2f4;
