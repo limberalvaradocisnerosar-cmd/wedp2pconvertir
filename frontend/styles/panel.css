@@ -1,6 +1,6 @@
 /**
  * panel.css - Estilos del Panel de Información
- * Solo estilos del panel lateral
+ * Solo estilos del panel lateral y popups
  */
 
 /* ============================================
@@ -36,10 +36,6 @@
 .info-panel-content {
   position: absolute;
   top: 50%;
-/**
- * panel.css - Estilos del Panel de Información
- * Solo estilos del panel lateral y popups
- */
   /* Entrada lateral desde la derecha (oculto por defecto fuera de pantalla) */
   transform: translateX(110%) translateY(-50%);
   /* Adaptativo al contenido: ancho automático con límites para evitar overflow */
@@ -657,4 +653,15 @@
 
 /* Ensure popup loading text has reasonable padding on small screens */
 @media (max-width:380px){.prices-table tbody tr .loading-text{padding:12px !important}}
+
+/* Restructured and refactored panel.css */
+/* Panel styles */
+.info-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
 

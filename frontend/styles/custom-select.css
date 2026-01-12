@@ -310,3 +310,12 @@
   }
 }
 
+/* Restructured and refactored custom-select.css */
+/* Custom select styles */
+.custom-select {
+  display: flex;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+

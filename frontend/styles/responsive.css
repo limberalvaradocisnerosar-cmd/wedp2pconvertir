@@ -922,3 +922,10 @@
     margin-bottom: var(--spacing-sm);
   }
 }
+
+/* Media queries */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-md);
+  }
+}
