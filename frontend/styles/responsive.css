@@ -1,5 +1,23 @@
 /* Mobile First - Base styles are for mobile (360x700) */
 
+/* Popup adjustments for mobile and tablet (up to 1023px, excluding PC) */
+@media (max-width: 1023px) {
+  .popup-card {
+    width: 300px;
+    height: auto;
+    max-width: 300px;
+    max-height: 90vh;
+  }
+  
+  .popup-content {
+    padding: 10px;
+  }
+  
+  .popup-loading {
+    padding: 10px;
+  }
+}
+
 /* Tablet and Up */
 @media (min-width: 768px) {
   .container {
