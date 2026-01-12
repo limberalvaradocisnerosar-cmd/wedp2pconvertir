@@ -29,28 +29,26 @@
 .info-panel-content {
   position: fixed;
   right: 0;
-  top: 0;
-  bottom: 0;
-  width: var(--panel-width);
-  max-width: 90vw;
+  top: 50%;
+  transform: translate(100%, -50%);
+  width: 120px;
+  height: 450px;
   background: var(--bg-elevated);
   border-left: 1px solid var(--border-color);
   box-shadow: var(--shadow-xl);
   display: flex;
   flex-direction: column;
-  transform: translateX(100%);
   transition: transform var(--transition-base);
   z-index: 201;
   overflow: hidden;
 }
 
 .info-panel.active .info-panel-content {
-  transform: translateX(0);
+  transform: translate(0, -50%);
 }
 
 /* Panel Header */
 .info-panel-header {
-  padding: var(--space-lg);
   border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
 }
@@ -65,12 +63,11 @@
 .info-panel-body {
   flex: 1;
   overflow-y: auto;
-  padding: var(--space-lg);
 }
 
 /* Panel Sections */
 .panel-section {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 
 .panel-section:last-child {
@@ -83,24 +80,24 @@
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
 }
 
 /* Theme Buttons Container */
 .theme-buttons-container {
   display: flex;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
+  gap: var(--space-xs);
+  flex-direction: column;
 }
 
 .theme-btn {
-  flex: 1;
-  min-width: 80px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-md);
+  justify-content: flex-start;
+  gap: var(--space-sm);
+  width: 100px;
+  height: 40px;
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
@@ -109,6 +106,7 @@
   font-weight: var(--font-weight-medium);
   transition: all var(--transition-base);
   cursor: pointer;
+  padding: 0 var(--space-sm);
 }
 
 .theme-btn:hover {
@@ -128,6 +126,7 @@
   width: 20px;
   height: 20px;
   opacity: 0.8;
+  flex-shrink: 0;
 }
 
 .theme-btn.active .theme-icon {
@@ -136,6 +135,7 @@
 
 .theme-btn-label {
   font-size: var(--font-size-xs);
+  white-space: nowrap;
 }
 
 /* Panel Buttons Container */
@@ -147,17 +147,17 @@
 
 /* Panel Buttons Grid */
 .panel-buttons-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
 }
 
 .panel-info-btn {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: var(--space-xs);
+  justify-content: flex-start;
+  gap: var(--space-sm);
   width: 100px;
   height: 40px;
   background: var(--bg-secondary);
@@ -168,7 +168,7 @@
   font-weight: var(--font-weight-medium);
   transition: all var(--transition-base);
   cursor: pointer;
-  text-align: center;
+  padding: 0 var(--space-sm);
 }
 
 .panel-info-btn:hover {
@@ -185,9 +185,10 @@
 }
 
 .panel-btn-icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   opacity: 0.8;
+  flex-shrink: 0;
 }
 
 .panel-info-btn.active .panel-btn-icon {
@@ -196,4 +197,5 @@
 
 .panel-btn-label {
   font-size: var(--font-size-xs);
+  white-space: nowrap;
 }

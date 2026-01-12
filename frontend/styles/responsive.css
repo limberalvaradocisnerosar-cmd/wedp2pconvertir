@@ -12,7 +12,7 @@
   }
   
   .currency-selectors-container {
-    gap: var(--space-lg);
+    gap: var(--space-sm);
   }
   
   .panel-toggle-btn {
@@ -50,17 +50,13 @@
   }
   
   .currency-selectors-container {
-    justify-content: center;
-  }
-  
-  .currency-selector-wrapper {
-    flex: 0 1 auto;
-    min-width: 140px;
+    gap: var(--space-sm);
   }
   
   /* Panel adjustments for desktop */
   .info-panel-content {
-    width: var(--panel-width);
+    width: 120px;
+    height: 450px;
   }
   
   .panel-toggle-btn {
@@ -91,11 +87,7 @@
   }
   
   .currency-selectors-container {
-    gap: var(--space-sm);
-  }
-  
-  .panel-buttons-grid {
-    grid-template-columns: 1fr;
+    gap: var(--space-xs);
   }
   
   .panel-toggle-btn {

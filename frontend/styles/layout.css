@@ -24,31 +24,29 @@
 
 /* Card Sections */
 .card-header {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 
 .card-footer {
-  margin-top: var(--space-xl);
-  padding-top: var(--space-lg);
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
   border-top: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
   align-items: center;
 }
 
 /* Currency Selectors Container */
 .currency-selectors-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: var(--space-md);
-  flex-wrap: wrap;
-  justify-content: center;
+  gap: var(--space-sm);
 }
 
 .currency-selector-wrapper {
-  flex: 1;
-  min-width: 120px;
+  width: 100%;
 }
 
 .currency-selector-box {
