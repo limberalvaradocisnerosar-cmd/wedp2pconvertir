@@ -21,9 +21,56 @@ export function renderResult(result, fiatTo) {
   if (resultDiv) {
     resultDiv.style.display = 'block';
     resultDiv.className = 'result-section';
+    const formattedResult = formatNumber(result);
+    const resultText = `${formattedResult} ${fiatTo}`;
     resultDiv.innerHTML = `
-      <div class="result-value">= ${formatNumber(result)} ${fiatTo}</div>
+      <div class="result-value-container">
+        <div class="result-value">= ${resultText}</div>
+        <button class="copy-result-btn" title="Copiar resultado" aria-label="Copiar resultado" data-value="${resultText}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
     `;
+    
+    // Agregar evento de copiar
+    const copyBtn = resultDiv.querySelector('.copy-result-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const valueToCopy = copyBtn.getAttribute('data-value');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(valueToCopy).then(() => {
+            // Feedback visual temporal
+            const originalHTML = copyBtn.innerHTML;
+            copyBtn.innerHTML = `
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            `;
+            setTimeout(() => {
+              copyBtn.innerHTML = originalHTML;
+            }, 1500);
+          }).catch(() => {
+            // Fallback para navegadores antiguos
+            const textarea = document.createElement('textarea');
+            textarea.value = valueToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+          });
+        } else {
+          // Fallback para navegadores antiguos
+          const textarea = document.createElement('textarea');
+          textarea.value = valueToCopy;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+        }
+      });
+    }
   }
 }
 

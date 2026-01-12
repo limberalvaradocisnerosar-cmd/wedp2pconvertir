@@ -139,11 +139,50 @@
   font-size: var(--font-size-sm);
 }
 
+.result-value-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  position: relative;
+}
+
 .result-value {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
   text-align: center;
+}
+
+.copy-result-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+}
+
+.copy-result-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.copy-result-btn:active {
+  transform: translateY(0);
+}
+
+.copy-result-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 .error-section {

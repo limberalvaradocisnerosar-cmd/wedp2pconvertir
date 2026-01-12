@@ -219,6 +219,20 @@ async function handleRefresh() {
 export function initUI() {
   const elements = getElements();
   
+  // Cargar preferencias guardadas (monedas seleccionadas)
+  const savedFiatFrom = localStorage.getItem('fiatFrom');
+  const savedFiatTo = localStorage.getItem('fiatTo');
+  
+  if (savedFiatFrom && elements.fiatFromSelect) {
+    elements.fiatFromSelect.value = savedFiatFrom;
+    elements.fiatFromSelect.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  
+  if (savedFiatTo && elements.fiatToSelect) {
+    elements.fiatToSelect.value = savedFiatTo;
+    elements.fiatToSelect.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  
   if (elements.amountInput) {
     initInputFormatter(elements.amountInput);
   }
@@ -236,6 +250,10 @@ export function initUI() {
       const temp = elements.fiatFromSelect.value;
       elements.fiatFromSelect.value = elements.fiatToSelect.value;
       elements.fiatToSelect.value = temp;
+      
+      // Guardar preferencias
+      localStorage.setItem('fiatFrom', elements.fiatFromSelect.value);
+      localStorage.setItem('fiatTo', elements.fiatToSelect.value);
       
       elements.fiatFromSelect.dispatchEvent(new Event('change', { bubbles: true }));
       elements.fiatToSelect.dispatchEvent(new Event('change', { bubbles: true }));
@@ -257,6 +275,9 @@ export function initUI() {
   
   if (elements.fiatFromSelect) {
     elements.fiatFromSelect.addEventListener('change', () => {
+      // Guardar preferencia
+      localStorage.setItem('fiatFrom', elements.fiatFromSelect.value);
+      
       if (inputCurrency) {
         inputCurrency.textContent = elements.fiatFromSelect.value;
       }
@@ -265,7 +286,11 @@ export function initUI() {
   }
   
   if (elements.fiatToSelect) {
-    elements.fiatToSelect.addEventListener('change', handleAutoCalculate);
+    elements.fiatToSelect.addEventListener('change', () => {
+      // Guardar preferencia
+      localStorage.setItem('fiatTo', elements.fiatToSelect.value);
+      handleAutoCalculate();
+    });
   }
   
   if (elements.amountInput) {

@@ -5,12 +5,29 @@
 /* Auto theme detection is handled by JavaScript */
 /* Dark and light themes use the CSS variables defined in :root and [data-theme="light"] */
 
-/* Ensure smooth theme transitions */
+/* Ensure smooth theme transitions with fade effect */
+*,
+*::before,
+*::after {
+  transition: background-color var(--transition-slow),
+              color var(--transition-slow),
+              border-color var(--transition-slow),
+              box-shadow var(--transition-slow);
+}
+
 body,
 .converter-card,
 .info-panel-content,
-.popup-card {
+.popup-card,
+.theme-btn,
+.panel-info-btn,
+.swap-btn,
+.refresh-btn-premium,
+.input-wrapper,
+.result-section {
   transition: background-color var(--transition-slow),
               color var(--transition-slow),
-              border-color var(--transition-slow);
+              border-color var(--transition-slow),
+              box-shadow var(--transition-slow),
+              transform var(--transition-base);
 }
