@@ -1,118 +1,31 @@
-/**
- * base.css - Reset y variables base
- * Solo fundamentos: reset, variables, tipografía base
- */
-
-/* ============================================
-   RESET BÁSICO
-   ============================================ */
-
+/* Reset mínimo */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html, body {
   margin: 0;
   padding: 0;
 }
 
-/* ============================================
-   TIPOGRAFÍA BASE
-   ============================================ */
-
-html {
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
 body {
-  font-family: var(--font-family);
-  line-height: 1.5;
-  color: var(--color-text-primary);
-  background: var(--color-bg-primary);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* VARIABLES: extraídas a frontend/styles/vars.css */
-@import url('./vars.css');
-
-/* ============================================
-   TIPOGRAFÍA BASE
-   ============================================ */
-
-h1, h2, h3, h4, h5, h6 {
+/* Tipografía base */
+h1, h2, h3 {
+  margin: 0;
   font-weight: 600;
-  line-height: 1.15;
-  color: var(--color-text-primary);
-  /* Apretar un poco las letras para que el texto ocupe menos espacio */
-  letter-spacing: -0.03em;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-h2 {
-  font-size: 1.5rem;
-}
-
-h3 {
-  font-size: 1.25rem;
 }
 
 p {
-  /* Reducir espacio entre párrafos para una UI más compacta */
-  margin-bottom: var(--spacing-sm);
-}
-
-/* ============================================
-   ELEMENTOS BASE
-   ============================================ */
-
-a {
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-a:hover {
-  color: var(--color-primary-hover);
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  transition: all var(--transition-base);
-}
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-input,
-select,
-textarea {
-  font-family: inherit;
-  font-size: inherit;
-  outline: none;
-}
-
-/* ============================================
-   UTILIDADES BASE
-   ============================================ */
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
