@@ -11,6 +11,11 @@
   color: var(--text-secondary);
   transition: all var(--transition-base);
   flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+:root .converter-card .swap-btn {
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.08), 0 1px 2px rgba(255, 255, 255, 0.06);
 }
 
 .swap-btn:hover {
@@ -45,6 +50,11 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+:root .converter-card .refresh-btn-premium {
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.08), 0 1px 2px rgba(255, 255, 255, 0.06);
 }
 
 .refresh-btn-premium:hover {
