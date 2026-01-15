@@ -1,4 +1,4 @@
-/* Main Container */
+
 .container {
   width: 100%;
   min-height: 100vh;
@@ -9,7 +9,6 @@
   position: relative;
 }
 
-/* Converter Card */
 .converter-card {
   width: 100%;
   max-width: var(--card-max-width-mobile);
@@ -26,7 +25,7 @@ html[data-theme="light"] .converter-card {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-/* Card Sections */
+
 .card-header {
   margin-bottom: var(--space-xl);
   display: flex;
@@ -44,7 +43,7 @@ html[data-theme="light"] .converter-card {
   align-items: center;
 }
 
-/* Currency Selectors Container */
+
 .currency-selectors-container {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -62,7 +61,7 @@ html[data-theme="light"] .converter-card {
   position: relative;
 }
 
-/* Input Section */
+
 .input-section {
   margin-bottom: var(--space-xl);
   display: flex;
@@ -131,7 +130,7 @@ html[data-theme="light"] .converter-card {
   white-space: nowrap;
 }
 
-/* Result Section */
+
 .result-section {
   margin-bottom: var(--space-xl);
   padding: var(--space-xl) var(--space-lg);
@@ -220,7 +219,7 @@ html[data-theme="light"] .converter-card {
   color: var(--error);
 }
 
-/* Microcopy */
+
 .microcopy {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-normal);
@@ -241,7 +240,7 @@ html[data-theme="light"] .converter-card {
   letter-spacing: 0.1px;
 }
 
-/* Animations */
+
 @keyframes fadeIn {
   from {
     opacity: 0;

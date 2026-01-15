@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/frontend/styles/responsive.css">
 </head>
 <body>
-    <!-- Botón flotante del panel -->
+    
     <button 
         id="panel-toggle-btn" 
         class="panel-toggle-btn floating" 
@@ -29,10 +29,10 @@
 
     <div class="container">
         <div class="converter-card">
-            <!-- Header con monedas -->
+            
             <div class="card-header">
                 <div class="currency-selectors-container">
-                    <!-- Moneda Origen -->
+                    
                     <div class="currency-selector-wrapper">
                         <div class="currency-selector-box">
                             <select id="fiatFrom" class="currency-select">
@@ -45,12 +45,12 @@
                         </div>
                     </div>
                     
-                    <!-- Botón de Intercambio -->
+                    
                     <button id="swap-currencies-btn" class="swap-btn" title="Intercambiar monedas" aria-label="Intercambiar monedas">
                         <img src="/frontend/public/intercambio.svg" alt="Intercambiar" class="swap-icon">
                     </button>
                     
-                    <!-- Moneda Destino -->
+                    
                     <div class="currency-selector-wrapper">
                         <div class="currency-selector-box">
                             <select id="fiatTo" class="currency-select">
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <!-- Input principal -->
+            
             <div class="input-section">
                 <label for="amount" class="input-label">Monto a convertir</label>
                 <div class="input-wrapper">
@@ -82,11 +82,11 @@
             </div>
 
 
-            <!-- Resultado -->
+            
             <div id="result" class="result-section" style="display: none;"></div>
             <div id="error" class="error-section" style="display: none;"></div>
 
-            <!-- Botón actualizar y microcopy -->
+            
             <div class="card-footer">
                 <button id="refresh-btn" class="refresh-btn-premium">
                     <svg class="refresh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -101,7 +101,7 @@
         </div>
     </div>
 
-    <!-- Panel de Información (oculto por defecto) -->
+    
     <div id="info-panel" class="info-panel" style="display: none;">
         <div class="info-panel-overlay" id="panel-overlay"></div>
         <div class="info-panel-content">
@@ -110,7 +110,7 @@
             </div>
 
             <div class="info-panel-body" id="panel-body">
-                <!-- El contenido se carga dinámicamente desde frontend/htmls/panel.html -->
+                
             </div>
         </div>
     </div>

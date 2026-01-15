@@ -1,4 +1,4 @@
-/* Info Panel - Right Sidebar */
+
 .info-panel {
   position: fixed;
   inset: 0;
@@ -11,7 +11,7 @@
   pointer-events: auto;
 }
 
-/* Panel Overlay */
+
 .info-panel-overlay {
   position: fixed;
   inset: 0;
@@ -29,7 +29,7 @@ html[data-theme="light"] .info-panel-overlay {
   opacity: 1;
 }
 
-/* Panel Content */
+
 .info-panel-content {
   position: fixed;
   right: 0;
@@ -56,7 +56,7 @@ html[data-theme="light"] .info-panel-content {
   transform: translate(0, -50%);
 }
 
-/* Panel Header */
+
 .info-panel-header {
   border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
@@ -73,7 +73,7 @@ html[data-theme="light"] .info-panel-content {
   text-align: center;
 }
 
-/* Panel Body */
+
 .info-panel-body {
   flex: 1;
   overflow-y: auto;
@@ -82,7 +82,7 @@ html[data-theme="light"] .info-panel-content {
   align-items: center;
 }
 
-/* Panel Sections */
+
 .panel-section {
   display: flex;
   flex-direction: column;
@@ -100,7 +100,7 @@ html[data-theme="light"] .info-panel-content {
   text-align: center;
 }
 
-/* Theme Buttons Container */
+
 .theme-buttons-container {
   display: flex;
   gap: var(--space-xs);
@@ -146,11 +146,11 @@ html[data-theme="light"] .info-panel-content {
   height: 20px;
   opacity: 1;
   flex-shrink: 0;
-  filter: brightness(0) invert(1); /* Blanco en tema oscuro */
+  filter: brightness(0) invert(1); 
 }
 
 html[data-theme="light"] .theme-icon {
-  filter: brightness(0) invert(0) !important; /* Negro en tema claro */
+  filter: brightness(0) invert(0) !important; 
 }
 
 .theme-btn.active .theme-icon {
@@ -164,7 +164,7 @@ html[data-theme="light"] .theme-icon {
   text-align: left;
 }
 
-/* Panel Buttons Container */
+
 .panel-buttons-container {
   display: flex;
   flex-direction: column;
@@ -172,7 +172,7 @@ html[data-theme="light"] .theme-icon {
   align-items: center;
 }
 
-/* Panel Buttons Grid */
+
 .panel-buttons-grid {
   display: flex;
   flex-direction: column;

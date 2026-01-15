@@ -1,23 +1,16 @@
-/**
- * render.js - Renderizado puro, sin lógica
- * Solo actualiza el DOM según el estado
- */
 
-/**
- * Muestra el resultado de la conversión
- * @param {number} result - Resultado calculado
- * @param {string} fiatTo - Moneda destino
- */
+
+
 export function renderResult(result, fiatTo) {
   const resultDiv = document.getElementById('result');
   const errorDiv = document.getElementById('error');
   
-  // Ocultar errores
+  
   if (errorDiv) {
     errorDiv.style.display = 'none';
   }
   
-  // Mostrar resultado - diseño minimalista
+  
   if (resultDiv) {
     resultDiv.style.display = 'block';
     resultDiv.className = 'result-section';
@@ -34,14 +27,14 @@ export function renderResult(result, fiatTo) {
       </div>
     `;
     
-    // Agregar evento de copiar
+    
     const copyBtn = resultDiv.querySelector('.copy-result-btn');
     if (copyBtn) {
       copyBtn.addEventListener('click', () => {
         const valueToCopy = copyBtn.getAttribute('data-value');
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(valueToCopy).then(() => {
-            // Feedback visual temporal
+            
             const originalHTML = copyBtn.innerHTML;
             copyBtn.innerHTML = `
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +45,7 @@ export function renderResult(result, fiatTo) {
               copyBtn.innerHTML = originalHTML;
             }, 1500);
           }).catch(() => {
-            // Fallback para navegadores antiguos
+            
             const textarea = document.createElement('textarea');
             textarea.value = valueToCopy;
             document.body.appendChild(textarea);
@@ -61,7 +54,7 @@ export function renderResult(result, fiatTo) {
             document.body.removeChild(textarea);
           });
         } else {
-          // Fallback para navegadores antiguos
+          
           const textarea = document.createElement('textarea');
           textarea.value = valueToCopy;
           document.body.appendChild(textarea);
@@ -74,20 +67,17 @@ export function renderResult(result, fiatTo) {
   }
 }
 
-/**
- * Muestra un mensaje informativo (sin la palabra "Error")
- * @param {string} message - Mensaje informativo
- */
+
 export function renderError(message) {
   const resultDiv = document.getElementById('result');
   const errorDiv = document.getElementById('error');
   
-  // Ocultar resultado
+  
   if (resultDiv) {
     resultDiv.style.display = 'none';
   }
   
-  // Mostrar mensaje informativo
+  
   if (errorDiv) {
     errorDiv.style.display = 'block';
     errorDiv.className = 'error-section';
@@ -106,9 +96,7 @@ export function renderError(message) {
   }
 }
 
-/**
- * Muestra estado de carga
- */
+
 export function renderLoading() {
   const resultDiv = document.getElementById('result');
   const errorDiv = document.getElementById('error');
@@ -119,10 +107,7 @@ export function renderLoading() {
   resultDiv.textContent = 'Calculando...';
 }
 
-/**
- * Muestra información de última actualización
- * @param {string} timestamp - Timestamp de última actualización
- */
+
 export function renderLastUpdate(timestamp) {
   const updateDiv = document.getElementById('last-update');
   if (!updateDiv) return;
@@ -137,29 +122,21 @@ export function renderLastUpdate(timestamp) {
 }
 
 
-/**
- * Formatea un número con puntos de mil y coma decimal
- * @param {number} num - Número a formatear
- * @returns {string} - Número formateado (ej: "1.234.567,89")
- */
+
 function formatNumber(num) {
-  // Convertir a string con 2 decimales
+  
   const parts = num.toFixed(2).split('.');
   const integerPart = parts[0];
   const decimalPart = parts[1];
   
-  // Agregar puntos de mil
+  
   const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   
-  // Devolver con coma decimal
+  
   return `${formattedInteger},${decimalPart}`;
 }
 
-/**
- * Calcula tiempo transcurrido desde un timestamp
- * @param {string} timestamp - Timestamp ISO
- * @returns {string} - Tiempo transcurrido (ej: "hace 5m")
- */
+
 export function getTimeAgo(timestamp) {
   if (!timestamp) return 'N/A';
   

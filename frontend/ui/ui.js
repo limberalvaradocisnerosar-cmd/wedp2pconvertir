@@ -1,7 +1,4 @@
-/**
- * ui.js - Lógica de UI y estado del convertidor
- * Maneja eventos y delega al motor de cálculo
- */
+
 
 import { getPrices, calculate } from '../../calculator/index.js';
 import { 
@@ -12,20 +9,18 @@ import {
 } from './render.js';
 import { parseFormattedNumber, initInputFormatter } from './input-formatter.js';
 
-// Estado del convertidor
+
 let state = {
   prices: null,
   lastUpdate: null,
   isLoading: false
 };
 
-// Debounce para cálculo automático
-let calculateTimeout = null;
-const CALCULATE_DEBOUNCE_MS = 500; // 500ms de espera después del último cambio
 
-/**
- * Obtiene referencias a los elementos del DOM
- */
+let calculateTimeout = null;
+const CALCULATE_DEBOUNCE_MS = 500; 
+
+
 function getElements() {
   return {
     amountInput: document.getElementById('amount'),
@@ -35,15 +30,9 @@ function getElements() {
   };
 }
 
-/**
- * Valida los inputs del formulario
- * @param {number} amount - Monto ingresado
- * @param {string} fiatFrom - Moneda origen
- * @param {string} fiatTo - Moneda destino
- * @returns {string|null} - Mensaje de error o null si es válido
- */
+
 function validateInputs(amount, fiatFrom, fiatTo) {
-  // Validación silenciosa - no mostrar mensajes, solo retornar si es válido
+  
   if (!amount || amount <= 0) {
     return false;
   }
@@ -59,10 +48,7 @@ function validateInputs(amount, fiatFrom, fiatTo) {
   return true;
 }
 
-/**
- * Carga los precios desde Supabase
- * @returns {Promise<Object>} - Precios agrupados por fiat
- */
+
 async function loadPrices() {
   try {
     const prices = await getPrices();
@@ -74,12 +60,7 @@ async function loadPrices() {
   }
 }
 
-/**
- * Valida que existan los precios necesarios
- * @param {Object} prices - Precios agrupados
- * @param {string} fiatFrom - Moneda origen
- * @param {string} fiatTo - Moneda destino
- */
+
 function validatePrices(prices, fiatFrom, fiatTo) {
   if (!prices[fiatFrom]) {
     throw new Error(`No se encontraron precios para ${fiatFrom}`);
@@ -98,23 +79,20 @@ function validatePrices(prices, fiatFrom, fiatTo) {
   }
 }
 
-/**
- * Maneja el cálculo de conversión
- * @param {boolean} showLoading - Si debe mostrar estado de carga
- */
+
 async function handleCalculate(showLoading = true) {
   const elements = getElements();
   
-  // Obtener valores del formulario
-  // El input está formateado, necesitamos parsearlo
+  
+  
   const amount = parseFormattedNumber(elements.amountInput.value);
   const fiatFrom = elements.fiatFromSelect.value;
   const fiatTo = elements.fiatToSelect.value;
   
-  // Validar inputs - silenciosamente, solo ocultar resultado si no es válido
+  
   const isValid = validateInputs(amount, fiatFrom, fiatTo);
   if (!isValid) {
-    // Simplemente ocultar resultado y error - sin mensajes
+    
     const resultDiv = document.getElementById('result');
     const errorDiv = document.getElementById('error');
     if (resultDiv) resultDiv.style.display = 'none';
@@ -128,16 +106,16 @@ async function handleCalculate(showLoading = true) {
   }
   
   try {
-    // Cargar precios si no están en cache
+    
     let prices = state.prices;
     if (!prices) {
       prices = await loadPrices();
     }
     
-    // Validar precios
+    
     validatePrices(prices, fiatFrom, fiatTo);
     
-    // Calcular conversión usando el motor
+    
     const result = calculate({
       amount,
       fiatFrom,
@@ -145,13 +123,13 @@ async function handleCalculate(showLoading = true) {
       prices
     });
     
-    // Renderizar resultado
+    
     renderResult(result, fiatTo);
     renderLastUpdate(state.lastUpdate);
     
   } catch (error) {
     console.error('Error en cálculo:', error);
-    // Ocultar resultado en caso de error, sin mostrar mensaje
+    
     const resultDiv = document.getElementById('result');
     const errorDiv = document.getElementById('error');
     if (resultDiv) resultDiv.style.display = 'none';
@@ -161,25 +139,20 @@ async function handleCalculate(showLoading = true) {
   }
 }
 
-/**
- * Cálculo automático con debounce
- * Se ejecuta cuando cambian los inputs
- */
+
 function handleAutoCalculate() {
-  // Limpiar timeout anterior
+  
   if (calculateTimeout) {
     clearTimeout(calculateTimeout);
   }
   
-  // Programar nuevo cálculo después del debounce
+  
   calculateTimeout = setTimeout(() => {
-    handleCalculate(false); // false = no mostrar loading en cálculo automático
+    handleCalculate(false); 
   }, CALCULATE_DEBOUNCE_MS);
 }
 
-/**
- * Maneja la actualización de precios (wakeup)
- */
+
 async function handleRefresh() {
   const elements = getElements();
   if (!elements.refreshBtn) return;
@@ -195,9 +168,9 @@ async function handleRefresh() {
       elements.refreshBtn.textContent = `Espera ${data.remainingSeconds}s`;
     } else if (data.status === 'executed') {
       elements.refreshBtn.textContent = 'Precios actualizados';
-      // Invalidar cache de precios para forzar recarga
+      
       state.prices = null;
-      // Recalcular automáticamente si hay valores en el formulario
+      
       handleAutoCalculate();
     } else {
       elements.refreshBtn.textContent = 'Datos recientes';
@@ -213,13 +186,11 @@ async function handleRefresh() {
   }, 2000);
 }
 
-/**
- * Inicializa la UI y configura los event listeners
- */
+
 export function initUI() {
   const elements = getElements();
   
-  // Cargar preferencias guardadas (monedas seleccionadas)
+  
   const savedFiatFrom = localStorage.getItem('fiatFrom');
   const savedFiatTo = localStorage.getItem('fiatTo');
   
@@ -251,7 +222,7 @@ export function initUI() {
       elements.fiatFromSelect.value = elements.fiatToSelect.value;
       elements.fiatToSelect.value = temp;
       
-      // Guardar preferencias
+      
       localStorage.setItem('fiatFrom', elements.fiatFromSelect.value);
       localStorage.setItem('fiatTo', elements.fiatToSelect.value);
       
@@ -275,7 +246,7 @@ export function initUI() {
   
   if (elements.fiatFromSelect) {
     elements.fiatFromSelect.addEventListener('change', () => {
-      // Guardar preferencia
+      
       localStorage.setItem('fiatFrom', elements.fiatFromSelect.value);
       
       if (inputCurrency) {
@@ -287,7 +258,7 @@ export function initUI() {
   
   if (elements.fiatToSelect) {
     elements.fiatToSelect.addEventListener('change', () => {
-      // Guardar preferencia
+      
       localStorage.setItem('fiatTo', elements.fiatToSelect.value);
       handleAutoCalculate();
     });

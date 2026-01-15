@@ -1,10 +1,10 @@
-/* Custom Select Wrapper */
+
 .custom-select-wrapper {
   position: relative;
   width: 100%;
 }
 
-/* Custom Select Button */
+
 .custom-select-button {
   width: 100%;
   display: flex;
@@ -67,7 +67,7 @@
   opacity: 1;
 }
 
-/* Custom Select Dropdown */
+
 .custom-select-dropdown {
   position: absolute;
   top: calc(100% + var(--space-xs));
@@ -94,7 +94,7 @@
   transform: translateY(0);
 }
 
-/* Custom Select Option */
+
 .custom-select-option {
   display: flex;
   align-items: center;

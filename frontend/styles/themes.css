@@ -1,11 +1,11 @@
-/* Theme System */
-/* Themes are handled via CSS variables in vars.css */
-/* This file is for theme-specific overrides if needed */
 
-/* Auto theme detection is handled by JavaScript */
-/* Dark and light themes use the CSS variables defined in :root and [data-theme="light"] */
 
-/* Ensure smooth theme transitions with fade effect */
+
+
+
+
+
+
 *,
 *::before,
 *::after {

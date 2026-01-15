@@ -1,6 +1,6 @@
-/* Mobile First - Base styles are for mobile (360x700) */
 
-/* Popup adjustments for mobile and tablet (up to 1023px, excluding PC) */
+
+
 @media (max-width: 1023px) {
   .popup-card {
     width: 300px;
@@ -18,7 +18,7 @@
   }
 }
 
-/* Tablet and Up */
+
 @media (min-width: 768px) {
   .container {
     padding: var(--space-2xl) var(--space-lg);
@@ -39,7 +39,7 @@
   }
 }
 
-/* Desktop - Square Card Layout */
+
 @media (min-width: 1024px) {
   .container {
     padding: var(--space-2xl);
@@ -72,7 +72,7 @@
     gap: var(--space-sm);
   }
   
-  /* Panel adjustments for desktop */
+  
   .info-panel-content {
     width: 120px;
     height: 450px;
@@ -84,7 +84,7 @@
   }
 }
 
-/* Large Desktop */
+
 @media (min-width: 1440px) {
   .converter-card {
     max-width: 520px;
@@ -95,7 +95,7 @@
   }
 }
 
-/* Small Mobile Adjustments */
+
 @media (max-width: 360px) {
   .container {
     padding: var(--space-md) var(--space-sm);
@@ -122,7 +122,7 @@
   }
 }
 
-/* Landscape Mobile */
+
 @media (max-height: 500px) and (orientation: landscape) {
   .converter-card {
     aspect-ratio: auto;
@@ -141,7 +141,7 @@
   }
 }
 
-/* Print Styles */
+
 @media print {
   .panel-toggle-btn,
   .info-panel,

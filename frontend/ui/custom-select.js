@@ -1,44 +1,38 @@
-/**
- * custom-select.js - Selector personalizado premium
- * Reemplaza el select nativo con un diseño custom
- */
 
-/**
- * Crea un selector personalizado
- * @param {HTMLSelectElement} selectElement - El select nativo a reemplazar
- */
+
+
 export function createCustomSelect(selectElement) {
   if (!selectElement) return;
   
-  // Evitar inicialización duplicada
+  
   if (selectElement.dataset.customSelectInitialized === 'true') {
     return;
   }
   selectElement.dataset.customSelectInitialized = 'true';
 
-  // Crear contenedor del selector personalizado
+  
   const customSelect = document.createElement('div');
   customSelect.className = 'custom-select-wrapper';
   
-  // Crear el botón que muestra el valor seleccionado
+  
   const selectButton = document.createElement('button');
   selectButton.className = 'custom-select-button';
   selectButton.type = 'button';
   
-  // Crear el dropdown
+  
   const dropdown = document.createElement('div');
   dropdown.className = 'custom-select-dropdown';
   
-  // Ancho fijo del dropdown (se calcula una sola vez)
+  
   let fixedDropdownWidth = null;
   
-  // Obtener el ícono si existe
+  
   const icon = selectElement.parentElement.querySelector('.currency-icon');
   
-  // Flag para evitar loops infinitos
+  
   let isUpdating = false;
   
-  // Mapa de íconos de banderas
+  
   const iconMap = {
     'ARS': '/frontend/public/banderas/argentina.png',
     'BOB': '/frontend/public/banderas/bolivia.png',
@@ -54,10 +48,10 @@ export function createCustomSelect(selectElement) {
     const currentIcon = icon || selectElement.parentElement.querySelector('.currency-icon');
     const iconSrc = iconMap[abbr] || (currentIcon ? currentIcon.src : '');
     
-    // Limpiar contenido previo
+    
     selectButton.innerHTML = '';
     
-    // Crear imagen protegida
+    
     if (iconSrc) {
       const imgElement = document.createElement('img');
       imgElement.src = iconSrc;
@@ -71,13 +65,13 @@ export function createCustomSelect(selectElement) {
       selectButton.appendChild(imgElement);
     }
     
-    // Crear texto
+    
     const textSpan = document.createElement('span');
     textSpan.className = 'custom-select-text';
     textSpan.textContent = abbr;
     selectButton.appendChild(textSpan);
     
-    // Crear flecha
+    
     const arrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     arrowSvg.setAttribute('class', 'custom-select-arrow');
     arrowSvg.setAttribute('width', '10');
@@ -91,19 +85,19 @@ export function createCustomSelect(selectElement) {
     selectButton.appendChild(arrowSvg);
   }
   
-  // Obtener el otro selector para evitar duplicados
+  
   function getOtherSelector() {
     const allSelects = document.querySelectorAll('.currency-select');
     if (allSelects.length !== 2) return null;
     
-    // Identificar si este es el primero o segundo
+    
     const isFirst = selectElement.id === 'fiatFrom' || 
                     (selectElement.id !== 'fiatTo' && allSelects[0] === selectElement);
     
     return isFirst ? allSelects[1] : allSelects[0];
   }
   
-  // Crear opciones del dropdown
+  
   function createOptions() {
     dropdown.innerHTML = '';
     const otherSelector = getOtherSelector();
@@ -126,7 +120,7 @@ export function createCustomSelect(selectElement) {
       const abbr = option.getAttribute('data-abbr') || option.value;
       const fullText = option.textContent;
       
-      // Crear imagen protegida
+      
       if (iconMap[option.value]) {
         const optionImg = document.createElement('img');
         optionImg.src = iconMap[option.value];
@@ -141,13 +135,13 @@ export function createCustomSelect(selectElement) {
         optionElement.appendChild(optionImg);
       }
       
-      // Crear texto
+      
       const textSpan = document.createElement('span');
       textSpan.className = 'option-text';
       textSpan.textContent = fullText;
       optionElement.appendChild(textSpan);
       
-      // Crear check si está seleccionado
+      
       if (isSelected) {
         const checkSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         checkSvg.setAttribute('class', 'option-check');
@@ -167,23 +161,23 @@ export function createCustomSelect(selectElement) {
       
       if (!isDisabled) {
         optionElement.addEventListener('click', () => {
-          // Actualizar el select nativo
+          
           selectElement.selectedIndex = index;
           
-          // Cerrar dropdown primero
+          
           closeDropdown();
           
-          // Actualizar botón
+          
           updateButton();
           
-          // Actualizar ícono si existe
+          
           if (icon) {
             icon.src = iconMap[option.value] || '';
             icon.alt = option.value;
           }
           
-        // Disparar evento change después de actualizar visualmente
-        // Usar flag para evitar loops
+        
+        
         if (!isUpdating) {
           isUpdating = true;
           setTimeout(() => {
@@ -200,7 +194,7 @@ export function createCustomSelect(selectElement) {
     });
   }
   
-  // Abrir/cerrar dropdown
+  
   function toggleDropdown() {
     const isOpen = customSelect.classList.contains('open');
     if (isOpen) {
@@ -239,19 +233,19 @@ export function createCustomSelect(selectElement) {
       dropdown.style.transform = 'translateX(-50%)';
       dropdown.style.right = 'auto';
       
-      // Calcular ancho solo la primera vez
+      
       if (fixedDropdownWidth === null) {
         const optionElements = dropdown.querySelectorAll('.custom-select-option');
         let maxContentWidth = 200;
         
-        // Primero aplicar un ancho temporal para medir correctamente
+        
         dropdown.style.width = 'auto';
         dropdown.style.minWidth = '200px';
         dropdown.style.maxWidth = 'none';
         
         optionElements.forEach(option => {
           option.style.whiteSpace = 'nowrap';
-          // Forzar un layout para obtener medidas precisas
+          
           const tempWidth = option.offsetWidth;
           if (tempWidth > maxContentWidth) {
             maxContentWidth = tempWidth;
@@ -262,7 +256,7 @@ export function createCustomSelect(selectElement) {
         fixedDropdownWidth = Math.max(200, maxWidth);
       }
       
-      // Aplicar ancho fijo siempre (resetear cualquier estilo previo)
+      
       dropdown.style.width = `${fixedDropdownWidth}px`;
       dropdown.style.minWidth = `${fixedDropdownWidth}px`;
       dropdown.style.maxWidth = `${fixedDropdownWidth}px`;
@@ -274,40 +268,40 @@ export function createCustomSelect(selectElement) {
     customSelect.classList.remove('open');
   }
   
-  // Event listeners
+  
   selectButton.addEventListener('click', (e) => {
     e.stopPropagation();
     toggleDropdown();
   });
   
-  // Cerrar al hacer click fuera
+  
   document.addEventListener('click', (e) => {
     if (!customSelect.contains(e.target) && !dropdown.contains(e.target)) {
       closeDropdown();
     }
   });
   
-  // Cerrar con Escape
+  
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && customSelect.classList.contains('open')) {
       closeDropdown();
     }
   });
 
-  // NO cerrar al hacer scroll - permitir scroll dentro del dropdown
-  // El dropdown tiene su propio scroll interno y debe permanecer abierto
   
-  // Escuchar cambios del select nativo (por si cambia programáticamente)
-  // Solo actualizar botón, no recrear opciones para evitar loops
+  
+  
+  
+  
   selectElement.addEventListener('change', () => {
     updateButton();
-    // Solo actualizar opciones si el dropdown está abierto
+    
     if (customSelect.classList.contains('open')) {
       createOptions();
     }
   });
   
-  // Escuchar cambios del otro selector para actualizar opciones deshabilitadas
+  
   const otherSelector = getOtherSelector();
   if (otherSelector) {
     otherSelector.addEventListener('change', () => {
@@ -319,27 +313,25 @@ export function createCustomSelect(selectElement) {
     });
   }
   
-  // Construir estructura
+  
   customSelect.appendChild(selectButton);
   customSelect.appendChild(dropdown);
   
-  // Ocultar select nativo pero mantenerlo funcional
+  
   selectElement.style.position = 'absolute';
   selectElement.style.opacity = '0';
   selectElement.style.pointerEvents = 'none';
   selectElement.style.width = '1px';
   selectElement.style.height = '1px';
   
-  // Insertar el selector personalizado
+  
   selectElement.parentElement.insertBefore(customSelect, selectElement);
   
-  // Inicializar
+  
   updateButton();
 }
 
-/**
- * Inicializa todos los selectores personalizados
- */
+
 export function initCustomSelects() {
   const selects = document.querySelectorAll('.currency-select');
   selects.forEach(select => {

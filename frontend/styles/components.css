@@ -1,4 +1,4 @@
-/* Swap Button */
+
 .swap-btn {
   width: 40px;
   height: 40px;
@@ -37,7 +37,7 @@
   filter: brightness(0) saturate(100%) invert(48%) sepia(98%) saturate(2380%) hue-rotate(4deg) brightness(102%) contrast(104%);
 }
 
-/* Refresh Button */
+
 .refresh-btn-premium {
   display: flex;
   align-items: center;
@@ -81,7 +81,7 @@
   transform: none;
 }
 
-/* Panel Toggle Button */
+
 .panel-toggle-btn {
   position: fixed;
   right: var(--space-md);
@@ -133,7 +133,7 @@ html[data-theme="light"] .panel-icon {
   opacity: 1;
 }
 
-/* Currency Select (Native - Hidden) */
+
 .currency-select {
   position: absolute;
   opacity: 0;
@@ -142,7 +142,7 @@ html[data-theme="light"] .panel-icon {
   height: 1px;
 }
 
-/* Popup Overlay */
+
 .popup-overlay {
   position: fixed;
   inset: 0;
@@ -161,7 +161,7 @@ html[data-theme="light"] .popup-overlay {
   opacity: 1;
 }
 
-/* Popup Card */
+
 .popup-card {
   position: fixed;
   top: 50%;
@@ -203,7 +203,7 @@ html[data-theme="light"] .popup-card {
   padding: var(--space-xl);
 }
 
-/* Info Card Popup (content inside popup) */
+
 .info-card-popup {
   width: 100%;
 }
@@ -234,7 +234,7 @@ html[data-theme="light"] .popup-card {
   color: var(--text-primary);
 }
 
-/* Info Card with Icon */
+
 .info-card {
   width: 100%;
 }
@@ -253,7 +253,7 @@ html[data-theme="light"] .popup-card {
   opacity: 0.9;
 }
 
-/* Method Steps */
+
 .method-steps {
   display: flex;
   flex-direction: column;
@@ -305,7 +305,7 @@ html[data-theme="light"] .popup-card {
   color: var(--text-primary);
 }
 
-/* Card Details */
+
 .card-details {
   display: flex;
   flex-direction: column;
@@ -336,7 +336,7 @@ html[data-theme="light"] .popup-card {
   text-align: right;
 }
 
-/* Protection List */
+
 .protection-list {
   display: flex;
   flex-direction: column;
@@ -369,7 +369,7 @@ html[data-theme="light"] .popup-card {
   flex-shrink: 0;
 }
 
-/* Buy Sell Explanation */
+
 .buy-sell-explanation {
   display: flex;
   flex-direction: column;
@@ -388,12 +388,12 @@ html[data-theme="light"] .popup-card {
   transition: all var(--transition-base);
 }
 
-/* Item de compra (BUY) - Verde */
+
 .buy-sell-item.buy .buy-sell-content h3 {
   color: var(--success);
 }
 
-/* Item de venta (SELL) - Rojo */
+
 .buy-sell-item.sell .buy-sell-content h3 {
   color: var(--error);
 }
@@ -438,7 +438,7 @@ html[data-theme="light"] .popup-card {
   line-height: var(--line-height-relaxed);
 }
 
-/* Tables */
+
 .prices-table-container {
   overflow-x: auto;
   margin-top: var(--space-md);
@@ -470,13 +470,13 @@ html[data-theme="light"] .popup-card {
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Columna COMPRA (segunda columna) - Verde */
+
 .prices-table th:nth-child(2),
 .prices-table td:nth-child(2) {
   color: var(--success);
 }
 
-/* Columna VENTA (tercera columna) - Rojo */
+
 .prices-table th:nth-child(3),
 .prices-table td:nth-child(3) {
   color: var(--error);

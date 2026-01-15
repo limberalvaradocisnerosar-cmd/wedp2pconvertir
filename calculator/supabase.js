@@ -1,10 +1,6 @@
-/**
- * Cliente de Supabase para leer precios
- * Motor puro, sin lógica extra
- * Compatible con navegador usando CDN
- */
 
-// Obtener variables de entorno (compatible con navegador y servidor)
+
+
 function getEnvVar(key) {
   if (typeof window !== 'undefined' && window[key]) {
     return window[key];
@@ -28,7 +24,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY deben estar configurados');
 }
 
-// Crear cliente de Supabase usando CDN (compatible con navegador)
+
 let supabaseClient = null;
 let clientPromise = null;
 
@@ -42,13 +38,13 @@ async function getSupabaseClient() {
   }
   
   clientPromise = (async () => {
-    // Intentar import desde CDN (navegador)
+    
     try {
       const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
       supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
       return supabaseClient;
     } catch (e) {
-      // Si falla CDN, intentar import local (si está instalado)
+      
       try {
         const { createClient } = await import('@supabase/supabase-js');
         supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
@@ -62,8 +58,8 @@ async function getSupabaseClient() {
   return clientPromise;
 }
 
-// Exportar cliente con método from que funciona async
-// El cliente se inicializa la primera vez que se usa
+
+
 export const supabase = {
   async from(table) {
     const client = await getSupabaseClient();
