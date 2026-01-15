@@ -117,21 +117,20 @@
     </div>
     
     <script>
-        // Cargar configuraciones públicas antes de inicializar
+       
         (async function() {
             try {
                 const response = await fetch('/api/config');
                 if (response.ok) {
                     const config = await response.json();
-                    // Exponer variables en window para que el calculador las pueda leer
+                    
                     window.NEXT_PUBLIC_SUPABASE_URL = config.NEXT_PUBLIC_SUPABASE_URL || config.VITE_SUPABASE_URL;
                     window.NEXT_PUBLIC_SUPABASE_ANON_KEY = config.NEXT_PUBLIC_SUPABASE_ANON_KEY || config.VITE_SUPABASE_ANON_KEY;
                 }
             } catch (error) {
                 console.error('Error cargando configuración:', error);
             }
-            // Inicializar la aplicación después de cargar las variables
-            // Esperar un momento para asegurar que el DOM esté listo
+            
             setTimeout(() => {
                 const script = document.createElement('script');
                 script.type = 'module';
@@ -143,9 +142,9 @@
             }, 100);
         })();
 
-        // Sistema de Panel y Temas
+        
         (function() {
-            // Panel toggle
+            
             const panelToggle = document.getElementById('panel-toggle-btn');
             const panel = document.getElementById('info-panel');
             const panelOverlay = document.getElementById('panel-overlay');
@@ -172,7 +171,7 @@
                 }, 300);
             }
 
-            // Event listeners del panel
+            
             if (panelToggle) {
                 panelToggle.addEventListener('click', () => {
                     const isOpen = panel.classList.contains('active') || panel.style.display === 'block';
@@ -180,7 +179,7 @@
                         closePanel();
                     } else {
                         openPanel();
-                        // Cargar contenido solo la primera vez
+                       
                         if (!panel.classList.contains('loaded')) {
                             loadPanelContent();
                             panel.classList.add('loaded');
@@ -193,43 +192,41 @@
                 panelOverlay.addEventListener('click', closePanel);
             }
 
-            // Inicializar sistema de temas desde módulo compartido
-            // Usar import() sin await para no romper el script (este archivo no es type="module")
+          
             let initThemeSystemFn = null;
             import('/frontend/ui/theme.js')
                 .then(({ applyTheme, initThemeSystem }) => {
                     initThemeSystemFn = initThemeSystem;
-                    // Aplicar tema inicial si existe
+                    
                     const savedTheme = localStorage.getItem('theme') || 'auto';
                     applyTheme(savedTheme);
                 })
                 .catch(err => console.error('Error cargando theme module:', err));
 
 
-            // Cargar contenido del panel desde HTML
+           
             async function loadPanelContent() {
                 const panelBody = document.getElementById('panel-body');
                 if (!panelBody) return;
 
                 try {
-                    // Cargar el HTML del panel
+                   
                     const response = await fetch('/frontend/htmls/panel.html');
                     if (!response.ok) throw new Error('No se pudo cargar el panel');
                     
                     const html = await response.text();
                     panelBody.innerHTML = html;
 
-                    // Inicializar sistema de temas después de cargar el HTML
+                    
                     if (typeof initThemeSystemFn === 'function') {
-                        // Pasar el root (panelBody) para inicializar solo dentro del panel
+                      
                         initThemeSystemFn(panelBody);
                     } else {
-                        // Fallback: cargar el módulo si por alguna razón aún no está cargado
                         const themeMod = await import('/frontend/ui/theme.js');
                         themeMod.initThemeSystem(panelBody);
                     }
 
-                    // Inicializar botones del panel y popups
+                    
                     const { initPanelButtons } = await import('/frontend/ui/panel-popups.js');
                     initPanelButtons();
                 } catch (error) {
